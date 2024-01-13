@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\KendaraanController;
+use App\Http\Controllers\PengeluaranController;
+use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,8 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.dashboard', [
-        "title" => "dashboard",
-    ]);
+Route::controller(TransaksiController::class)->group(function () {
+    Route::get('/transaksi', "index")->name("transaksi.lihat");
+    Route::get('/transaksi/data_diri/{id}', "data_diri")->name("transaksi.datadiri");
+    Route::get('/transaksi/detail_transaksi/{id}', "detail_transaksi")->name("transaksi.detailtransaksi");
+
+    // Tambah
+    Route::get("/transaksi-tambah", "tambah_index");
+});
+
+Route::controller(PengeluaranController::class)->group(function () {
+    Route::get("/pengeluaran", "index")->name('pengeluaran.lihat');
+});
+
+Route::controller(KendaraanController::class)->group(function () {
+    Route::get("/kendaraan", "index")->name('kendaraan.lihat');
 });

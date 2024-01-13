@@ -36,7 +36,7 @@ class DataDiriSeeder extends Seeder
 
         for ($i = 0; $i < 20; $i++) {
             DB::table("data_diri")->insert([
-                "transaksi_id" => $faker->numberBetween(1, 20),
+                "transaksi_id" => $faker->unique()->numberBetween(1, 20),
                 "foto_penyewa" => $faker->imageUrl(240, 240, "person"),
                 "nama_penyewa" => $faker->firstName(),
                 "no_telp" => $faker->phoneNumber(),

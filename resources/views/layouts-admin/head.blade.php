@@ -14,7 +14,9 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href={{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    {{-- <link rel="stylesheet" href={{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}> --}}
     <!-- iCheck -->
     <link rel="stylesheet" href={{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}>
     <!-- JQVMap -->
@@ -29,7 +31,8 @@
     <link rel="stylesheet" href={{ asset('plugins/summernote/summernote-bs4.min.css') }}>
 </head>
 
-<body>
+<body class="sidebar-mini layout-fixed">
+
     <div class="wrapper">
 
         @include('layouts-admin.nav')
@@ -37,13 +40,15 @@
         @include('layouts-admin.sidebar')
 
         <div class="content-wrapper">
+
             @yield('content')
+
         </div>
     </div>
 
-    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src={{ asset('plugins/jquery/jquery.min.js') }}></script>
     <!-- jQuery UI 1.11.4 -->
-    <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src={{ asset('plugins/jquery-ui/jquery-ui.min.js') }}></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)
@@ -70,10 +75,8 @@
     <script src={{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}></script>
     <!-- AdminLTE App -->
     <script src={{ asset('dist/js/adminlte.js') }}></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src={{ asset('dist/js/demo.js') }}></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src={{ asset('dist/js/pages/dashboard.js') }}></script>
+    {{-- Font Awasome Kit --}}
+    <script src="https://kit.fontawesome.com/ea0284c37e.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
