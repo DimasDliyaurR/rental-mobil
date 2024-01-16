@@ -34,7 +34,7 @@ class TransaksiController extends Controller
         ]);
     }
 
-    // Route Start
+    // Route End
 
     public function data_diri($id)
     {
@@ -48,5 +48,11 @@ class TransaksiController extends Controller
     {
         $data = DB::table("detail_transaksi")->where("transaksi_id", "=", $id)->get();
         return dd($data);
+    }
+
+    // Transaksi Action
+    public function tambah_transaksi(Request $request)
+    {
+        return dd($request->all());
     }
 }

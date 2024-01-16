@@ -23,6 +23,7 @@ Route::controller(TransaksiController::class)->group(function () {
 
     // Tambah
     Route::get("/transaksi-tambah", "tambah_index");
+    Route::post("/transaksi-tambah/tambah", "tambah_transaksi");
 });
 
 Route::controller(PengeluaranController::class)->group(function () {

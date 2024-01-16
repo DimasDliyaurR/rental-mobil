@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title }}</title>
+    {{-- Icon Accces --}}
+    <link rel="icon" href="{{ asset('asset/logo/logo-icon.png') }}">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -29,6 +31,8 @@
     <link rel="stylesheet" href={{ asset('plugins/daterangepicker/daterangepicker.css') }}>
     <!-- summernote -->
     <link rel="stylesheet" href={{ asset('plugins/summernote/summernote-bs4.min.css') }}>
+    {{-- Livewire --}}
+    @livewireStyles
 </head>
 
 <body class="sidebar-mini layout-fixed">
@@ -45,7 +49,8 @@
 
         </div>
     </div>
-
+    {{-- Livewire Script --}}
+    @livewireScripts
     <script src={{ asset('plugins/jquery/jquery.min.js') }}></script>
     <!-- jQuery UI 1.11.4 -->
     <script src={{ asset('plugins/jquery-ui/jquery-ui.min.js') }}></script>
