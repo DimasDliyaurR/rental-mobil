@@ -14,19 +14,24 @@
                                         <th>Kendaraan</th>
                                         <th>Penyewa</th>
                                         <th>Data Diri</th>
-                                        <th>Sub-Total</th>
                                         <th>Detail</th>
+                                        <th>Tanda Tangan</th>
                                     </tr>
                                     @foreach ($data as $row)
                                         <tr>
                                             <td>{{ $row->nama_kendaraan }}</td>
                                             <td>{{ $row->nama_penyewa }}</td>
-                                            <td><a href="{{ asset('/transaksi/data_diri/' . $row->transaksi_id) }}">Lihat
+                                            <td><a href="{{ asset('/transaksi/data_diri/' . $row->id) }}">Lihat
                                                     detail</a>
                                             </td>
-                                            <td>{{ $row->sub_total }}</td>
-                                            <td><a href="{{ asset('/transaksi/detail_transaksi/' . $row->transaksi_id) }}">Lihat
+                                            <td><a href="{{ asset('/transaksi/detail_transaksi/' . $row->id) }}">Lihat
                                                     Detail</a></td>
+                                            @if ($row->foto_ttd == null)
+                                                <td><a href="/transaksi-tangan/{{ $row->id }}">Belum</a>
+                                                </td>
+                                            @else
+                                                <td>Sudah</td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </table>

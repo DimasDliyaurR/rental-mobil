@@ -1,7 +1,10 @@
 <div>
+
     <form action="{{ asset('transaksi-tambah/tambah') }}" method="post" wire:submit="save">
         @csrf
-
+        @if (session()->has('success'))
+            <div class="bg-green p-3 rounded text-center">Transaksi Berhasil</div>
+        @endif
         <p>{{ $indexLength }}/{{ count($head) }} | Form {{ $head[$indexLength - 1] }}</p>
         @if ($indexLength == 1)
             {{-- Data Diri Form Start --}}
@@ -11,7 +14,7 @@
                 <div class="mb-3">
                     <label for="foto_penyewa" class="form-label">Foto Penyewa</label>
                     <input type="file" id="formFileLg" name="foto_penyewa" class="form-control form-control-lg"
-                        wire:model="foto_penyewa">
+                        wire:model="foto_penyewa" value="{{ $foto_penyewa }}">
                 </div>
                 @error('foto_penyewa')
                     <span class="form-text text-danger">
@@ -100,20 +103,6 @@
                 @enderror
             </div>
 
-            {{-- Foto TTD --}}
-            <div class="mb-3">
-                <div class="mb-3">
-                    <label for="foto_ttd" class="form-label">Foto Tanda Tangan</label>
-                    <input type="file" id="foto_ttd" name="foto_ttd" class="form-control form-control-lg"
-                        wire:model="foto_ttd">
-                </div>
-                @error('foto_ttd')
-                    <span class="form-text text-danger">
-                        {{ $message }}
-                    </span>
-                @enderror
-            </div>
-
             {{-- Data Diri Form End --}}
         @endif
 
@@ -174,7 +163,6 @@
                         Memakai Driver atau tidak ?
                     </label>
                     <select class="form-control" name="driver" wire:model="driver">
-                        <option disabled selected>-- Pilih --</option>
                         <option value="1">Iya</option>
                         <option value="0">Tidak</option>
                     </select>
@@ -278,42 +266,110 @@
         @endif
 
         @if ($indexLength == count($head))
-            <h5>{{ $foto_penyewa }}</h5>
+            <table>
+                <tr>
+                    <td>Foto Penyewa :</td>
+                    <td>:</td>
+                    <td>{{ $foto_penyewa }}</td>
+                </tr>
+                <tr>
+                    <td>Nama Penyewa</td>
+                    <td>:</td>
+                    <td>{{ $nama_penyewa }}</td>
+                </tr>
+                <tr>
+                    <td>No telepon</td>
+                    <td>:</td>
+                    <td>{{ $no_telp }}</td>
+                </tr>
+                <tr>
 
-            <h5>{{ $nama_penyewa }}</h5>
+                    <td>No KTP</td>
+                    <td>:</td>
+                    <td>{{ $no_ktp }}</td>
+                </tr>
+                <tr>
 
-            <h5>{{ $no_telp }}</h5>
+                    <td>Foto KTP</td>
+                    <td>:</td>
+                    <td>{{ $foto_ktp }}</td>
+                </tr>
+                <tr>
 
-            <h5>{{ $no_ktp }}</h5>
+                    <td>No SIM</td>
+                    <td>:</td>
+                    <td>{{ $no_sim }}</td>
+                </tr>
+                <tr>
 
-            <h5>{{ $foto_ktp }}</h5>
+                    <td>Foto SIM</td>
+                    <td>:</td>
+                    <td>{{ $foto_sim }}</td>
+                </tr>
+                <tr>
 
-            <h5>{{ $no_sim }}</h5>
+                    <td>Foto TTD</td>
+                    <td>:</td>
+                    <td>{{ $foto_ttd }}</td>
+                </tr>
+                <tr>
 
-            <h5>{{ $foto_sim }}</h5>
+                    <td>Kendaraan</td>
+                    <td>:</td>
+                    @php
+                        $find = $kendaraan_find::find($kendaraan_field);
+                    @endphp
+                    <td>{{ $find ? $find->nama_kendaraan : '' }}</td>
+                </tr>
+                <tr>
 
-            <h5>{{ $foto_ttd }}</h5>
+                    <td>Tanggal Pengambilan</td>
+                    <td>:</td>
+                    <td>{{ $tanggal_pengambilan }}</td>
+                </tr>
+                <tr>
 
-            // Form Kendaraan
+                    <td>Lokasi Pengambilan</td>
+                    <td>:</td>
+                    <td>{{ $lokasi_pengembalian }}</td>
+                </tr>
+                <tr>
 
+                    <td>Pakai Driver</td>
+                    <td>:</td>
+                    <td>{{ $driver == 1 ? 'Memakai' : 'Tidak Memakai' }}</td>
+                </tr>
+                <tr>
 
-            <h5>{{ $kendaraan_field }}</h5>
+                    <td>Durasi</td>
+                    <td>:</td>
+                    <td>{{ $durasi }} Hari</td>
+                </tr>
+                <tr>
 
-            <h5>{{ $tanggal_pengambilan }}</h5>
+                    <td>Tanggal Pengembalian</td>
+                    <td>:</td>
+                    <td>{{ $tanggal_kembali }}</td>
+                </tr>
+                <tr>
 
-            <h5>{{ $lokasi_pengembalian }}</h5>
+                    <td>Waktu Kembali</td>
+                    <td>:</td>
+                    <td>{{ $waktu_kembali }}</td>
+                </tr>
+                <tr>
 
-            <h5>{{ $driver }}</h5>
+                    <td>Foto BBM</td>
+                    <td>:</td>
+                    <td>{{ $foto_bbm }}</td>
+                </tr>
+                <tr>
 
-            <h5>{{ $durasi }}</h5>
-
-            <h5>{{ $tanggal_kembali }}</h5>
-
-            <h5>{{ $waktu_kembali }}</h5>
-
-            <h5>{{ $foto_bbm }}</h5>
-
-            <h5>{{ $jumlah_bbm }}</h5>
+                    <td>Jumlah BBM</td>
+                    <td>:</td>
+                    <td>{{ $jumlah_bbm }}</td>
+                </tr>
+            </table>
         @endif
 
         @if ($indexLength == count($head))

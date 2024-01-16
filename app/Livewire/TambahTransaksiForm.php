@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Kendaraan;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\DB;
 
 class TambahTransaksiForm extends Component
 {
@@ -65,13 +66,14 @@ class TambahTransaksiForm extends Component
             "title" => "Transaksi",
             "action" => "tambah_transaksi",
             "kendaraan" => $kendaraan,
+            "kendaraan_find" => Kendaraan::class,
         ]);
     }
 
     public function addStep()
     {
         $lengthcapacity = count($this->head);
-        // $this->validation();
+        $this->validation();
         if ($this->indexLength != $lengthcapacity) {
             $this->indexLength += 1;
         } else {
@@ -97,7 +99,6 @@ class TambahTransaksiForm extends Component
                 "foto_ktp" => "required|image|max:10240",
                 "no_sim" => "required",
                 "foto_sim" => "required|image|max:10240",
-                "foto_ttd" => "required|image|max:10240",
             ], [
                 "*.required" => ":attribute belum diisi",
                 "foto_penyewa.max" => "Ukuran file haris dibawah 10 Mb",
@@ -120,7 +121,9 @@ class TambahTransaksiForm extends Component
 
     public function save()
     {
-        $valueDataDiri = [
+
+
+        $valueTransaksi = [
             "foto_penyewa" => $this->foto_penyewa,
             "nama_penyewa" => $this->nama_penyewa,
             "no_telp" => $this->no_telp,
@@ -128,25 +131,20 @@ class TambahTransaksiForm extends Component
             "foto_ktp" => $this->foto_ktp,
             "no_sim" => $this->no_sim,
             "foto_sim" => $this->foto_sim,
-            "foto_ttd" => $this->foto_ttd,
-        ];
-
-        $valueKendaraan = [
             "kendaraan_id" => $this->kendaraan_field,
-        ];
-
-        $valueDetailTransaksi = [
             "tanggal_sewa" => now(),
-            "tanggal_pengambilan" => $this->tanggal_pengambilan,
-            "lokasi_pengembalian" => $this->lokasi_pengembalian,
+            "waktu_pengambilan" => $this->tanggal_pengambilan,
+            "lokasi_pengambilan" => $this->lokasi_pengembalian,
             "driver" => $this->driver,
             "durasi" => $this->durasi,
             "tanggal_kembali" => $this->tanggal_kembali,
             "waktu_kembali" => $this->waktu_kembali,
-            "foto_bbm" => $this->foto_bbm,
+            "foto_kondisi_bbm" => $this->foto_bbm,
             "jumlah_bbm" => $this->jumlah_bbm,
         ];
 
-        return dd($valueDataDiri, $valueDetailTransaksi, $valueKendaraan);
+        DB::table('transaksi')->insert($valueTransaksi);
+
+        return redirect()->route('tansaksi-tambah')->with('success', 'Berhasil Di Tambahkan');
     }
 }

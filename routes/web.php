@@ -22,8 +22,13 @@ Route::controller(TransaksiController::class)->group(function () {
     Route::get('/transaksi/detail_transaksi/{id}', "detail_transaksi")->name("transaksi.detailtransaksi");
 
     // Tambah
-    Route::get("/transaksi-tambah", "tambah_index");
+    Route::get("/transaksi-tambah", "tambah_index")->name('tansaksi-tambah');
+    Route::get("/transaksi-tangan/{id}", "tanda_tangan_url");
+    Route::get("/p/{id}", "tanda_tangan")->name('tanda-valid');
     Route::post("/transaksi-tambah/tambah", "tambah_transaksi");
+
+    //Tanda tangan
+    Route::get('/tambah-');
 });
 
 Route::controller(PengeluaranController::class)->group(function () {
