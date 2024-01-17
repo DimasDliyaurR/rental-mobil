@@ -18,3 +18,10 @@ Route::get('/', function () {
         "title" => "dashboard",
     ]);
 });
+
+Route::get('/', function () {
+    return view('layouts/home');
+});
+Route::get('/detil', function () {
+    return view('layouts/detilKendaraan');
+});
