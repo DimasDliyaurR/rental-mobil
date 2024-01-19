@@ -2,6 +2,7 @@
 
     <form action="{{ asset('transaksi-tambah/tambah') }}" method="post" wire:submit="save">
         @csrf
+
         @if (session()->has('success'))
             <div class="bg-green p-3 rounded text-center">Transaksi Berhasil</div>
         @endif
@@ -249,21 +250,12 @@
                     </span>
                 @enderror
             </div>
-
-            @if ($indexLength == count($head))
-                <div class="mb-3">
-                    <p>Foto Penyewa :{{ $foto_penyewa }}</p>
-                </div>
-
-                <div class="mb-3">
-                    <p>Nama Penyewa :{{ $nama_penyewa }}</p>
-                </div>
-                <div class="mb-3">
-                    <p>No Telp :{{ $no_telp }}</p>
-                </div>
-            @endif
             {{-- Kendaraan Form End --}}
         @endif
+
+        @if ($indexLength == 3)
+        @endif
+
 
         @if ($indexLength == count($head))
             <table>
@@ -285,7 +277,7 @@
                 <tr>
 
                     <td>No KTP</td>
-                    <td>:</td>
+                    <td>:</td>app
                     <td>{{ $no_ktp }}</td>
                 </tr>
                 <tr>

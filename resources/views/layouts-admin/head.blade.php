@@ -40,6 +40,17 @@
     <link rel="stylesheet" href={{ asset('plugins/summernote/summernote-bs4.min.css') }}>
     {{-- Livewire --}}
     @livewireStyles
+    <style>
+        .kbw-signature {
+            width: 20vw;
+            height: 200px;
+        }
+
+        #sig canvas {
+            width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 
 <body class="sidebar-mini layout-fixed">
@@ -58,6 +69,11 @@
     </div>
     {{-- Livewire Script --}}
     @livewireScripts
+
+    {{-- Bootsrap 5 --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
     <script src={{ asset('plugins/jquery/jquery.min.js') }}></script>
     <!-- jQuery UI 1.11.4 -->
     <script src={{ asset('plugins/jquery-ui/jquery-ui.min.js') }}></script>

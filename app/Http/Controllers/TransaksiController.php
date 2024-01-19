@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Detail_transaksi;
 use App\Models\Kendaraan;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use App\Models\Detail_transaksi;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Storage;
 
 class TransaksiController extends Controller
 {
@@ -17,19 +18,11 @@ class TransaksiController extends Controller
         $data = DB::table("kendaraan")
             ->join("transaksi", "transaksi.kendaraan_id", "=", "kendaraan.id")
             ->get();
-        $url = URL::temporarySignedRoute(
-            'tanda-valid',
-            now()->addMinutes(10),
-            [
-                'id' => 1
-            ]
-        );
 
         return view("admin.transaksi.lihat", [
             "title" => "Transaksi",
             "action" => "lihat_transaksi",
             "data" => $data,
-            "url" => $url,
         ]);
     }
 
@@ -65,29 +58,39 @@ class TransaksiController extends Controller
         return dd($request->all());
     }
 
-    public function tanda_tangan_url($id)
+    public function tanda_tangan_index($id)
     {
-        $url = URL::temporarySignedRoute(
-            'tanda-valid',
-            now()->addMinutes(10),
-            [
-                'id' => $id
-            ]
-        );
 
-        return view('admin.transaksi.tanda_tangan_url', [
+        return view('admin.transaksi.tanda_tangan', [
             'title' => "Transaksi",
             "action" => "tambah_transaksi",
-            'url' => $url,
+            'id' => $id,
         ]);
     }
 
-    public function tanda_tangan(Request $request, $id)
+    public function update_tanda_tangan(Request $request)
     {
-        if (!$request->hasValidSignature()) {
-            abort(401);
-        }
+        $folderPath = public_path('tanda_tangan/');
+        $image_parts = explode(";base64,", $request->signed);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $image_type = $image_type_aux[1];
+        $image_base64 = base64_decode($image_parts[1]);
 
-        return view('admin.transaksi.tanda_tangan');
+        $file = 'tanda_tangan/' . uniqid() . '.' . $image_type;
+
+        $transaksi = DB::table('transaksi')->where('id', $request->id)->first();
+        if ($transaksi->foto_ttd) {
+            $oldFilePath = public_path($transaksi->foto_ttd);
+            if (file_exists($oldFilePath)) {
+                unlink($oldFilePath);
+            }
+        }
+        DB::table('transaksi')
+            ->where('id', $request->id)
+            ->update([
+                'foto_ttd' => $file
+            ]);
+        file_put_contents($file, $image_base64);
+        return redirect("transaksi");
     }
 }

@@ -23,18 +23,23 @@ Route::controller(TransaksiController::class)->group(function () {
 
     // Tambah
     Route::get("/transaksi-tambah", "tambah_index")->name('tansaksi-tambah');
-    Route::get("/transaksi-tangan/{id}", "tanda_tangan_url");
-    Route::get("/p/{id}", "tanda_tangan")->name('tanda-valid');
     Route::post("/transaksi-tambah/tambah", "tambah_transaksi");
 
     //Tanda tangan
-    Route::get('/tambah-');
+    Route::get("/transaksi-tangan/{id}", "tanda_tangan_index");
+    Route::post("/transaksi-tangan/tambah", "update_tanda_tangan");
 });
 
 Route::controller(PengeluaranController::class)->group(function () {
     Route::get("/pengeluaran", "index")->name('pengeluaran.lihat');
+
+    // Tambah
 });
 
 Route::controller(KendaraanController::class)->group(function () {
     Route::get("/kendaraan", "index")->name('kendaraan.lihat');
+    Route::get("/kendaraan-tambah", "tambah_index")->name('kendaraan.tambah');
+    Route::post("/kendaraan-tambah/tambah", "tambah_kendaraan");
+    Route::get("/kendaraan-tambah/brand", "brand_index")->name('kendaraan.brand');
+    Route::post("/kendaraan-tambah/tambah-brand", "tambah_brand")->name('kendaraan.brand.tambah');
 });

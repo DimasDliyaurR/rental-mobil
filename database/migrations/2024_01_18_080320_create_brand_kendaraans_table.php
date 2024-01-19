@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kendaraan', function (Blueprint $table) {
+        Schema::create('Brand_Kendaraan', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('brand_kendaraan_id')->index("fk_brand_kendaraan_to_kendaraan");
-            $table->string('plat')->uniqe();
+            $table->string("nama_kendaraan");
+            $table->string('tahun_mobil');
+            $table->string('bahan_bakar');
+            $table->decimal('harga_sewa');
+            $table->string("foto_kendaraan");
         });
     }
 
@@ -23,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('Kendaraan');
+        Schema::dropIfExists('Brand_Kendaraan');
     }
 };

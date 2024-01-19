@@ -117,10 +117,17 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ asset('transaksi-tambah') }}"
+                            <a href="{{ asset('/kendaraan-tambah') }}"
                                 class="nav-link {{ $action == 'tambah_kendaraan' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tambah Unit Kendaraan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ asset('/kendaraan-tambah/brand') }}"
+                                class="nav-link {{ $action == 'brand_kendaraan' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Brand Unit Kendaraan</p>
                             </a>
                         </li>
                     </ul>

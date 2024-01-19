@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class TambahTransaksiForm extends Component
 {
     use WithFileUploads;
-    public $head = ["Data Diri", "Kendaraan", "submit"];
+    public $head = ["Data Diri", "Kendaraan", "Finish"];
     public $indexLength = 1;
 
     // Form Data Diri
@@ -52,11 +52,6 @@ class TambahTransaksiForm extends Component
 
     public $jumlah_bbm = "";
 
-    // Coba
-    public $botol = "Makan";
-
-
-
 
     public function render()
     {
@@ -73,7 +68,7 @@ class TambahTransaksiForm extends Component
     public function addStep()
     {
         $lengthcapacity = count($this->head);
-        $this->validation();
+        // $this->validation();
         if ($this->indexLength != $lengthcapacity) {
             $this->indexLength += 1;
         } else {
@@ -121,7 +116,6 @@ class TambahTransaksiForm extends Component
 
     public function save()
     {
-
 
         $valueTransaksi = [
             "foto_penyewa" => $this->foto_penyewa,

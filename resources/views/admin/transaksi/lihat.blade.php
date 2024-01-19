@@ -16,6 +16,7 @@
                                         <th>Data Diri</th>
                                         <th>Detail</th>
                                         <th>Tanda Tangan</th>
+                                        <th>Action</th>
                                     </tr>
                                     @foreach ($data as $row)
                                         <tr>
@@ -27,11 +28,11 @@
                                             <td><a href="{{ asset('/transaksi/detail_transaksi/' . $row->id) }}">Lihat
                                                     Detail</a></td>
                                             @if ($row->foto_ttd == null)
-                                                <td><a href="/transaksi-tangan/{{ $row->id }}">Belum</a>
-                                                </td>
+                                                <td><a href="/transaksi-tangan/{{ $row->id }}">Belum</a></td>
                                             @else
-                                                <td>Sudah</td>
+                                                <td><a href="/transaksi-tangan/{{ $row->id }}">Sudah</a></td>
                                             @endif
+                                            <td><a href="#" class="btn btn-danger">Hapus</a></td>
                                         </tr>
                                     @endforeach
                                 </table>

@@ -11,12 +11,26 @@
             width: 100%;
             height: auto;
         }
+
+        @media only screen and (max-width: 770px) {
+            .kbw-signature {
+                width: 400px;
+                height: 200px;
+            }
+
+            #sig canvas {
+                width: 100%;
+                height: auto;
+            }
+        }
     </style>
 
     <div class="container-fluid">
         <div class="">
-            <form method="POST" action="{{ asset('upload-sign') }}">
+            <form method="POST" action="{{ asset('/transaksi-tangan/tambah') }}">
                 @csrf
+                <input type="text" value="{{ $id }}" hidden name="id">
+
                 <div class="mb-3">
                     <label for="signature" class="form-label">Tanda Tangan</label>
                     <div class="sign-container">
@@ -29,7 +43,6 @@
                 </div>
             </form>
         </div>
-    </div>
     </div>
     <script type="text/javascript">
         var sig = $('#sig').signature({
