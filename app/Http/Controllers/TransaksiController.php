@@ -15,18 +15,34 @@ use App\Models\Detail_foto_mobil;
 class TransaksiController extends Controller
 {
     // Route Start
-    public function index()
+    public function index(Request $request)
     {
-        $data = DB::table("kendaraan")
+        $cari = $request->query('cari');
+        if(!empty($cari)){
+            $data = DB::table("kendaraan")
             ->join("transaksi", "transaksi.kendaraan_id", "=", "kendaraan.id")
-            ->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "kendaraan.id")
-            ->get();
+            ->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id") // Sesuaikan dengan kolom yang sesuai
+            ->where("brand_kendaraan.nama_kendaraan", "like", "%" . $cari . "%")
+            ->orWhere("transaksi.nama_penyewa", "like", "%" . $cari . "%")
+            ->paginate(5)
+            ->onEachSide(2);
 
-        return view("admin.transaksi.lihat", [
+        }else{
+            $data = DB::table("kendaraan")
+                ->join('transaksi', 'transaksi.kendaraan_id', '=', 'kendaraan.id')
+                ->join('brand_kendaraan', 'kendaraan.brand_kendaraan_id', '=', 'kendaraan.id')
+                ->paginate(5)
+                ->onEachSide(2);
+
+        }
+
+
+        return view("admin.transaksi.lihat")->with([
             "title" => "Transaksi",
             "action" => "lihat_transaksi",
             "data" => $data,
-        ]);
+            "cari" =>$cari,
+        ]) ;
     }
 
     public function tambah_index()

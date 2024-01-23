@@ -137,7 +137,7 @@
                                             <select type="email" class="form-control" id="kendaraan" name="kendaraan">
                                                 <option selected disabled> -- Pilih Kendaraan -- </option>
                                                 @foreach ($kendaraan as $row)
-                                                    <option value="{{ $row->id }}">{{ $row->nama_kendaraan }}
+                                                    <option value="{{ $row->id }}">{{ $row->nama_kendaraan . ' - ' . $row->tahun_mobil }}
                                                     </option>
                                                 @endforeach
                                             </select>

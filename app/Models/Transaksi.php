@@ -9,9 +9,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 
+
 class Transaksi extends Model
 {
     use HasFactory;
+
 
     protected $primarykey = "id_transaksi";
     protected $table = "Transaksi";
@@ -56,4 +58,5 @@ class Transaksi extends Model
     {
         return $this->hasMany(Detail_foto_mobil::class, "detail_transaksi_id");
     }
+
 }
