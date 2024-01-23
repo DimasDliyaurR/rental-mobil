@@ -29,11 +29,7 @@ class Kendaraan extends Model
     protected $fillable = [
         'nama_kendaraan',
         'plat',
-        'unit_avaible',
-        'tahun_mobil',
-        'bahan_bakar',
-        'harga_sewa',
-        'foto_mobil',
+        'status',
     ];
 
     public function transaksi(): HasMany

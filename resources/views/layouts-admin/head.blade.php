@@ -70,6 +70,20 @@
     {{-- Livewire Script --}}
     @livewireScripts
 
+    <script type="text/javascript">
+        var sig = $('#sig').signature({
+            syncField: '#signature64',
+            syncFormat: 'PNG'
+        });
+        $('#clear').click(function(e) {
+            e.preventDefault();
+            sig.signature('clear');
+            $("#signature64").val('');
+        });
+    </script>
+
+    <script src="{{ asset('js/transaksi.js') }}"></script>
+
     {{-- Bootsrap 5 --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">

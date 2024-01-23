@@ -89,7 +89,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ asset('transaksi-tambah') }}"
+                            <a href="{{ asset('pengeluaran-tambah') }}"
                                 class="nav-link {{ $action == 'tambah_pengeluaran' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tambah Pengeluaran</p>

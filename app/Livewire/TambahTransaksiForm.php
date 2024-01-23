@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Brand_Kendaraan;
 use Livewire\Component;
 use App\Models\Kendaraan;
 use Livewire\WithFileUploads;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class TambahTransaksiForm extends Component
 {
     use WithFileUploads;
-    public $head = ["Data Diri", "Kendaraan", "Finish"];
+    public $head = ["Transaksi", "Finish"];
     public $indexLength = 1;
 
     // Form Data Diri
@@ -29,7 +30,7 @@ class TambahTransaksiForm extends Component
 
     public $foto_sim = "";
 
-    public $foto_ttd = "";
+    public $foto_ttd = [];
 
     // Form Kendaraan
 
@@ -55,7 +56,7 @@ class TambahTransaksiForm extends Component
 
     public function render()
     {
-        $kendaraan = Kendaraan::all();
+        $kendaraan = Brand_Kendaraan::all();
 
         return view('livewire.tambah-transaksi-form', [
             "title" => "Transaksi",
@@ -94,6 +95,7 @@ class TambahTransaksiForm extends Component
                 "foto_ktp" => "required|image|max:10240",
                 "no_sim" => "required",
                 "foto_sim" => "required|image|max:10240",
+                "foto_ttd" => "required",
             ], [
                 "*.required" => ":attribute belum diisi",
                 "foto_penyewa.max" => "Ukuran file haris dibawah 10 Mb",
@@ -135,8 +137,9 @@ class TambahTransaksiForm extends Component
             "waktu_kembali" => $this->waktu_kembali,
             "foto_kondisi_bbm" => $this->foto_bbm,
             "jumlah_bbm" => $this->jumlah_bbm,
+            "foto_ttd" => $this->foto_ttd,
         ];
-
+        dd($valueTransaksi);
         DB::table('transaksi')->insert($valueTransaksi);
 
         return redirect()->route('tansaksi-tambah')->with('success', 'Berhasil Di Tambahkan');

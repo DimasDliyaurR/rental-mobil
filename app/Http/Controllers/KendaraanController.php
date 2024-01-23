@@ -48,20 +48,28 @@ class KendaraanController extends Controller
     {
         $validation = $request->validate([
             "nama_kendaraan" => "required",
-            "plat" => "required|integer",
+            "plat" => "required",
         ], [
             "*.required" => ":attribute Belum Diisi",
-            "*.integer" => ":attribute diisi menggunakan Nomor",
         ]);
 
-        return dd($request->all());
+        try {
+            DB::table("Kendaraan")->insert([
+                "brand_kendaraan_id" => $request->nama_kendaraan,
+                "plat" => $request->plat,
+                "status" => 'Tidak Terpakai',
+            ]);
+        } catch (\Exception $th) {
+            return redirect("kendaraan-tambah")
+                ->with('error', 'Silahkan coba lagi');
+        }
+
+        return redirect("kendaraan-tambah")
+            ->with('success', 'Berhasil Ditambahkan');
     }
 
     public function tambah_brand(Request $request)
     {
-        // dd($request->file('foto_kendaraan'), $request->file('foto_kendaraan')->getClientOriginalName(), $request->file('foto_kendaraan')->getClientOriginalExtension());
-
-
         $validation = $request->validate([
             "nama_kendaraan" => "required",
             "foto_kendaraan" => "required|image|max:10240",
@@ -91,7 +99,7 @@ class KendaraanController extends Controller
                 "harga_sewa" => $request->harga_sewa,
             ]);
         } catch (\Exception $th) {
-            return redirect('kendaraan-tambah/brand')->with('error', 'Silahkan Coba Ulang');
+            return redirect('kendaraan-tambah/brand')->with('error', 'Silahkan Coba Lagi');
         }
 
         $store = $file->move('brand', $file_name);

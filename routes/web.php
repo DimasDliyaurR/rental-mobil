@@ -32,6 +32,7 @@ Route::controller(TransaksiController::class)->group(function () {
 
 Route::controller(PengeluaranController::class)->group(function () {
     Route::get("/pengeluaran", "index")->name('pengeluaran.lihat');
+    Route::get("/pengeluaran-tambah", "tambah_index")->name('pengeluaran.tambah');
 
     // Tambah
 });

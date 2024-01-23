@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string("foto_ktp");
             $table->string("no_sim");
             $table->string("foto_sim");
-            $table->string("foto_ttd")->nullable();
+            $table->string("tanda_tangan");
             $table->date("tanggal_sewa");
             $table->date("waktu_pengambilan");
             $table->string("lokasi_pengambilan");
@@ -31,6 +31,7 @@ return new class extends Migration
             $table->time("waktu_kembali");
             $table->string("foto_kondisi_bbm");
             $table->string("jumlah_bbm");
+            $table->timestamps();
         });
     }
 

@@ -9,6 +9,11 @@
                         <div class="card-header">
                             <h1>{{ $title }}</h1>
                             <div class="overflow-visible" style="width: 10wv">
+                                @if (session()->has('success'))
+                                    <div class="text-lg text-white bg-green p-3 rounded mb-3">{{ session('success') }}</div>
+                                @elseif(session()->has('error'))
+                                    <div class="text-lg text-white bg-danger p-3 rounded mb-3">{{ session('error') }}</div>
+                                @endif
                                 <form method="post" action="{{ asset('/kendaraan-tambah/tambah') }}">
                                     @csrf
 
