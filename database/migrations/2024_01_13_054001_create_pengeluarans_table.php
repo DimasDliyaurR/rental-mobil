@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text("deskripsi_pengeluaran")->nullable();
             $table->integer("harga_pengeluaran");
             $table->date("tanggal_pengeluaran");
+            $table->timestamps();
         });
     }
 

@@ -1,0 +1,322 @@
+/* GOOGLE FONTS */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+/* VARIABLES CSS */
+:root {
+    --header-height: 3rem;
+
+    /* COLORS */
+    /* Change Favorite Colors */
+
+    --putih: #fff;
+    --accent-color: #0a1f29;
+    --abu-abu: #eeeeee;
+    --abu-abu-tua: #222222;
+
+    /* FONTS and TYPOGRAPHY */
+    --body-font: "Poppins", sans-serif;
+
+    /* .5rem = 8px, 1rem = 16px, 1.5rem = 24px,... */
+    /* Font Size */
+    --big-font-size: 2rem;
+    --h1-font-size: 1.5rem;
+    --h2-font-size: 1.25rem;
+    --h3-font-size: 1.125rem;
+    --normal-font-size: 0.938rem;
+    --small-font-size: 0.813rem;
+    --smaller-font-size: 0.75rem;
+
+    /* Font Weight */
+    --font-reguler: 400;
+    --font-medium: 500;
+    --font-semi-bold: 600;
+    --font-bold: 700;
+
+    /*========== Margenes Bottom ==========*/
+    --mb-0-25: 0.25rem;
+    --mb-0-5: 0.5rem;
+    --mb-0-75: 0.75rem;
+    --mb-1: 1rem;
+    --mb-1-25: 1.25rem;
+    --mb-1-5: 1.5rem;
+    --mb-2: 2rem;
+    --mb-2-5: 2.5rem;
+
+    /* Z-INDEX */
+    --z-tooltip: 10;
+    --z-fixed: 100;
+    --z-modal: 1000;
+}
+
+/* Font Size for Large Device */
+@media screen and (min-width: 968px) {
+    :root {
+        --big-font-size: 3rem;
+        --h1-font-size: 2.25rem;
+        --h2-font-size: 1.5rem;
+        --h3-font-size: 1.25rem;
+        --normal-font-size: 1rem;
+        --small-font-size: 0.875rem;
+        --smaller-font-size: 0.813rem;
+    }
+}
+
+/* BASE */
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.homeJumbotron {
+    height: 100vh;
+    background-image: url("../img/homeBanner.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    overflow-x: hidden;
+    color: var(--putih);
+    letter-spacing: 2px;
+}
+
+.detilJumbotron {
+    height: fit-content;
+    background-image: url("../img/detilJumbotron.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    overflow-x: hidden;
+    color: var(--putih);
+    letter-spacing: 2px;
+}
+
+.homeJumbotron p {
+    font-size: var(--h3-font-size);
+}
+
+.tombolSelengkapnya {
+    width: fit-content;
+    height: 75px;
+    background-color: var(--accent-color);
+    text-decoration: none;
+    color: var(--putih);
+    font-size: var(--h3-font-size);
+    font-weight: var(--font-medium);
+}
+
+.searchBox {
+    height: fit-content;
+    background-color: var(--putih);
+    border: 1px solid #c0c0c0;
+    font-size: var(--normal-font-size);
+    font-weight: var(--font-semi-bold);
+}
+
+.searchBox button.buttonCari {
+    height: fit-content;
+    width: 100%;
+    background-color: var(--accent-color);
+    color: var(--putih);
+    border: none;
+    border-radius: 5px;
+}
+
+.jumlahMobil {
+    width: 100%;
+    height: 50px;
+    background-color: var(--abu-abu);
+    color: var(--accent-color);
+    font-size: var(--normal-font-size);
+    box-shadow: -3px 4px 0px 0px #9e9e9e;
+    box-sizing: border-box;
+}
+
+.cardMobil {
+    width: 100%;
+    height: fit-content;
+    background-color: var(--abu-abu);
+}
+
+.cardMobil img {
+    width: 380px;
+}
+
+.cardMobil .merekMobil {
+    font-size: var(--h2-font-size);
+}
+.cardMobil .hargaMobil {
+    font-size: var(--h3-font-size);
+}
+.cardMobil .infoMobil {
+    font-size: var(--normal-font-size);
+}
+.cardMobil .lihatDetilKendaraan {
+    width: fit-content;
+    height: fit-content;
+    background-color: var(--accent-color);
+    color: var(--putih);
+    text-decoration: none;
+}
+
+footer.footer {
+    height: fit-content;
+    width: 100%;
+    background-color: var(--accent-color);
+    color: var(--putih);
+    font-size: var(--normal-font-size);
+}
+
+/* CONTACT ME */
+.contact__container {
+    row-gap: 3rem;
+}
+
+.contact__information {
+    display: flex;
+    margin-bottom: var(--mb-2);
+}
+
+.contact__icon {
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin-right: var(--mb-0-75);
+}
+
+.contact_title {
+    font-size: var(--h3-font-size);
+    font-weight: var(--font-medium);
+}
+
+.contact__subtitle {
+    font-size: var(--small-font-size);
+    color: var(--abu-abu-tua);
+}
+
+.contact__content {
+    background-color: var(--abu-abu);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem 0.25rem;
+    /* width: fit-content; */
+}
+
+.contact__label {
+    font-size: var(--normal-font-size);
+    color: var(--accent-color);
+}
+
+.contact__input {
+    width: 100%;
+    background-color: var(--abu-abu);
+    color: var(--accent-color);
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    border: none;
+    outline: none;
+    padding: 0.25rem 0.5rem 0.5rem 0;
+    font-size: var(--small-font-size);
+}
+button,
+input {
+    border: none;
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+}
+
+button {
+    cursor: pointer;
+}
+
+.button {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: var(--putih);
+    padding: 1rem 2rem;
+    font-weight: var(--font-semi-bold);
+    transition: 0.3s;
+    border-radius: 5px;
+}
+
+.brand-harga h2 {
+    font-weight: var(--font-bold);
+}
+.brand-harga p {
+    color: var(--abu-abu-tua);
+}
+
+.wadah-info {
+    border: 1px solid var(--abu-abu);
+    width: 150px;
+    height: 175px;
+}
+
+.wadah-info i {
+    font-size: 40px;
+    font-weight: var(--font-reguler);
+}
+.wadah-info h2 {
+    font-size: var(--h2-font-size);
+}
+.wadah-info p {
+    font-size: var(--normal-font-size);
+}
+
+.bungkus-deskripsi-mobil {
+    border: 1px solid var(--abu-abu);
+    width: 100%;
+    height: fit-content;
+}
+
+.tulisan-deskripsi-mobil p {
+    width: fit-content;
+    background-color: var(--accent-color);
+    color: var(--putih);
+    font-size: var(--normal-font-size);
+    font-weight: var(--font-reguler);
+}
+.tulisan-deskripsi-mobil {
+    background-color: var(--abu-abu);
+}
+.line {
+    width: 100%;
+    height: 1px;
+    background-color: var(--abu-abu);
+}
+
+.gambar-mobil img {
+    width: 80%;
+}
+
+/* MEDIUM DEVICE */
+@media screen and (min-width: 568px) {
+    .contact__container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .tombolSelengkapnya {
+        width: fit-content;
+        height: 60px;
+    }
+    .homeJumbotron {
+        height: 795px;
+    }
+    .gambar-mobil img {
+        width: 70%;
+    }
+}
+/* LARGE DEVICE */
+@media screen and (min-width: 1024px) {
+    .contact__form {
+        width: 460px;
+    }
+    .tombolSelengkapnya {
+        width: 328px;
+        height: 75px;
+    }
+    .gambar-mobil img {
+        width: 50%;
+    }
+}

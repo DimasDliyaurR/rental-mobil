@@ -60,12 +60,6 @@
                                 <p>Tambah Transaksi</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ asset('transaksi-tambah') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Daftar Invoice</p>
-                            </a>
-                        </li>
                     </ul>
                 </li>
                 {{-- Transaksi End --}}
@@ -127,7 +121,7 @@
                             <a href="{{ asset('/kendaraan-tambah/brand') }}"
                                 class="nav-link {{ $action == 'brand_kendaraan' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Brand Unit Kendaraan</p>
+                                <p>Merek/Brand Kendaraan</p>
                             </a>
                         </li>
                     </ul>
@@ -147,13 +141,7 @@
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Rekap Pengeluaran</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ asset('transaksi-tambah') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Rekap Pemasukkan</p>
+                                <p>Debit Kredit</p>
                             </a>
                         </li>
                     </ul>

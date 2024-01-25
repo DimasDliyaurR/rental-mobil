@@ -15,12 +15,14 @@ class Transaksi extends Model
 
     protected $primarykey = "id_transaksi";
     protected $table = "Transaksi";
+    protected $dates = ["waktu_kembali", "tanggal_kembali", "waktu_pengambilan"];
 
     protected $fillable = [
         "kendaraan_id",
         "foto_penyewa",
         "nama_penyewa",
         "no_telp",
+        "alamat",
         "no_ktp",
         "foto_ktp",
         "no_sim",

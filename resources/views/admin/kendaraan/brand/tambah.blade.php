@@ -20,11 +20,22 @@
 
                                     {{-- Nama Kendaraan --}}
                                     <div class="mb-3">
-                                        <label for="nama_kendaraan" class="form-label">Nama Kendaraan</label>
-                                        <input type="text" class="form-control" id="nama_kendaraan" name="nama_kendaraan"
-                                            value="{{ old('nama_kendaraan') }}" value="{{ old('nama_kendaraan') }}">
-                                        <span class="form-text">Contoh : Brio Satya S MT</span>
-                                        @error('nama_kendaraan')
+                                        <label for="nama_kendaraan" class="form-label">Nama Brand</label>
+                                        <input type="text" class="form-control" id="nama_brand" name="nama_brand"
+                                            value="{{ old('nama_brand') }}">
+                                        <span class="form-text">Contoh : Toyota , Honda</span>
+                                        @error('nama_brand')
+                                            <div class="form-text text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Nama Merek --}}
+                                    <div class="mb-3">
+                                        <label for="plat" class="form-label">Nama Merek</label>
+                                        <input type="text" class="form-control" id="nama_merek" name="nama_merek"
+                                            value="{{ old('nama_merek') }}">
+                                        <span class="form-text">Contoh : BRIO SATYA S MT</span>
+                                        @error('nama_merek')
                                             <div class="form-text text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>

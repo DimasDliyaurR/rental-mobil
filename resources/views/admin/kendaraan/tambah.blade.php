@@ -19,16 +19,18 @@
 
                                     {{-- Nama Kendaraan --}}
                                     <div class="mb-3">
-                                        <label for="nama_kendaraan" class="form-label">Nama Kendaraan</label>
-                                        <select class="form-control" id="nama_kendaraan" name="nama_kendaraan"
-                                            value="{{ old('nama_kendaraan') }}">
+                                        <label for="nama_kendaraan" class="form-label">Nama Brand</label>
+                                        <select class="form-control" id="nama_brand" name="nama_brand"
+                                            value="{{ old('nama_brand') }}">
                                             <option selected disabled>--Pilih--</option>
                                             @foreach ($brand as $row)
-                                                <option value="{{ $row->id }}">{{ $row->nama_kendaraan }}</option>
+                                                <option value="{{ $row->id }}">
+                                                    {{ $row->nama_brand }} || {{ $row->nama_merek }}
+                                                </option>
                                             @endforeach
                                         </select>
                                         <span class="form-text">Klik untuk memilih Nama Kendaraan</span>
-                                        @error('nama_kendaraan')
+                                        @error('nama_brand')
                                             <div class="form-text text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>

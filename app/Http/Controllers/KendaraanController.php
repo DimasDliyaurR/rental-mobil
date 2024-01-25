@@ -47,15 +47,16 @@ class KendaraanController extends Controller
     public function tambah_kendaraan(Request $request)
     {
         $validation = $request->validate([
-            "nama_kendaraan" => "required",
-            "plat" => "required",
+            "nama_brand" => "required",
+            "plat" => "required|unique:kendaraan",
         ], [
             "*.required" => ":attribute Belum Diisi",
+            "plat.unique" => ":attribute sudah ada",
         ]);
 
         try {
             DB::table("Kendaraan")->insert([
-                "brand_kendaraan_id" => $request->nama_kendaraan,
+                "brand_kendaraan_id" => $request->nama_brand,
                 "plat" => $request->plat,
                 "status" => 'Tidak Terpakai',
             ]);
@@ -71,35 +72,38 @@ class KendaraanController extends Controller
     public function tambah_brand(Request $request)
     {
         $validation = $request->validate([
-            "nama_kendaraan" => "required",
+            "nama_brand" => "required|unique:brand_kendaraan",
+            "nama_merek" => "required|unique:brand_kendaraan",
             "foto_kendaraan" => "required|image|max:10240",
             "tahun_mobil" => "required|integer",
             "bahan_bakar" => "required",
-            "harga_sewa" => "required|integer|max_digits:6",
+            "harga_sewa" => "required|integer",
         ], [
             "*.required" => ":attribute belum diisi",
             "*.integer" => ":attribute diisi menggunakan Nomor",
             "*.image" => "File tidak gambar",
-            "harga_sewa.max_digits" => "Maksimal 6 Digit",
             "foto_kendaraan.max" => "File terlalu besar",
+            "*.unique" => ":attribute sudah ada",
         ]);
 
 
         try {
             $file = $request->file("foto_kendaraan");
             $file_type = $file->getClientOriginalExtension();
-            $file_name =  preg_replace('/[^A-Za-z0-9]+/', '_', $request->nama_kendaraan) . '.' . $file_type;
-            $file_path =  'brand/' . preg_replace('/[^A-Za-z0-9]+/', '_', $request->nama_kendaraan) . '.' . $file_type;
+            $file_name =  preg_replace('/[^A-Za-z0-9]+/', '_', $request->nama_merek) . '.' . $file_type;
+            $file_path =  'brand/' . preg_replace('/[^A-Za-z0-9]+/', '_', $request->nama_merek) . '.' . $file_type;
 
             DB::table("brand_kendaraan")->insert([
-                "nama_kendaraan" => $request->nama_kendaraan,
+                "nama_brand" => $request->nama_brand,
+                "nama_merek" => $request->nama_merek,
                 "foto_kendaraan" => $file_path,
                 "tahun_mobil" => $request->tahun_mobil,
                 "bahan_bakar" => $request->bahan_bakar,
                 "harga_sewa" => $request->harga_sewa,
             ]);
         } catch (\Exception $th) {
-            return redirect('kendaraan-tambah/brand')->with('error', 'Silahkan Coba Lagi');
+            // return redirect('kendaraan-tambah/brand')->with('error', 'Silahkan Coba Lagi');
+            dd(get_class($th));
         }
 
         $store = $file->move('brand', $file_name);

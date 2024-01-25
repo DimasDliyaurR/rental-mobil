@@ -18,3 +18,17 @@ function addKondisiMobil() {
     var outlierBody = margin.append(batas, innerBodyKondisi, innerBodyKeterangan);
     $("#form-kondisi-mobil").append(outlierBody);
 }
+
+$(document).ready(() => {
+    $("#p").hide();
+
+    $("#driver-iya").on("change", () => {
+        $("#p").show(500);
+    });
+
+    $("#driver-tidak").on("change", () => {
+        $("#p").hide(500);
+
+
+    });
+});

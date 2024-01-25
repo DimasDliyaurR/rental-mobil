@@ -12,18 +12,22 @@
                                 <table class="table table-bordered" style="width: 10w">
                                     <tr>
                                         <th>Kendaraan</th>
+                                        <th>Merek</th>
                                         <th>plat</th>
                                         <th>Tahun Kendaraan</th>
                                         <th>Bahan Bakar</th>
                                         <th>Harga Sewa (D)</th>
+                                        <th>Status</th>
                                     </tr>
                                     @foreach ($data as $row)
                                         <tr>
-                                            <td>{{ $row->nama_kendaraan }}</td>
+                                            <td>{{ $row->nama_brand }}</td>
+                                            <td>{{ $row->nama_merek }}</td>
                                             <td>{{ $row->plat }}</td>
                                             <td>{{ $row->tahun_mobil }}</td>
                                             <td>{{ $row->bahan_bakar }}</td>
                                             <td>{{ $row->harga_sewa }}</td>
+                                            <td>{{ $row->status }}</td>
                                         </tr>
                                     @endforeach
                                 </table>

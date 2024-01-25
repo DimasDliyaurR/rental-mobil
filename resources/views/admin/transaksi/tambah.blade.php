@@ -10,17 +10,15 @@
                             <h1>{{ $title }}</h1>
                             <div class="overflow-visible" style="width: 10wv">
                                 @if (session()->has('success'))
-                                    <div class="form-text bg-green rounded">
+                                    <div class="form-text bg-green rounded p-2">
                                         {{ session('success') }}
                                     </div>
-                                    {{-- @elseif($errors->any())
+                                @elseif(session()->has('error'))
                                     <div class="alert-error">
-                                        @foreach ($errors->all() as $error)
-                                            <ul>
-                                                <li>{{ $error }}</li>
-                                            </ul>
-                                        @endforeach
-                                    </div> --}}
+                                        <div class="form-text bg-danger rounded p-2">
+                                            {{ session('error') }}
+                                        </div>
+                                    </div>
                                 @endif
                                 <form action="{{ asset('transaksi-tambah/tambah') }}" method="post"
                                     enctype="multipart/form-data">
@@ -50,7 +48,8 @@
                                     <div class="mb-3">
                                         <div class="mb-3">
                                             <label for="nama_penyewa" class="form-label">Nama Penyewa</label>
-                                            <input type="text" name="nama_penyewa" class="form-control">
+                                            <input type="text" name="nama_penyewa" class="form-control"
+                                                value="{{ old('nama_penyewa') }}">
                                         </div>
                                         @error('nama_penyewa')
                                             <span class="form-text text-danger">
@@ -63,9 +62,24 @@
                                     <div class="mb-3">
                                         <div class="mb-3">
                                             <label for="no_telp" class="form-label">Nomor Telepon</label>
-                                            <input type="text" id="no_telp" name="no_telp" class="form-control">
+                                            <input type="text" id="no_telp" name="no_telp" class="form-control"
+                                                value="{{ old('no_telp') }}">
                                         </div>
                                         @error('no_telp')
+                                            <span class="form-text text-danger">
+                                                {{ $message }}
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Alamat --}}
+                                    <div class="mb-3">
+                                        <div class="mb-3">
+                                            <label for="alamat" class="form-label">Alamat Pembeli</label>
+                                            <input type="text" id="alamat" name="alamat" class="form-control"
+                                                value="{{ old('alamat') }}">
+                                        </div>
+                                        @error('alamat')
                                             <span class="form-text text-danger">
                                                 {{ $message }}
                                             </span>
@@ -76,7 +90,8 @@
                                     <div class="mb-3">
                                         <div class="mb-3">
                                             <label for="no_ktp" class="form-label">Nomor KTP</label>
-                                            <input type="text" id="no_ktp" name="no_ktp" class="form-control">
+                                            <input type="text" id="no_ktp" name="no_ktp" class="form-control"
+                                                value="{{ old('no_ktp') }}">
                                         </div>
                                         @error('no_ktp')
                                             <span class="form-text text-danger">
@@ -103,7 +118,8 @@
                                     <div class="mb-3">
                                         <div class="mb-3">
                                             <label for="no_sim" class="form-label">Nomor SIM</label>
-                                            <input type="text" id="no_sim" name="no_sim" class="form-control">
+                                            <input type="text" id="no_sim" name="no_sim" class="form-control"
+                                                value="{{ old('no_sim') }}">
                                         </div>
                                         @error('no_sim')
                                             <span class="form-text text-danger">
@@ -117,7 +133,7 @@
                                         <div class="mb-3">
                                             <label for="foto_sim" class="form-label">Foto SIM</label>
                                             <input type="file" id="foto_sim" name="foto_sim"
-                                                class="form-control form-control-lg">
+                                                class="form-control form-control-lg" multiple>
                                         </div>
                                         @error('foto_sim')
                                             <span class="form-text text-danger">
@@ -137,26 +153,13 @@
                                             <select type="email" class="form-control" id="kendaraan" name="kendaraan">
                                                 <option selected disabled> -- Pilih Kendaraan -- </option>
                                                 @foreach ($kendaraan as $row)
-                                                    <option value="{{ $row->id }}">{{ $row->nama_kendaraan }}
+                                                    <option value="{{ $row->id }}">
+                                                        {{ $row->nama_merek }}||{{ $row->plat }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         @error('kendaraan_field')
-                                            <span class="form-text text-danger">
-                                                {{ $message }}
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    {{-- Tanggal Sewa --}}
-                                    <div class="mb-3">
-                                        <div class="mb-3">
-                                            <label for="tanggal_sewa" class="form-label">Tanggal Sewa</label>
-                                            <input class="form-control" id="tanggal_sewa" type="date" name="tanggal_sewa"
-                                                value="{{ old('tanggal_sewa') }}">
-                                        </div>
-                                        @error('tanggal_sewa')
                                             <span class="form-text text-danger">
                                                 {{ $message }}
                                             </span>
@@ -169,7 +172,7 @@
                                             <label for="waktu_pengambilan" class="form-label">Waktu
                                                 Pengambilan</label>
                                             <input class="form-control" id="waktu_pengambilan" type="date"
-                                                name="waktu_pengambilan" value="{{ old('tanggal_pengambilan') }}">
+                                                name="waktu_pengambilan" value="{{ old('waktu_pengambilan') }}">
                                         </div>
                                         @error('waktu_pengambilan')
                                             <span class="form-text text-danger">
@@ -182,7 +185,8 @@
                                     <div class="mb-3">
                                         <div class="mb-3">
                                             <label for="lokasi_pengambilan" class="form-label">Lokasi Pengambilan</label>
-                                            <input class="form-control" id="lokas_pengambilan" name="lokasi_pengambilan">
+                                            <input class="form-control" id="lokas_pengambilan" name="lokasi_pengambilan"
+                                                value="{{ old('lokasi_pengambilan') }}">
                                         </div>
                                         @error('lokasi_pengembalian')
                                             <span class="form-text text-danger">
@@ -194,20 +198,41 @@
                                     {{-- Driver --}}
                                     <div class="mb-3">
                                         <div class="mb-3">
-                                            <label class="form-label" for="driver">
+                                            <label class="form-label" for="driver" id="driver">
                                                 Memakai Driver atau tidak ?
                                             </label>
-                                            <select class="form-control" name="driver">
-                                                <option selected disabled>--PILIH--</option>
-                                                <option value="1">Iya</option>
-                                                <option value="0">Tidak</option>
-                                            </select>
+
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="driver"
+                                                    value="1" id="driver-iya"
+                                                    {{ old('driver') !== null && old('driver') == 1 ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                    Iya
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="driver"
+                                                    value="0" id="driver-tidak"
+                                                    {{ old('driver') !== null && old('driver') == 0 ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                    Tidak
+                                                </label>
+                                            </div>
                                         </div>
                                         @error('driver')
                                             <span class="form-text text-danger">
                                                 {{ $message }}
                                             </span>
                                         @enderror
+
+                                        <div class="mb-3 card w-screen p-2" id="p"
+                                            style="background-color: #B4D8E8 ;color: #0a7cad;">
+                                            <label class="form-label" for="biaya_supir" name="biaya_supir"
+                                                placeholder="Silahkan Isi Biaya Supir">
+                                                Biaya Supir
+                                            </label>
+                                            <input class="form-control" name="biaya_supir">
+                                        </div>
                                     </div>
 
                                     {{-- Durasi --}}
@@ -219,36 +244,6 @@
                                             <input class="form-control" name="durasi">
                                         </div>
                                         @error('durasi')
-                                            <span class="form-text text-danger">
-                                                {{ $message }}
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    {{-- Tanggal Kembali --}}
-                                    <div class="mb-3">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="tanggal_kembali">
-                                                Tanggal Kembali
-                                            </label>
-                                            <input class="form-control" name="tanggal_kembali" type="date">
-                                        </div>
-                                        @error('tanggal_kembali')
-                                            <span class="form-text text-danger">
-                                                {{ $message }}
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    {{-- Waktu Kembali --}}
-                                    <div class="mb-3">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="waktu_kembali">
-                                                Waktu Kembali
-                                            </label>
-                                            <input class="form-control" name="waktu_kembali" type="time">
-                                        </div>
-                                        @error('waktu_kembali')
                                             <span class="form-text text-danger">
                                                 {{ $message }}
                                             </span>

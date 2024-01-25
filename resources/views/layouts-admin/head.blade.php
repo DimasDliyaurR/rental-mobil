@@ -67,8 +67,6 @@
 
         </div>
     </div>
-    {{-- Livewire Script --}}
-    @livewireScripts
 
     <script type="text/javascript">
         var sig = $('#sig').signature({

@@ -25,9 +25,8 @@ Route::controller(TransaksiController::class)->group(function () {
     Route::get("/transaksi-tambah", "tambah_index")->name('tansaksi-tambah');
     Route::post("/transaksi-tambah/tambah", "tambah_transaksi");
 
-    //Tanda tangan
-    Route::get("/transaksi-tangan/{id}", "tanda_tangan_index");
-    Route::post("/transaksi-tangan/tambah", "update_tanda_tangan");
+    //Invoice
+    Route::get("/transaksi/invoice/{id}", "invoice")->name('tansaksi-invoice');
 });
 
 Route::controller(PengeluaranController::class)->group(function () {
