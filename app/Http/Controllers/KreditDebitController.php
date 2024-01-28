@@ -26,7 +26,7 @@ class KreditDebitController extends Controller
             ->get();
 
         $total_transaksi = DB::table("transaksi")
-            ->select(DB::raw("SUM(brand_kendaraan.harga_sewa * transaksi.durasi) total_transaksi"))
+            ->select(DB::raw("SUM((brand_kendaraan.harga_sewa * transaksi.durasi)+transaksi.biaya_supir) total_transaksi"))
             ->join("kendaraan", "transaksi.kendaraan_id", "=", "kendaraan.id")
             ->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id")
             ->get();

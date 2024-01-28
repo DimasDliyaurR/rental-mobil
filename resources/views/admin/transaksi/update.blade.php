@@ -19,9 +19,19 @@
                                             {{ session('error') }}
                                         </div>
                                     </div>
+                                @elseif($errors->any())
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
                                 @endif
-                                <form action="{{ asset('') }}" method="post" enctype="multipart/form-data">
+                                <form action="{{ asset('/transaksi/update') }}" method="post"
+                                    enctype="multipart/form-data">
                                     @csrf
+
+                                    <input type="text" name="id" value="{{ $data->id }}" hidden>
+
                                     {{-- Foto Penyewa --}}
                                     <div class="mb-3">
                                         <div class="mb-3">
@@ -154,9 +164,9 @@
                                             <select type="email" class="form-control" id="kendaraan" name="kendaraan">
                                                 <option disabled> -- Pilih Kendaraan -- </option>
                                                 @foreach ($kendaraan as $row)
-                                                    <option value="{{ $row->id }}">
+                                                    <option value="{{ $row->id }}"
+                                                        {{ $data->kendaraan_id == $row->id ? 'selected' : '' }}x>
                                                         {{ $row->nama_merek }}||{{ $row->plat }}
-                                                        {{ $data->kendaraan_id == $row->id ? 'selected' : '' }}
                                                     </option>
                                                 @endforeach
                                             </select>

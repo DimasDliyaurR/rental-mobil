@@ -19,11 +19,16 @@
                                             {{ session('error') }}
                                         </div>
                                     </div>
+                                @elseif($errors->any())
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
                                 @endif
                                 <form action="{{ asset('transaksi-tambah/tambah') }}" method="post"
                                     enctype="multipart/form-data">
                                     @csrf
-
                                     {{-- Foto Penyewa --}}
                                     <div class="mb-3">
                                         <div class="mb-3">
@@ -239,13 +244,13 @@
                                     {{-- Foto BBM --}}
                                     <div class="mb-3">
                                         <div class="mb-3">
-                                            <label class="form-label" for="foto_bbm">
+                                            <label class="form-label" for="foto_kondisi_bbm">
                                                 Foto BBM
                                             </label>
-                                            <input class="form-control form-control-lg" name="foto_bbm" type="file"
-                                                id="formFileLg" multiple>
+                                            <input class="form-control form-control-lg" name="foto_kondisi_bbm"
+                                                type="file" id="formFileLg" multiple>
                                         </div>
-                                        @error('foto_bbm')
+                                        @error('foto_kondisi_bbm')
                                             <span class="form-text text-danger">
                                                 {{ $message }}
                                             </span>

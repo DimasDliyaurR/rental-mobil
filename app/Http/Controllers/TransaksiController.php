@@ -21,10 +21,9 @@ class TransaksiController extends Controller
     {
         $data = DB::table("transaksi")
             ->select("transaksi.*", "brand_kendaraan.nama_brand", "brand_kendaraan.nama_merek", "kendaraan.plat")
-            ->join("kendaraan", "transaksi.kendaraan_id", "=", "kendaraan.id")
-            ->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id")
+            ->join("kendaraan", "kendaraan.id", "=", "transaksi.kendaraan_id")
+            ->join("brand_kendaraan", "brand_kendaraan.id", "=", "kendaraan.brand_kendaraan_id")
             ->get();
-        // dd($data);
 
         return view("admin.transaksi.lihat", [
             "title" => "Transaksi",
@@ -35,8 +34,6 @@ class TransaksiController extends Controller
 
     public function tambah_index()
     {
-
-
         $kendaraan = DB::table("kendaraan")
             ->select("kendaraan.id", "kendaraan.plat", "brand_kendaraan.nama_brand", "brand_kendaraan.nama_merek")
             ->join("brand_kendaraan", "brand_kendaraan.id", "=", "kendaraan.brand_kendaraan_id")
@@ -63,8 +60,8 @@ class TransaksiController extends Controller
             ->get();
 
         return view('admin.transaksi.update', [
-            "title" => "Transaksi",
-            "action" => "tambah_transaksi",
+            "title" => "Update Transaksi",
+            "action" => "update_transaksi",
             "kendaraan" => $kendaraan,
             "detail_foto_mobil" => $detail_foto_mobil,
             "data" => $data,
@@ -74,13 +71,21 @@ class TransaksiController extends Controller
 
     public function detail_transaksi($id)
     {
-        $data = Transaksi::find($id);
-        return dd($data);
+        Transaksi::findOrFail($id);
+
+        $data = DB::table("transaksi")->join("kendaraan", "kendaraan.id", "=", "transaksi.kendaraan_id")->join("brand_kendaraan", "brand_kendaraan.id", "=", "kendaraan.brand_kendaraan_id")->where("transaksi.id", $id)->first();
+
+        return view("admin.transaksi.detail", [
+            "title" => "Detail Transaksi",
+            "action" => "detail_transaksi",
+            "data" => $data,
+        ]);
     }
 
     // Transaksi Action
     public function tambah_transaksi(Request $request)
     {
+
         $validation = $request->validate([
             "kendaraan" => "required",
             "foto_penyewa" => "required|image|max:10240",
@@ -96,14 +101,13 @@ class TransaksiController extends Controller
             "lokasi_pengambilan" => "required",
             "driver" => "required",
             "durasi" => "required",
-            "foto_bbm" => "required|image|max:10240",
+            "foto_kondisi_bbm" => "required|image|max:10240",
             "jumlah_bbm" => "required",
         ], [
             "*.required" => ":attribute belum diisi",
             "*.max" => "Ukuran file haris dibawah 10 Mb",
             "*.image" => "Tipe file tidak valid",
         ]);
-
 
 
         try {
@@ -120,7 +124,7 @@ class TransaksiController extends Controller
                 $penyewa = $this->saveImage($request, "foto_penyewa", "penyewa");
                 $ktp = $this->saveImage($request, "foto_ktp", "ktp");
                 $sim = $this->saveImage($request, "foto_sim", "sim");
-                $bbm = $this->saveImage($request, "foto_bbm", "bbm");
+                $bbm = $this->saveImage($request, "foto_kondisi_bbm", "bbm");
 
                 $folderPath = public_path('tanda_tangan/');
                 $image_parts = explode(";base64,", $request->tanda_tangan);
@@ -153,9 +157,8 @@ class TransaksiController extends Controller
                     "foto_kondisi_bbm" => $bbm,
                     "jumlah_bbm" => $request->jumlah_bbm,
                 ]);
+
                 $keterangan = $request->keterangan;
-
-
                 for ($i = 0; $i < count($keterangan); $i++) {
                     $kondisi_mobil = $this->saveImageMultiple($request, "kondisi_mobil", "foto_kondisi_mobil", $i);
 
@@ -184,6 +187,99 @@ class TransaksiController extends Controller
             ->with("success", "Transaksi Berhasil");
     }
 
+    // Update Action
+    public function update_transaksi(Request $request)
+    {
+        $validation = $request->validate([
+            "kendaraan" => "required",
+            "foto_penyewa" => "image|max:10240",
+            "nama_penyewa" => "required",
+            "no_telp" => "required",
+            "alamat" => "required",
+            "no_ktp" => "required",
+            "foto_ktp" => "image|max:10240",
+            "no_sim" => "required",
+            "foto_sim" => "image|max:10240",
+            "waktu_pengambilan" => "required",
+            "lokasi_pengambilan" => "required",
+            "driver" => "required",
+            "durasi" => "required",
+            "foto_kondisi_bbm" => "image|max:10240",
+            "jumlah_bbm" => "required",
+        ], [
+            "*.required" => ":attribute belum diisi",
+            "*.max" => "Ukuran file haris dibawah 10 Mb",
+            "*.image" => "Tipe file tidak valid",
+        ]);
+        // dd($request->all());
+
+
+        try {
+
+            DB::transaction(function () use ($request) {
+
+                $tanggal_sewa_unix = time();
+                $tanggal_sewa = date("Y-m-d", time());
+                $waktu_pengambilan = strtotime($request->waktu_pengambilan);
+                $durasi = $request->durasi * 86400;
+                $tanggal_kembali = date("Y-m-d", $waktu_pengambilan + $durasi);
+                $waktu_kembali = date("h:i:s", $tanggal_sewa_unix - (3600 * 5));
+
+                // dd($tanggal_sewa, $waktu_pengambilan, $durasi, $request->durasi, $tanggal_kembali, $waktu_kembali);
+
+                $penyewa = $this->updateImage($request, "foto_penyewa", "penyewa", "transaksi", $request->id);
+                $ktp = $this->updateImage($request, "foto_ktp", "ktp", "transaksi", $request->id);
+                $sim = $this->updateImage($request, "foto_sim", "sim", "transaksi", $request->id);
+                $bbm = $this->updateImage($request, "foto_kondisi_bbm", "bbm", "transaksi", $request->id);
+
+                //  Tanda Tangan
+                $file = $this->update_tanda_tangan($request);
+
+
+                // dd(["alamat" => $request->alamat]);
+                $transaksi = Transaksi::whereId($request->id)->update([
+                    "kendaraan_id" => $request->kendaraan,
+                    "foto_penyewa" => $penyewa,
+                    "nama_penyewa" => $request->nama_penyewa,
+                    "no_telp" => $request->no_telp,
+                    "alamat" => $request->alamat,
+                    "no_ktp" => $request->no_ktp,
+                    "foto_ktp" => $ktp,
+                    "no_sim" => $request->no_sim,
+                    "foto_sim" => $sim,
+                    "tanda_tangan" => $file,
+                    "tanggal_sewa" => $tanggal_sewa,
+                    "waktu_pengambilan" => $request->waktu_pengambilan,
+                    "lokasi_pengambilan" => $request->lokasi_pengambilan,
+                    "driver" => $request->driver,
+                    "biaya_supir" => $request->biaya_supir,
+                    "durasi" => $request->durasi,
+                    "tanggal_kembali" => $tanggal_kembali,
+                    "waktu_kembali" => $waktu_kembali,
+                    "foto_kondisi_bbm" => $bbm,
+                    "jumlah_bbm" => $request->jumlah_bbm,
+                ]);
+
+                $keterangan = $request->keterangan;
+                $kondisi_mobil_id = Detail_foto_mobil::whereTransaksiId($request->id)->get();
+                for ($i = 0; $i < count($keterangan); $i++) {
+                    $kondisi_mobil = $this->updateImageMultiple($request, "foto_mobil", "foto_kondisi_mobil", $i, "detail_foto_mobils", $request->id, "transaksi_id");
+
+                    $kondisi = Detail_foto_mobil::whereTransaksiId($request->id)->whereId($kondisi_mobil_id[$i]->id)->update([
+                        "keterangan" => $request->keterangan[$i],
+                        "foto_mobil" => $kondisi_mobil,
+                    ]);
+                }
+            });
+        } catch (\ErrorException $th) {
+            return redirect("transaksi-tambah")
+                ->with("error", "Silahkan Coba lagi");
+        }
+
+        return redirect("transaksi")->with("success", "Berhasil Update");
+    }
+
+    // Delete Action
     public function delete_transaksi($id)
     {
         try {
@@ -254,6 +350,31 @@ class TransaksiController extends Controller
         return $file_path;
     }
 
+    public function updateImage($request, $name, $path, $db, $id)
+    {
+        $data = DB::table($db)->where('id', $id)->first();
+        $oldFilePath = $data->$name;
+
+        if ($request->file($name) != null) {
+            $file = $request->file($name);
+            $file_type = $file->getClientOriginalExtension();
+            $file_name =  uniqid() . '.' . $file_type;
+            $file_path =  $path . '/' . $file_name;
+
+            // Detele Old File
+            if ($data->$name) {
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
+            }
+
+            $file->move($path, $file_name);
+            return $file_path;
+        } else {
+            return $oldFilePath;
+        }
+    }
+
     public function saveImageMultiple($request, $name, $path, $i)
     {
         $file = $request->file($name)[$i];
@@ -263,6 +384,28 @@ class TransaksiController extends Controller
         $file->move($path, $file_name);
 
         return $file_path;
+    }
+
+    public function updateImageMultiple($request, $name, $path, $i, $db, $id, $foregnIdName)
+    {
+        $data =  DB::table($db)->where($foregnIdName, $id)->pluck($name);
+        $oldFilePath = $data[$i];
+        if ($request->$name != null) {
+            $file = $request->file($name)[$i];
+            $file_type = $file->getClientOriginalExtension();
+            $file_name =  uniqid() . '.' . $file_type;
+            $file_path =  $path . '/' . $file_name;
+            if ($data[$i]) {
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
+            }
+
+            $file->move($path, $file_name);
+            return $file_path;
+        }
+
+        return $oldFilePath;
     }
 
     public function tanda_tangan_index($id)
@@ -275,29 +418,27 @@ class TransaksiController extends Controller
         ]);
     }
 
-    public function update_tanda_tangan(Request $request)
+    public function update_tanda_tangan($request)
     {
-        $folderPath = public_path('tanda_tangan/');
-        $image_parts = explode(";base64,", $request->signed);
-        $image_type_aux = explode("image/", $image_parts[0]);
-        $image_type = $image_type_aux[1];
-        $image_base64 = base64_decode($image_parts[1]);
-
-        $file = 'tanda_tangan/' . uniqid() . '.' . $image_type;
-
         $transaksi = DB::table('transaksi')->where('id', $request->id)->first();
-        if ($transaksi->foto_ttd) {
-            $oldFilePath = public_path($transaksi->foto_ttd);
-            if (file_exists($oldFilePath)) {
-                unlink($oldFilePath);
+        $oldFilePath = $transaksi->tanda_tangan;
+        if ($request->tanda_tangan != null) {
+            $image_parts = explode(";base64,", $request->tanda_tangan);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+
+            $file = 'tanda_tangan/' . uniqid() . '.' . $image_type;
+
+            if ($transaksi->tanda_tangan) {
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
             }
+            file_put_contents($file, $image_base64);
+            return $file;
         }
-        DB::table('transaksi')
-            ->where('id', $request->id)
-            ->update([
-                'foto_ttd' => $file
-            ]);
-        file_put_contents($file, $image_base64);
-        return redirect("transaksi");
+
+        return $oldFilePath;
     }
 }

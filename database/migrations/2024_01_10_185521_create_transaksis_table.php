@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string("no_sim");
             $table->string("foto_sim");
             $table->string("tanda_tangan");
-            $table->date("tanggal_sewa");
+            $table->timestamp("tanggal_sewa");
             $table->date("waktu_pengambilan");
             $table->string("lokasi_pengambilan");
             $table->boolean("driver")->default(0);

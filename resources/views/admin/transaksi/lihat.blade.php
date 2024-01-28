@@ -24,6 +24,7 @@
                                         <th>Nama Kendaraan</th>
                                         <th>Plat Kendaraan</th>
                                         <th>Detail</th>
+                                        <th>Tanggal Sewa</th>
                                         <th>Action</th>
                                         <th>Invoice</th>
                                     </tr>
@@ -35,6 +36,7 @@
 
                                             <td><a href="{{ asset('/transaksi/detail_transaksi/' . $row->id) }}">Lihat
                                                     Detail</a></td>
+                                            <td>{{ $row->tanggal_sewa }}</td>
                                             <td><a href="{{ asset('transaksi/delete/' . $row->id) }}"
                                                     class="btn btn-danger">Hapus</a><a
                                                     href="{{ asset('/transaksi/update/' . $row->id) }}"

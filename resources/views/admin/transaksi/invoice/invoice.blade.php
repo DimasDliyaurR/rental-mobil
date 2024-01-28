@@ -210,7 +210,7 @@
                     <tr>
                         <td><strong>Total</strong></td>
                         <td><strong>Rp.
-                                {{ $transaksi->harga_sewa * $transaksi->durasi + ($transaksi->biaya_supir != null ? $transaksi->biaya_supir : 0) }},-</strong>
+                                {{ number_format($transaksi->harga_sewa * $transaksi->durasi + ($transaksi->biaya_supir != null ? $transaksi->biaya_supir : 0), 0, ',', '.') }},-</strong>
                         </td>
                     </tr>
                 </tbody>

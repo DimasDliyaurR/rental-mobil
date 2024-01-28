@@ -33,7 +33,8 @@ Route::controller(TransaksiController::class)->group(function () {
     Route::get("/transaksi/invoice/{id}", "invoice")->name('tansaksi-invoice');
 
     // Update
-    Route::get("/transaksi/update/{id}", "update_index")->name('transaksi-update');
+    Route::get("/transaksi/update/{id}", "update_index")->name('transaksi-update-index');
+    Route::post("/transaksi/update", "update_transaksi")->name('transaksi-update');
 });
 
 Route::controller(PengeluaranController::class)->group(function () {
