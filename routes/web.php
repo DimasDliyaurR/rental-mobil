@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\KendaraanController;
+use App\Http\Controllers\KreditDebitController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
@@ -25,13 +26,20 @@ Route::controller(TransaksiController::class)->group(function () {
     Route::get("/transaksi-tambah", "tambah_index")->name('tansaksi-tambah');
     Route::post("/transaksi-tambah/tambah", "tambah_transaksi");
 
+    // Delete
+    Route::get("/transaksi/delete/{id}", "delete_transaksi")->name('tansaksi-delete');
+
     //Invoice
     Route::get("/transaksi/invoice/{id}", "invoice")->name('tansaksi-invoice');
+
+    // Update
+    Route::get("/transaksi/update/{id}", "update_index")->name('transaksi-update');
 });
 
 Route::controller(PengeluaranController::class)->group(function () {
     Route::get("/pengeluaran", "index")->name('pengeluaran.lihat');
     Route::get("/pengeluaran-tambah", "tambah_index")->name('pengeluaran.tambah');
+    Route::post("/pengeluaran-tambah/tambah", "tambah_pengeluaran")->name('pengeluaran.tambah');
 
     // Tambah
 });
@@ -42,4 +50,8 @@ Route::controller(KendaraanController::class)->group(function () {
     Route::post("/kendaraan-tambah/tambah", "tambah_kendaraan");
     Route::get("/kendaraan-tambah/brand", "brand_index")->name('kendaraan.brand');
     Route::post("/kendaraan-tambah/tambah-brand", "tambah_brand")->name('kendaraan.brand.tambah');
+});
+
+Route::controller(KreditDebitController::class)->group(function () {
+    Route::get("/kredit-debit", "index");
 });

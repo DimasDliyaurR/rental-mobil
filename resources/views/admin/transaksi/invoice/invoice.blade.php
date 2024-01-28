@@ -200,10 +200,11 @@
                         <td>Rp. {{ number_format($transaksi->harga_sewa * $transaksi->durasi, 0, ',', '.') }},-
                         </td>
                     </tr>
-                    @if ($transaksi->biaya_supir != null)
+                    {{ $transaksi->biaya_supir }}
+                    @if ($transaksi->driver == 1)
                         <tr>
                             <td>Biaya Supir</td>
-                            <td>Rp. {{ $transaksi->biaya_supir }},-</td>
+                            <td>Rp. {{ number_format($transaksi->biaya_supir, 0, ',', '.') }},-</td>
                         </tr>
                     @endif
                     <tr>

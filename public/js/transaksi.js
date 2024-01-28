@@ -20,15 +20,17 @@ function addKondisiMobil() {
 }
 
 $(document).ready(() => {
-    $("#p").hide();
 
     $("#driver-iya").on("change", () => {
-        $("#p").show(500);
+        var parent = $("<div class='mb-3 card w-screen p-2' id='p' style='background-color: #B4D8E8 ;color: #0a7cad;'></div>");
+        var label = $("<label class='form-label' for='biaya_supir' name='biaya_supir' placeholder='Silahkan Isi Biaya Supir' id='biaya_supir'>Biaya Supir</label>");
+        var input = $("<input class='form-control' name='biaya_supir'>");
+
+        var form = parent.append(label, input);
+        var formFinish = $("#driver").after(form);
     });
 
     $("#driver-tidak").on("change", () => {
-        $("#p").hide(500);
-
-
+        $("#p").remove();
     });
 });

@@ -50,6 +50,18 @@
             width: 100%;
             height: auto;
         }
+
+        @media only screen and (max-width:300px) {
+            .kbw-signature {
+                width: 60vw;
+                height: 200px;
+            }
+
+            #sig canvas {
+                width: 100%;
+                height: auto;
+            }
+        }
     </style>
 </head>
 

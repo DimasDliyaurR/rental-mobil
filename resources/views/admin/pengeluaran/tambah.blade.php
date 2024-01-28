@@ -9,7 +9,19 @@
                         <div class="card-header">
                             <h1>{{ $title }}</h1>
                             <div class="overflow-visible" style="width: 10wv">
-                                <form action="">
+                                @if (session()->has('success'))
+                                    <div class="form-text bg-green rounded p-2">
+                                        {{ session('success') }}
+                                    </div>
+                                @elseif(session()->has('error'))
+                                    <div class="alert-error">
+                                        <div class="form-text bg-danger rounded p-2">
+                                            {{ session('error') }}
+                                        </div>
+                                    </div>
+                                @endif
+                                <form action="{{ asset('/pengeluaran-tambah/tambah') }}" method="POST">
+                                    @csrf
                                     {{-- Nama Pengeluaran --}}
 
                                     <div class="mb-3">

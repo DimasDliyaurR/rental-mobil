@@ -9,30 +9,36 @@
                         <div class="card-header">
                             <h1>{{ $title }}</h1>
                             <div class="overflow-visible" style="width: 10wv">
+                                @if (session()->has('success'))
+                                    <div class="bg-green rounded p-2">
+                                        {{ session('success') }}
+                                    </div>
+                                @elseif(session()->has('error'))
+                                    <div class="bg-danger rounded p-2">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
                                 <table class="table table-bordered" style="width: 10w">
                                     <tr>
-                                        <th>Nama Brand</th>
-                                        <th>Nama Merek</th>
                                         <th>Penyewa</th>
-                                        <th>Data Diri</th>
+                                        <th>Nama Kendaraan</th>
+                                        <th>Plat Kendaraan</th>
                                         <th>Detail</th>
-                                        <th>Tanda Tangan</th>
                                         <th>Action</th>
                                         <th>Invoice</th>
                                     </tr>
                                     @foreach ($data as $row)
                                         <tr>
-                                            <td>{{ $row->nama_brand }}</td>
-                                            <td>{{ $row->nama_merek }}</td>
                                             <td>{{ $row->nama_penyewa }}</td>
-                                            <td><a href="{{ asset('/transaksi/data_diri/' . $row->id) }}">Lihat
-                                                    detail</a>
-                                            </td>
+                                            <td>{{ $row->nama_merek . ' ' . $row->nama_brand }}</td>
+                                            <td>{{ $row->plat }}</td>
+
                                             <td><a href="{{ asset('/transaksi/detail_transaksi/' . $row->id) }}">Lihat
                                                     Detail</a></td>
-                                            <td><img src="{{ asset($row->tanda_tangan) }}" alt="Foto Tanda Tangan"></td>
-                                            <td><a href="#" class="btn btn-danger mx-3">Hapus</a><a
-                                                    href="{{ asset($row->id) }}" class="btn btn-info">update</a></td>
+                                            <td><a href="{{ asset('transaksi/delete/' . $row->id) }}"
+                                                    class="btn btn-danger">Hapus</a><a
+                                                    href="{{ asset('/transaksi/update/' . $row->id) }}"
+                                                    class="btn btn-info">update</a></td>
                                             <td><a href="{{ asset('transaksi/invoice/' . $row->id) }}"
                                                     class="btn btn-info">Invoice</a></td>
                                         </tr>

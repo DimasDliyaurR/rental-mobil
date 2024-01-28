@@ -29,6 +29,7 @@ class Transaksi extends Model
         "foto_sim",
         "tanda_tangan",
         "tanggal_sewa",
+        "biaya_supir",
         "waktu_pengambilan",
         "lokasi_pengambilan",
         "driver",

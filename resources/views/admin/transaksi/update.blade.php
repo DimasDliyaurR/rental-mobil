@@ -20,16 +20,16 @@
                                         </div>
                                     </div>
                                 @endif
-                                <form action="{{ asset('transaksi-tambah/tambah') }}" method="post"
-                                    enctype="multipart/form-data">
+                                <form action="{{ asset('') }}" method="post" enctype="multipart/form-data">
                                     @csrf
-
                                     {{-- Foto Penyewa --}}
                                     <div class="mb-3">
                                         <div class="mb-3">
                                             <label for="foto_penyewa" class="form-label">Foto Penyewa</label>
                                             <input type="file" id="formFileLg" name="foto_penyewa"
                                                 class="form-control form-control-lg" multiple>
+                                            <img src="{{ asset($data->foto_penyewa) }}" class="img-fluid img-thumbnail"
+                                                alt="Foto Penyewa" style="object-fit: cover; width: 200px;height: 300px;">
                                         </div>
                                         @error('foto_penyewa')
                                             <span class="form-text text-danger">
@@ -43,7 +43,7 @@
                                         <div class="mb-3">
                                             <label for="nama_penyewa" class="form-label">Nama Penyewa</label>
                                             <input type="text" name="nama_penyewa" class="form-control"
-                                                value="{{ old('nama_penyewa') }}">
+                                                value="{{ $data->nama_penyewa }}">
                                         </div>
                                         @error('nama_penyewa')
                                             <span class="form-text text-danger">
@@ -57,7 +57,7 @@
                                         <div class="mb-3">
                                             <label for="no_telp" class="form-label">Nomor Telepon</label>
                                             <input type="text" id="no_telp" name="no_telp" class="form-control"
-                                                value="{{ old('no_telp') }}">
+                                                value="{{ $data->no_telp }}">
                                         </div>
                                         @error('no_telp')
                                             <span class="form-text text-danger">
@@ -71,7 +71,7 @@
                                         <div class="mb-3">
                                             <label for="alamat" class="form-label">Alamat Pembeli</label>
                                             <input type="text" id="alamat" name="alamat" class="form-control"
-                                                value="{{ old('alamat') }}">
+                                                value="{{ $data->alamat }}">
                                         </div>
                                         @error('alamat')
                                             <span class="form-text text-danger">
@@ -85,7 +85,7 @@
                                         <div class="mb-3">
                                             <label for="no_ktp" class="form-label">Nomor KTP</label>
                                             <input type="text" id="no_ktp" name="no_ktp" class="form-control"
-                                                value="{{ old('no_ktp') }}">
+                                                value="{{ $data->no_ktp }}">
                                         </div>
                                         @error('no_ktp')
                                             <span class="form-text text-danger">
@@ -99,7 +99,10 @@
                                         <div class="mb-3">
                                             <label for="foto_ktp" class="form-label">Foto KTP</label>
                                             <input type="file" id="foto_ktp" name="foto_ktp"
-                                                class="form-control form-control-lg" multiple>
+                                                value="{{ $data->foto_ktp }}" class="form-control form-control-lg"
+                                                multiple>
+                                            <img src="{{ asset($data->foto_ktp) }}" class="img-fluid img-thumbnail"
+                                                alt="Foto KTP" style="object-fit: cover; width: 200px;height: 100px;">
                                         </div>
                                         @error('foto_ktp')
                                             <span class="form-text text-danger">
@@ -113,7 +116,7 @@
                                         <div class="mb-3">
                                             <label for="no_sim" class="form-label">Nomor SIM</label>
                                             <input type="text" id="no_sim" name="no_sim" class="form-control"
-                                                value="{{ old('no_sim') }}">
+                                                value="{{ $data->no_sim }}">
                                         </div>
                                         @error('no_sim')
                                             <span class="form-text text-danger">
@@ -127,7 +130,11 @@
                                         <div class="mb-3">
                                             <label for="foto_sim" class="form-label">Foto SIM</label>
                                             <input type="file" id="foto_sim" name="foto_sim"
-                                                class="form-control form-control-lg" multiple>
+                                                value="{{ $data->foto_sim }}" class="form-control form-control-lg"
+                                                multiple>
+                                            <img src="{{ asset($data->foto_sim) }}" class="img-fluid img-thumbnail"
+                                                alt="Foto SIM" width="540" height="540"
+                                                style="object-fit: cover; width: 200px;height: 100px;">
                                         </div>
                                         @error('foto_sim')
                                             <span class="form-text text-danger">
@@ -145,10 +152,11 @@
                                         <div class="mb-3">
                                             <label for="kendaraan" class="form-label">Kendaraan</label>
                                             <select type="email" class="form-control" id="kendaraan" name="kendaraan">
-                                                <option selected disabled> -- Pilih Kendaraan -- </option>
+                                                <option disabled> -- Pilih Kendaraan -- </option>
                                                 @foreach ($kendaraan as $row)
                                                     <option value="{{ $row->id }}">
                                                         {{ $row->nama_merek }}||{{ $row->plat }}
+                                                        {{ $data->kendaraan_id == $row->id ? 'selected' : '' }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -166,7 +174,7 @@
                                             <label for="waktu_pengambilan" class="form-label">Waktu
                                                 Pengambilan</label>
                                             <input class="form-control" id="waktu_pengambilan" type="date"
-                                                name="waktu_pengambilan" value="{{ old('waktu_pengambilan') }}">
+                                                name="waktu_pengambilan" value="{{ $data->waktu_pengambilan }}">
                                         </div>
                                         @error('waktu_pengambilan')
                                             <span class="form-text text-danger">
@@ -180,7 +188,7 @@
                                         <div class="mb-3">
                                             <label for="lokasi_pengambilan" class="form-label">Lokasi Pengambilan</label>
                                             <input class="form-control" id="lokas_pengambilan" name="lokasi_pengambilan"
-                                                value="{{ old('lokasi_pengambilan') }}">
+                                                value="{{ $data->lokasi_pengambilan }}">
                                         </div>
                                         @error('lokasi_pengembalian')
                                             <span class="form-text text-danger">
@@ -190,16 +198,16 @@
                                     </div>
 
                                     {{-- Driver --}}
-                                    <div class="mb-3" id="driver">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="driver" id="driver">
+                                    <div class="mb-3">
+                                        <div class="mb-3" id="driver">
+                                            <label class="form-label" for="driver">
                                                 Memakai Driver atau tidak ?
                                             </label>
 
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="driver"
                                                     value="1" id="driver-iya"
-                                                    {{ old('driver') !== null && old('driver') == 1 ? 'checked' : '' }}>
+                                                    {{ $data->driver !== null && $data->driver == 1 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="flexRadioDefault1">
                                                     Iya
                                                 </label>
@@ -207,7 +215,7 @@
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="driver"
                                                     value="0" id="driver-tidak"
-                                                    {{ old('driver') !== null && old('driver') == 0 ? 'checked' : '' }}>
+                                                    {{ $data->driver !== null && $data->driver == 0 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="flexRadioDefault2">
                                                     Tidak
                                                 </label>
@@ -219,6 +227,16 @@
                                             </span>
                                         @enderror
 
+                                        @if ($data->biaya_supir != null)
+                                            <div class="mb-3 card w-screen p-2" id="p"
+                                                style="background-color: rgb(180, 216, 232); color: rgb(10, 124, 173);">
+                                                <label class="form-table" for="biaya_supir">
+                                                    Biaya Supir
+                                                </label>
+                                                <input type="text" class="form-control" name="biaya_supir"
+                                                    id="biaya_supir" value="{{ $data->biaya_supir }}">
+                                            </div>
+                                        @endif
                                     </div>
 
                                     {{-- Durasi --}}
@@ -227,7 +245,7 @@
                                             <label class="form-label" for="durasi">
                                                 Durasi (h)
                                             </label>
-                                            <input class="form-control" name="durasi">
+                                            <input class="form-control" name="durasi" value="{{ $data->durasi }}">
                                         </div>
                                         @error('durasi')
                                             <span class="form-text text-danger">
@@ -243,7 +261,10 @@
                                                 Foto BBM
                                             </label>
                                             <input class="form-control form-control-lg" name="foto_bbm" type="file"
-                                                id="formFileLg" multiple>
+                                                value="{{ $data->foto_bbm }}" id="formFileLg" multiple>
+                                            <img src="{{ asset($data->foto_kondisi_bbm) }}"
+                                                class="img-fluid img-thumbnail" alt="Foto Kondisi BBM" width="540"
+                                                height="540" style="object-fit: cover; width: 200px;height: 100px;">
                                         </div>
                                         @error('foto_bbm')
                                             <span class="form-text text-danger">
@@ -272,37 +293,46 @@
                                                             <div class="btn btn-info rounded" id="add"
                                                                 onclick="addKondisiMobil()">Add +</div>
                                                         </div>
-                                                        <div class="" id="form-kondisi-mobil">
-                                                            {{-- Koondisi Mobil --}}
-                                                            <div class="mb-3">
-                                                                <hr class="border border-secondary border-2 opacity-50">
-                                                                <div class="mb-3" id="kondisi-mobil">
-                                                                    <label class="form-label" for="kondisi_mobil">Kondisi
-                                                                        Mobil</label>
-                                                                    <input class="form-control form-control"
-                                                                        name="kondisi_mobil[]" type="file"
-                                                                        id="formFile" multiple>
-                                                                    @error('kondisi_mobil')
-                                                                        <span class="form-text text-danger">
-                                                                            {{ $message }}
-                                                                        </span>
-                                                                    @enderror
-                                                                </div>
-                                                                <div class="mb-3" id="keterangan-kondisi-mobil">
-                                                                    <label
-                                                                        for="keterangan[]"class="form-label">Keterangan</label>
-                                                                    <input type="text" class="form-control"
-                                                                        id="keterangan" name="keterangan[]"
-                                                                        value="{{ old('keterangan[]') }}">
-                                                                    @error('keterangan')
-                                                                        <span class="form-text text-danger">
-                                                                            {{ $message }}
-                                                                        </span>
-                                                                    @enderror
+
+                                                        @foreach ($detail_foto_mobil as $row)
+                                                            <div class="" id="form-kondisi-mobil">
+                                                                {{-- Koondisi Mobil --}}
+                                                                <div class="mb-3">
+                                                                    <hr
+                                                                        class="border border-secondary border-2 opacity-50">
+                                                                    <div class="mb-3" id="kondisi-mobil">
+                                                                        <label class="form-label"
+                                                                            for="kondisi_mobil">Kondisi
+                                                                            Mobil</label>
+                                                                        <input class="form-control form-control"
+                                                                            name="kondisi_mobil[]" type="file"
+                                                                            id="formFile" multiple>
+                                                                        @error('kondisi_mobil')
+                                                                            <span class="form-text text-danger">
+                                                                                {{ $message }}
+                                                                            </span>
+                                                                        @enderror
+                                                                        <img src="{{ asset($row->foto_mobil) }}"
+                                                                            class="img-fluid img-thumbnail"
+                                                                            alt="Foto Mobil" width="540"
+                                                                            height="540"
+                                                                            style="object-fit: cover; width: 200px;height: 100px;">
+                                                                    </div>
+                                                                    <div class="mb-3" id="keterangan-kondisi-mobil">
+                                                                        <label
+                                                                            for="keterangan[]"class="form-label">Keterangan</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="keterangan" name="keterangan[]"
+                                                                            value="{{ $row->keterangan }}">
+                                                                        @error('keterangan')
+                                                                            <span class="form-text text-danger">
+                                                                                {{ $message }}
+                                                                            </span>
+                                                                        @enderror
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-
+                                                        @endforeach
                                                     </div>
                                                 </div>
                                             </div>
@@ -315,7 +345,8 @@
                                             <label class="form-label" for="jumlah_bbm">
                                                 Jumlah BBM
                                             </label>
-                                            <input class="form-control form-control-lg" name="jumlah_bbm">
+                                            <input class="form-control form-control-lg" name="jumlah_bbm"
+                                                value="{{ $data->jumlah_bbm }}">
                                         </div>
                                         @error('jumlah_bbm')
                                             <span class="form-text text-danger">
@@ -338,7 +369,12 @@
                                                     {{ $message }}
                                                 </span>
                                             @enderror
+
                                         </div>
+                                        <div class="mb-3">
+                                            <img src="{{ asset($data->tanda_tangan) }}" alt="foto Tanda tangan">
+                                        </div>
+
                                     </div>
 
                                     <button class="btn btn-primary">Submit</button>

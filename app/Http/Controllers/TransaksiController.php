@@ -20,9 +20,11 @@ class TransaksiController extends Controller
     public function index()
     {
         $data = DB::table("transaksi")
+            ->select("transaksi.*", "brand_kendaraan.nama_brand", "brand_kendaraan.nama_merek", "kendaraan.plat")
             ->join("kendaraan", "transaksi.kendaraan_id", "=", "kendaraan.id")
             ->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id")
             ->get();
+        // dd($data);
 
         return view("admin.transaksi.lihat", [
             "title" => "Transaksi",
@@ -33,27 +35,42 @@ class TransaksiController extends Controller
 
     public function tambah_index()
     {
+
+
         $kendaraan = DB::table("kendaraan")
             ->select("kendaraan.id", "kendaraan.plat", "brand_kendaraan.nama_brand", "brand_kendaraan.nama_merek")
             ->join("brand_kendaraan", "brand_kendaraan.id", "=", "kendaraan.brand_kendaraan_id")
+            ->where("kendaraan.status", "=", "Tidak Terpakai")
             ->get();
 
         return view('admin.transaksi.tambah', [
             "title" => "Transaksi",
             "action" => "tambah_transaksi",
             "kendaraan" => $kendaraan,
-            "kendaraan_find" => Kendaraan::class,
         ]);
     }
 
-    // Route End
-
-    public function data_diri($id)
+    public function update_index($id)
     {
-        $data = Transaksi::find($id);
+        $data = Transaksi::findOrFail($id);
 
-        return dd($data);
+        $detail_foto_mobil = Detail_foto_mobil::whereTransaksiId($id)->get();
+
+        $kendaraan = DB::table("kendaraan")
+            ->select("kendaraan.id", "kendaraan.plat", "brand_kendaraan.nama_brand", "brand_kendaraan.nama_merek")
+            ->join("brand_kendaraan", "brand_kendaraan.id", "=", "kendaraan.brand_kendaraan_id")
+            ->where("kendaraan.status", "=", "Tidak Terpakai")
+            ->get();
+
+        return view('admin.transaksi.update', [
+            "title" => "Transaksi",
+            "action" => "tambah_transaksi",
+            "kendaraan" => $kendaraan,
+            "detail_foto_mobil" => $detail_foto_mobil,
+            "data" => $data,
+        ]);
     }
+
 
     public function detail_transaksi($id)
     {
@@ -64,7 +81,6 @@ class TransaksiController extends Controller
     // Transaksi Action
     public function tambah_transaksi(Request $request)
     {
-        // dd($request->all());
         $validation = $request->validate([
             "kendaraan" => "required",
             "foto_penyewa" => "required|image|max:10240",
@@ -88,90 +104,114 @@ class TransaksiController extends Controller
             "*.image" => "Tipe file tidak valid",
         ]);
 
-        // try {
-        DB::transaction(function () use ($request, $validation) {
-            $tanggal_sewa_unix = time();
-            $tanggal_sewa = date("Y-m-d", time());
-            $waktu_pengambilan = strtotime($request->waktu_pengambilan);
-            $durasi = $request->durasi * 86400;
-            $tanggal_kembali = date("Y-m-d", $waktu_pengambilan + $durasi);
-            $waktu_kembali = date("h:i:s", $tanggal_sewa_unix - (3600 * 5));
 
-            // dd($tanggal_sewa, $waktu_pengambilan, $durasi, $request->durasi, $tanggal_kembali, $waktu_kembali);
 
-            if ($request->driver == 1) {
-                $request->validate([
-                    "biaya_supir" => "required",
-                ], [
-                    "*.required" => ":attribute Belum diisi",
+        try {
+            DB::transaction(function () use ($request, $validation) {
+                $tanggal_sewa_unix = time();
+                $tanggal_sewa = date("Y-m-d", time());
+                $waktu_pengambilan = strtotime($request->waktu_pengambilan);
+                $durasi = $request->durasi * 86400;
+                $tanggal_kembali = date("Y-m-d", $waktu_pengambilan + $durasi);
+                $waktu_kembali = date("h:i:s", $tanggal_sewa_unix - (3600 * 5));
+
+                // dd($tanggal_sewa, $waktu_pengambilan, $durasi, $request->durasi, $tanggal_kembali, $waktu_kembali);
+
+                $penyewa = $this->saveImage($request, "foto_penyewa", "penyewa");
+                $ktp = $this->saveImage($request, "foto_ktp", "ktp");
+                $sim = $this->saveImage($request, "foto_sim", "sim");
+                $bbm = $this->saveImage($request, "foto_bbm", "bbm");
+
+                $folderPath = public_path('tanda_tangan/');
+                $image_parts = explode(";base64,", $request->tanda_tangan);
+                $image_type_aux = explode("image/", $image_parts[0]);
+                $image_type = $image_type_aux[1];
+                $image_base64 = base64_decode($image_parts[1]);
+
+                $file = 'tanda_tangan/' . uniqid() . '.' . $image_type;
+
+                // dd(["alamat" => $request->alamat]);
+                $transaksi = Transaksi::create([
+                    "kendaraan_id" => $request->kendaraan,
+                    "foto_penyewa" => $penyewa,
+                    "nama_penyewa" => $request->nama_penyewa,
+                    "no_telp" => $request->no_telp,
+                    "alamat" => $request->alamat,
+                    "no_ktp" => $request->no_ktp,
+                    "foto_ktp" => $ktp,
+                    "no_sim" => $request->no_sim,
+                    "foto_sim" => $sim,
+                    "tanda_tangan" => $file,
+                    "tanggal_sewa" => $tanggal_sewa,
+                    "waktu_pengambilan" => $request->waktu_pengambilan,
+                    "lokasi_pengambilan" => $request->lokasi_pengambilan,
+                    "driver" => $request->driver,
+                    "biaya_supir" => $request->biaya_supir,
+                    "durasi" => $request->durasi,
+                    "tanggal_kembali" => $tanggal_kembali,
+                    "waktu_kembali" => $waktu_kembali,
+                    "foto_kondisi_bbm" => $bbm,
+                    "jumlah_bbm" => $request->jumlah_bbm,
                 ]);
-            }
-
-            $penyewa = $this->saveImage($request, "foto_penyewa", "penyewa");
-            $ktp = $this->saveImage($request, "foto_ktp", "ktp");
-            $sim = $this->saveImage($request, "foto_sim", "sim");
-            $bbm = $this->saveImage($request, "foto_bbm", "bbm");
-
-            $folderPath = public_path('tanda_tangan/');
-            $image_parts = explode(";base64,", $request->tanda_tangan);
-            $image_type_aux = explode("image/", $image_parts[0]);
-            $image_type = $image_type_aux[1];
-            $image_base64 = base64_decode($image_parts[1]);
-
-            $file = 'tanda_tangan/' . uniqid() . '.' . $image_type;
-
-            // dd(["alamat" => $request->alamat]);
-            $transaksi = Transaksi::create([
-                "kendaraan_id" => $request->kendaraan,
-                "foto_penyewa" => $penyewa,
-                "nama_penyewa" => $request->nama_penyewa,
-                "no_telp" => $request->no_telp,
-                "alamat" => $request->alamat,
-                "no_ktp" => $request->no_ktp,
-                "foto_ktp" => $ktp,
-                "no_sim" => $request->no_sim,
-                "foto_sim" => $sim,
-                "tanda_tangan" => $file,
-                "tanggal_sewa" => $tanggal_sewa,
-                "waktu_pengambilan" => $request->waktu_pengambilan,
-                "lokasi_pengambilan" => $request->lokasi_pengambilan,
-                "driver" => $request->driver,
-                "biaya_supir" => $request->biaya_supir,
-                "durasi" => $request->durasi,
-                "tanggal_kembali" => $tanggal_kembali,
-                "waktu_kembali" => $waktu_kembali,
-                "foto_kondisi_bbm" => $bbm,
-                "jumlah_bbm" => $request->jumlah_bbm,
-            ]);
-            $keterangan = $request->keterangan;
+                $keterangan = $request->keterangan;
 
 
-            for ($i = 0; $i < count($keterangan); $i++) {
-                $kondisi_mobil = $this->saveImageMultiple($request, "kondisi_mobil", "foto_kondisi_mobil", $i);
+                for ($i = 0; $i < count($keterangan); $i++) {
+                    $kondisi_mobil = $this->saveImageMultiple($request, "kondisi_mobil", "foto_kondisi_mobil", $i);
 
-                $kondisi = Detail_foto_mobil::create([
-                    "transaksi_id" => $transaksi->id,
-                    "keterangan" => $request->keterangan[$i],
-                    "foto_mobil" => $kondisi_mobil,
-                ]);
-            }
+                    $kondisi = Detail_foto_mobil::create([
+                        "transaksi_id" => $transaksi->id,
+                        "keterangan" => $request->keterangan[$i],
+                        "foto_mobil" => $kondisi_mobil,
+                    ]);
+                }
 
 
-            $kendaraan = DB::table("kendaraan")
-                ->where('id', $request->kendaraan)
-                ->update([
-                    "status" => "Sudah Terpakai"
-                ]);
+                $kendaraan = DB::table("kendaraan")
+                    ->where('id', $request->kendaraan)
+                    ->update([
+                        "status" => "Sudah Terpakai"
+                    ]);
 
-            file_put_contents($file, $image_base64);
-        });
-        // } catch (\ErrorException $th) {
-        // return redirect("transaksi-tambah")
-        // ->with("error", "Silahkan Coba lagi , Jangan Lupa Mengisi Kondisi Mobil");
-        // }
+                file_put_contents($file, $image_base64);
+            });
+        } catch (\ErrorException $th) {
+            return redirect("transaksi-tambah")
+                ->with("error", "Silahkan Coba lagi , Jangan Lupa Mengisi Kondisi Mobil");
+        }
 
         return redirect("transaksi-tambah")
             ->with("success", "Transaksi Berhasil");
+    }
+
+    public function delete_transaksi($id)
+    {
+        try {
+
+            $transaksi = Transaksi::find($id);
+
+            $kondisi_mobil = Detail_foto_mobil::where("transaksi_id", $id)->get();
+
+            // dd($transaksi);
+            unlink($transaksi->foto_penyewa);
+            unlink($transaksi->foto_ktp);
+            unlink($transaksi->foto_sim);
+            unlink($transaksi->tanda_tangan);
+            unlink($transaksi->foto_kondisi_bbm);
+
+            foreach ($kondisi_mobil as $row) {
+                unlink($row->foto_mobil);
+            }
+            DB::table("kendaraan")->where("id", $transaksi->kendaraan_id)->update([
+                "status" => "Tidak Terpakai",
+            ]);
+            Transaksi::where('id', $id)->delete();
+        } catch (\Exception $th) {
+            return redirect("/transaksi")
+                ->with("error", "Gagal menghapus data");
+        }
+
+        return redirect("/transaksi")->with("success", "Delete Berhasil dilakukan");
     }
 
     public function invoice($id)
@@ -196,8 +236,6 @@ class TransaksiController extends Controller
             // $pdf = Pdf::loadHTML("<p>Test</p>");
             return $pdf->download("invoice.pdf");
         }
-
-        // dd($data);
 
         return view("admin.transaksi.invoice.invoice", [
             "transaksi" => $transaksi,

@@ -129,8 +129,8 @@
                 {{-- Unit Kendaraan End --}}
 
                 {{-- Beranda Start --}}
-                <li class="nav-item {{ $title == 'Beranda' ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ $title == 'Beranda' ? 'active' : '' }}">
+                <li class="nav-item {{ $title == 'Kredit Debit' ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fa-solid fa-chart-line"></i>
                         <p>
                             Beranda
@@ -139,7 +139,8 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ asset('/kredit-debit') }}"
+                                class="nav-link {{ $action == 'Kredit_Debit_Lihat' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Debit Kredit</p>
                             </a>
