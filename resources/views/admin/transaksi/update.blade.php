@@ -162,8 +162,10 @@
                                         <div class="mb-3">
                                             <label for="kendaraan" class="form-label">Kendaraan</label>
                                             <select type="email" class="form-control" id="kendaraan" name="kendaraan">
-                                                <option disabled> -- Pilih Kendaraan -- </option>
-                                                @foreach ($kendaraan as $row)
+                                                <option value='{{ $data->kendaraan_id }}' selected>-- Pilih
+                                                    Kendaraan --
+                                                </option>
+                                                @foreach ($kendaraan_field as $row)
                                                     <option value="{{ $row->id }}"
                                                         {{ $data->kendaraan_id == $row->id ? 'selected' : '' }}x>
                                                         {{ $row->nama_merek }}||{{ $row->plat }}
@@ -388,6 +390,11 @@
                                     </div>
 
                                     <button class="btn btn-primary">Submit</button>
+                                    @if ($kendaraan->status == 'Sudah Terpakai')
+                                        <a href="{{ asset('kendaraan/' . $data->kendaraan_id) }}"
+                                            class="btn btn-primary ml-1">Update Status
+                                            Kendaraan</a>
+                                    @endif
                                     {{-- Kendaraan Form End --}}
                                 </form>
                             </div>

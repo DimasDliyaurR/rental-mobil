@@ -62,9 +62,10 @@ class TransaksiController extends Controller
         return view('admin.transaksi.update', [
             "title" => "Update Transaksi",
             "action" => "update_transaksi",
-            "kendaraan" => $kendaraan,
+            "kendaraan_field" => $kendaraan,
             "detail_foto_mobil" => $detail_foto_mobil,
             "data" => $data,
+            "kendaraan" => $data->kendaraan,
         ]);
     }
 

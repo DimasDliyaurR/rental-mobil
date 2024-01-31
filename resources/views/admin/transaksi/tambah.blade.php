@@ -33,8 +33,8 @@
                                     <div class="mb-3">
                                         <div class="mb-3">
                                             <label for="foto_penyewa" class="form-label">Foto Penyewa</label>
-                                            <input type="file" id="formFileLg" name="foto_penyewa"
-                                                class="form-control form-control-lg" multiple>
+                                            <input type="file" accept="image/*" capture="camera" id="formFileLg"
+                                                name="foto_penyewa" class="form-control form-control-lg" multiple>
                                         </div>
                                         @error('foto_penyewa')
                                             <span class="form-text text-danger">
@@ -103,8 +103,8 @@
                                     <div class="mb-3">
                                         <div class="mb-3">
                                             <label for="foto_ktp" class="form-label">Foto KTP</label>
-                                            <input type="file" id="foto_ktp" name="foto_ktp"
-                                                class="form-control form-control-lg" multiple>
+                                            <input type="file" accept="image/*" capture="camera" id="foto_ktp"
+                                                name="foto_ktp" class="form-control form-control-lg" multiple>
                                         </div>
                                         @error('foto_ktp')
                                             <span class="form-text text-danger">
@@ -131,8 +131,8 @@
                                     <div class="mb-3">
                                         <div class="mb-3">
                                             <label for="foto_sim" class="form-label">Foto SIM</label>
-                                            <input type="file" id="foto_sim" name="foto_sim"
-                                                class="form-control form-control-lg" multiple>
+                                            <input type="file" accept="image/*" capture="camera" id="foto_sim"
+                                                name="foto_sim" class="form-control form-control-lg" multiple>
                                         </div>
                                         @error('foto_sim')
                                             <span class="form-text text-danger">
@@ -150,7 +150,9 @@
                                         <div class="mb-3">
                                             <label for="kendaraan" class="form-label">Kendaraan</label>
                                             <select type="email" class="form-control" id="kendaraan" name="kendaraan">
-                                                <option selected disabled> -- Pilih Kendaraan -- </option>
+                                                <option selected disabled hidden>
+                                                    {{ count($kendaraan) == 0 ? 'Kendaraan tidak ada yang tersedia' : ' -- Pilih Kendaraan -- ' }}
+                                                </option>
                                                 @foreach ($kendaraan as $row)
                                                     <option value="{{ $row->id }}">
                                                         {{ $row->nama_merek }}||{{ $row->plat }}
@@ -248,7 +250,8 @@
                                                 Foto BBM
                                             </label>
                                             <input class="form-control form-control-lg" name="foto_kondisi_bbm"
-                                                type="file" id="formFileLg" multiple>
+                                                type="file" accept="image/*" capture="camera" id="formFileLg"
+                                                multiple>
                                         </div>
                                         @error('foto_kondisi_bbm')
                                             <span class="form-text text-danger">
@@ -286,7 +289,8 @@
                                                                         Mobil</label>
                                                                     <input class="form-control form-control"
                                                                         name="kondisi_mobil[]" type="file"
-                                                                        id="formFile" multiple>
+                                                                        accept="image/*" capture="camera" id="formFile"
+                                                                        multiple>
                                                                     @error('kondisi_mobil')
                                                                         <span class="form-text text-danger">
                                                                             {{ $message }}

@@ -5,7 +5,7 @@ function addKondisiMobil() {
     var batas = $("<hr class='border border-secondary border-2 opacity-50'>");
     var labelKondisiMobil = $("<label class='form-label' for='kondisi_mobil'>Kondisi Mobil</label>");
     var inputKondisiMobil = $(
-        "<input class='form-control form-control' name='kondisi_mobil[]' type='file' id='formFile' multiple>"
+        "<input class='form-control form-control' name='kondisi_mobil[]' type='file' accept='image/*' capture='camera' id='formFile' multiple>"
     );
 
     var labelKeterangan = $('<label for="keterangan[]"class="form-label">Keterangan</label>');

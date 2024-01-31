@@ -14,7 +14,7 @@
                 <img src={{ asset('dist/img/user2-160x160.jpg') }} class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <a href="#" class="d-block">{{ Auth::user()->level }}</a>
             </div>
         </div>
 
@@ -75,13 +75,15 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ asset('pengeluaran') }}"
-                                class="nav-link {{ $action == 'lihat_pengeluaran' ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Daftar Pengeluaran</p>
-                            </a>
-                        </li>
+                        @if (auth()->user()->level == 'owner')
+                            <li class="nav-item">
+                                <a href="{{ asset('pengeluaran') }}"
+                                    class="nav-link {{ $action == 'lihat_pengeluaran' ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Daftar Pengeluaran</p>
+                                </a>
+                            </li>
+                        @endif
                         <li class="nav-item">
                             <a href="{{ asset('pengeluaran-tambah') }}"
                                 class="nav-link {{ $action == 'tambah_pengeluaran' ? 'active' : '' }}">
@@ -92,63 +94,66 @@
                     </ul>
                 </li>
                 {{-- Pengeluaran End --}}
+                @if (auth()->user()->level == 'owner')
+                    {{-- Unit Kendaraan Start --}}
+                    <li class="nav-item {{ $title == 'Kendaraan' ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ $title == 'Kendaraan' ? 'active' : '' }}">
+                            <i class="nav-icon fa-solid fa-car"></i>
+                            <p>
+                                Unit Kendaraan
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ asset('/kendaraan') }}"
+                                    class="nav-link {{ $action == 'lihat_kendaraan' ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Daftar Unit Kendaraan</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ asset('/kendaraan-tambah') }}"
+                                    class="nav-link {{ $action == 'tambah_kendaraan' ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Tambah Unit Kendaraan</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ asset('/kendaraan-tambah/brand') }}"
+                                    class="nav-link {{ $action == 'brand_kendaraan' ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Merek/Brand Kendaraan</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {{-- Unit Kendaraan End --}}
 
-                {{-- Unit Kendaraan Start --}}
-                <li class="nav-item {{ $title == 'Kendaraan' ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ $title == 'Kendaraan' ? 'active' : '' }}">
-                        <i class="nav-icon fa-solid fa-car"></i>
-                        <p>
-                            Unit Kendaraan
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ asset('/kendaraan') }}"
-                                class="nav-link {{ $action == 'lihat_kendaraan' ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Daftar Unit Kendaraan</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ asset('/kendaraan-tambah') }}"
-                                class="nav-link {{ $action == 'tambah_kendaraan' ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Tambah Unit Kendaraan</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ asset('/kendaraan-tambah/brand') }}"
-                                class="nav-link {{ $action == 'brand_kendaraan' ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Merek/Brand Kendaraan</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                {{-- Unit Kendaraan End --}}
-
-                {{-- Beranda Start --}}
-                <li class="nav-item {{ $title == 'Kredit Debit' ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa-solid fa-chart-line"></i>
-                        <p>
-                            Beranda
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ asset('/kredit-debit') }}"
-                                class="nav-link {{ $action == 'Kredit_Debit_Lihat' ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Debit Kredit</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                    {{-- Beranda Start --}}
+                    <li class="nav-item {{ $title == 'Kredit Debit' ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa-solid fa-chart-line"></i>
+                            <p>
+                                Beranda
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ asset('/kredit-debit') }}"
+                                    class="nav-link {{ $action == 'Kredit_Debit_Lihat' ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Debit Kredit</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
                 {{-- Beranda End --}}
             </ul>
+
+
         </nav>
     </div>
 </aside>

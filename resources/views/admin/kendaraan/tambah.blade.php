@@ -22,7 +22,9 @@
                                         <label for="nama_kendaraan" class="form-label">Nama Brand</label>
                                         <select class="form-control" id="nama_brand" name="nama_brand"
                                             value="{{ old('nama_brand') }}">
-                                            <option selected disabled>--Pilih--</option>
+                                            <option selected disabled hidden>
+                                                {{ count($brand) == 0 ? 'Kendaraan Tidak ada yang Tersedia' : '--Pilih--' }}
+                                            </option>
                                             @foreach ($brand as $row)
                                                 <option value="{{ $row->id }}">
                                                     {{ $row->nama_brand }} || {{ $row->nama_merek }}

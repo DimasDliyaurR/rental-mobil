@@ -102,12 +102,28 @@ class KendaraanController extends Controller
                 "harga_sewa" => $request->harga_sewa,
             ]);
         } catch (\Exception $th) {
-            // return redirect('kendaraan-tambah/brand')->with('error', 'Silahkan Coba Lagi');
+            // return redirect('kendaraan-tambah/brand')->with('error', 'Silakan Coba Lagi');
             dd(get_class($th));
         }
 
         $store = $file->move('brand', $file_name);
 
         return redirect("kendaraan-tambah/brand")->with("success", "Berhasil Menambahkan Brand " . $request->nama_kendaraan);
+    }
+
+    public function update_status($id)
+    {
+        $kendaraan = Kendaraan::findOrFail($id)->first();
+        try {
+            if ($kendaraan->status != null) {
+                DB::table("kendaraan")->whereId($id)->update([
+                    "status" => "Tidak Terpakai",
+                ]);
+
+                return redirect("kendaraan")->with("success", "Status Kendaraan dengan plat " . $kendaraan->plat . " berhasil diubah");
+            }
+        } catch (\Exception $th) {
+            return back()->with("error", "Ups Ada sesuatu yang salah");
+        }
     }
 }
