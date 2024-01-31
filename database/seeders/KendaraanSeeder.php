@@ -19,7 +19,7 @@ class KendaraanSeeder extends Seeder
 
         for ($i = 0; $i < 20; $i++) {
             DB::table('Kendaraan')->insert([
-                'nama_kendaraan' => $faker->word, // Faker::word akan menghasilkan kata acak
+                'brand_kendaraan_id' => $faker->numberBetween(1, 20), // Faker::word akan menghasilkan kata acak
                 'plat' => $faker->numerify('##-###-##'), // Faker::numerify akan menghasilkan nomor acak
                 'unit_available' => $faker->numberBetween(1, 50), // Faker::numberBetween akan menghasilkan angka acak dalam range tertentu
                 'tahun_mobil' => $faker->year,

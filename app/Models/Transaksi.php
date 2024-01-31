@@ -8,16 +8,36 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+
 class Transaksi extends Model
 {
     use HasFactory;
 
     protected $primarykey = "id_transaksi";
     protected $table = "Transaksi";
+    protected $dates = ["waktu_kembali", "tanggal_kembali", "waktu_pengambilan"];
 
     protected $fillable = [
-        'id_kendaraan',
-        'sub_total'
+        "kendaraan_id",
+        "foto_penyewa",
+        "nama_penyewa",
+        "no_telp",
+        "alamat",
+        "no_ktp",
+        "foto_ktp",
+        "no_sim",
+        "foto_sim",
+        "tanda_tangan",
+        "tanggal_sewa",
+        "biaya_supir",
+        "waktu_pengambilan",
+        "lokasi_pengambilan",
+        "driver",
+        "durasi",
+        "tanggal_kembali",
+        "waktu_kembali",
+        "foto_kondisi_bbm",
+        "jumlah_bbm",
     ];
 
     public function kendaraan(): BelongsTo
@@ -33,5 +53,10 @@ class Transaksi extends Model
     public function detail_transaksi(): HasMany
     {
         return $this->hasMany(Detail_transaksi::class, "transaksi_id");
+    }
+
+    public function detail_foto_mobil(): HasMany
+    {
+        return $this->hasMany(Detail_foto_mobil::class, "detail_transaksi_id");
     }
 }
