@@ -1,0 +1,154 @@
+/* FONT */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap");
+
+:root {
+    --body-bg: rgb(204, 204, 204);
+    --white: #fff;
+    --darkWhite: #ccc;
+    --black: #000;
+    --dark: #615c60;
+    --themeColor: #0a1f29;
+    --pageShadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+}
+
+body {
+    background-color: var(--body-bg);
+    font-weight: normal;
+}
+
+.page {
+    background: var(--white);
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: var(--pageShadow);
+}
+
+.page[size="A4"] {
+    width: 21cm;
+    height: fit-content;
+    overflow: hidden;
+    padding-bottom: 100px;
+}
+
+.bb {
+    border-bottom: 3px solid var(--darkWhite);
+}
+
+/* Top Section */
+.top-content {
+    padding-bottom: 15px;
+}
+
+.logo img {
+    height: 70px;
+}
+
+.mari-rent-car {
+    line-height: 5px;
+}
+
+.top-left h5 {
+    margin: 0;
+}
+
+.top-left .graphic-path {
+    height: 40px;
+    position: relative;
+}
+
+.top-left .graphic-path::before {
+    content: "";
+    height: 20px;
+    background-color: var(--dark);
+    position: absolute;
+    left: 15px;
+    right: 0;
+    top: -15px;
+    z-index: 2;
+}
+
+.top-left .graphic-path::after {
+    content: "";
+    height: 22px;
+    width: 17px;
+    background: black;
+    position: absolute;
+    top: -13px;
+    left: 6px;
+    transform: rotate(45deg);
+}
+
+.top-left .graphic-path h5 {
+    color: white;
+    height: 40px;
+    left: 0;
+    right: -100px;
+    text-transform: uppercase;
+    background-color: var(--themeColor);
+    font: 26px;
+    z-index: 3;
+    position: absolute;
+    padding-left: 10px;
+}
+
+.data-table td {
+    vertical-align: top;
+}
+
+.data-table td:first-child {
+    width: 100px;
+}
+
+.data-table td:nth-child(3) {
+    width: 400px;
+}
+
+.foto-user {
+    width: 110px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.foto-lampiran {
+    width: 200px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.invoice-details {
+    border: 1px solid #ddd;
+    padding: 20px;
+}
+
+.invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.invoice-table th,
+.invoice-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.invoice-header {
+    /* background-color: var(--themeColor); */
+    color: #a0a0a0;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.invoice-header h1 {
+    font-size: 2.5em;
+}
+
+.syarat-dan-ketentuan {
+    width: auto;
+}
+
+.namaTerang {
+    border-top: 1px solid #000;
+    padding-top: 5px;
+}

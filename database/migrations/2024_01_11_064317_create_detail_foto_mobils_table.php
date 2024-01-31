@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detail_foto_mobil', function (Blueprint $table) {
+        Schema::create('detail_foto_mobils', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("detail_transaksi_id")->nullable()->index("fk_detail_foto_mobil_to_detail_transaksi");
+            $table->foreignId("transaksi_id")->nullable()->index("fk_detail_foto_mobil_to_transaksi");
             $table->text("keterangan");
             $table->string("foto_mobil");
+            $table->timestamps();
         });
     }
 
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detail_foto_mobil');
+        Schema::dropIfExists('detail_foto_mobils');
     }
 };

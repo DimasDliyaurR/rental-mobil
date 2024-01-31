@@ -23,6 +23,7 @@ return new class extends Migration
             $table->time("waktu_kembali");
             $table->string("foto_kondisi_bbm");
             $table->string("jumlah_bbm");
+            $table->timestamps();
         });
     }
 

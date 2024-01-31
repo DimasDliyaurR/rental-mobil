@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('data_diri', function (Blueprint $table) {
-            $table->foreignId("transaksi_id");
+            $table->foreignId("transaksi_id")->unique();
             $table->string("foto_penyewa");
             $table->string("nama_penyewa");
             $table->string("no_telp");
