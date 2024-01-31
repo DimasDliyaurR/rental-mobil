@@ -36,7 +36,8 @@
 
                                             <td><a href="{{ asset('/transaksi/detail_transaksi/' . $row->id) }}">Lihat
                                                     Detail</a></td>
-                                            <td>{{ $row->tanggal_sewa }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($row->tanggal_sewa)) . ' ' . date('h:i:s', strtotime($row->waktu_kembali)) }}
+                                            </td>
                                             <td><a href="{{ asset('transaksi/delete/' . $row->id) }}"
                                                     class="btn btn-danger">Hapus</a><a
                                                     href="{{ asset('/transaksi/update/' . $row->id) }}"

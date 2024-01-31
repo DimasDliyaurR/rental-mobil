@@ -1,12 +1,14 @@
 <?php
 
-use App\Http\Controllers\KendaraanController;
-use App\Http\Controllers\KreditDebitController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\PengeluaranController;
-use App\Http\Controllers\TransaksiController;
 use FontLib\Table\Type\name;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\KendaraanController;
+use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\KreditDebitController;
+use App\Http\Controllers\PengeluaranController;
+use App\Http\Controllers\UserControlController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +63,11 @@ Route::middleware(["auth", "owner"])->group(function () {
     Route::controller(KreditDebitController::class)->group(function () {
         Route::get("/kredit-debit", "index");
     });
+
+    Route::controller(UserControlController::class)->group(function () {
+        Route::get("/user-control", "tambah_index");
+        Route::post("/user-control/tambah", "tambah");
+    });
 });
 
 Route::middleware(["auth"])->group(function () {
@@ -100,9 +107,8 @@ Route::controller(LoginController::class)->group(function () {
     Route::get("/logout", "logout")->name("logout");
 });
 
-Route::get('/', function () {
-    return view('layouts/home');
-});
-Route::get('/detil', function () {
-    return view('layouts/detilKendaraan');
+
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/', "home");
+    Route::get('/detil/{id}', "detail");
 });

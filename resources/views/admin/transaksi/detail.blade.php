@@ -55,7 +55,7 @@
                                                 style="object-fit: cover; width: 540px;height: 304px;" </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2">Foto SIM <br><img src='{{ asset($data->tanda_tangan) }}'
+                                        <td colspan="2">Tanda tangan <br><img src='{{ asset($data->tanda_tangan) }}'
                                                 alt="Foto KTP" class="img-fluid img-thumbnail mt-3"
                                                 style="object-fit: cover; width: 540px;height: 304px;" </td>
                                     </tr>
@@ -66,7 +66,7 @@
                                 <table class="table">
                                     <tr>
                                         <td>Waktu Pengambilan</td>
-                                        <td>{{ $data->waktu_pengambilan }}</td>
+                                        <td>{{ date('d-m-Y', strtotime($data->waktu_pengambilan)) }}</td>
                                     </tr>
                                     <tr>
                                         <td>Lokasi Pengambilan</td>
@@ -84,6 +84,24 @@
                                         </tr>
                                     @endif
                                 </table>
+
+                                <h3 class="text-dark">Kondisi Mobil</h3>
+                                <hr>
+                                <table class="table">
+                                    @foreach ($kondisi_mobil as $row)
+                                        <tr>
+                                            <th>{{ $loop->iteration }}</th>
+                                            <td><img src="{{ asset($row->foto_mobil) }}" alt="Foto Kondisi Mobil"
+                                                    class="img-fluid img-thumbnail mt-3"
+                                                    style="object-fit: cover; width: 540px;height: 304px;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Keterangan</td>
+                                            <td class="text-center text-lg">{{ $row->keterangan }}</td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+
                             </div>
                         </div>
                     </div>

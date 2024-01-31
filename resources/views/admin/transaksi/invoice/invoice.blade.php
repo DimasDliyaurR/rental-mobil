@@ -1,3 +1,4 @@
+invoice
 <!DOCTYPE html>
 <html lang="en">
 
@@ -108,7 +109,7 @@
                                 <tr>
                                     <td>Tanggal Sewa</td>
                                     <td class="px-3">:</td>
-                                    <td>{{ $transaksi->tanggal_sewa }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($transaksi->tanggal_sewa)) }}</td>
                                 </tr>
                                 <tr>
                                     <td>Durasi</td>
@@ -118,7 +119,7 @@
                                 <tr>
                                     <td>Waktu Pengambilan</td>
                                     <td class="px-3">:</td>
-                                    <td>{{ $transaksi->waktu_pengambilan }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($transaksi->waktu_pengambilan)) }}</td>
                                 </tr>
                                 <tr>
                                     <td>Lokasi Ambil</td>
@@ -133,7 +134,7 @@
                                 <tr>
                                     <td>Tanggal Kembali</td>
                                     <td class="px-3">:</td>
-                                    <td>{{ $transaksi->tanggal_kembali }}
+                                    <td>{{ date('d-m-Y', strtotime($transaksi->tanggal_kembali)) }}
                                     </td>
                                 </tr>
                                 <tr>

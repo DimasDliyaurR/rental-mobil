@@ -149,6 +149,26 @@
                             </li>
                         </ul>
                     </li>
+
+                    {{-- User Controller --}}
+                    <li class="nav-item {{ $title == 'User' ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa-solid fa-user"></i>
+                            <p>
+                                User Admin
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ asset('/user-control') }}"
+                                    class="nav-link {{ $action == 'user_tambah' ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Tambah Admin</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 @endif
                 {{-- Beranda End --}}
             </ul>

@@ -76,10 +76,14 @@ class TransaksiController extends Controller
 
         $data = DB::table("transaksi")->join("kendaraan", "kendaraan.id", "=", "transaksi.kendaraan_id")->join("brand_kendaraan", "brand_kendaraan.id", "=", "kendaraan.brand_kendaraan_id")->where("transaksi.id", $id)->first();
 
+
+        $kondisi_mobil = Detail_foto_mobil::whereTransaksiId($id)->get();
+
         return view("admin.transaksi.detail", [
             "title" => "Detail Transaksi",
             "action" => "detail_transaksi",
             "data" => $data,
+            "kondisi_mobil" => $kondisi_mobil,
         ]);
     }
 
