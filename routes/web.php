@@ -99,3 +99,10 @@ Route::controller(LoginController::class)->group(function () {
 
     Route::get("/logout", "logout")->name("logout");
 });
+
+Route::get('/', function () {
+    return view('layouts/home');
+});
+Route::get('/detil', function () {
+    return view('layouts/detilKendaraan');
+});
