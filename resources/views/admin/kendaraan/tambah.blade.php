@@ -10,17 +10,17 @@
                             <h1>{{ $title }}</h1>
                             <div class="overflow-visible" style="width: 10wv">
                                 @if (session()->has('success'))
-                                    <div class="text-lg text-white bg-green p-3 rounded mb-3">{{ session('success') }}</div>
+                                    <div class="text-lg text-white bg-green p-3 rounded mb-3 col-md-6">{{ session('success') }}</div>
                                 @elseif(session()->has('error'))
-                                    <div class="text-lg text-white bg-danger p-3 rounded mb-3">{{ session('error') }}</div>
+                                    <div class="text-lg text-white bg-danger p-3 rounded mb-3 col-md-6">{{ session('error') }}</div>
                                 @endif
                                 <form method="post" action="{{ asset('/kendaraan-tambah/tambah') }}">
                                     @csrf
 
                                     {{-- Nama Kendaraan --}}
-                                    <div class="mb-3">
+                                    <div class="mb-3 mt-4 col-md-6">
                                         <label for="nama_kendaraan" class="form-label">Nama Brand</label>
-                                        <select class="form-control" id="nama_brand" name="nama_brand"
+                                        <select class="form-control form-control-lg" id="nama_brand" name="nama_brand"
                                             value="{{ old('nama_brand') }}">
                                             <option selected disabled hidden>
                                                 {{ count($brand) == 0 ? 'Kendaraan Tidak ada yang Tersedia' : '--Pilih--' }}
@@ -38,10 +38,11 @@
                                     </div>
 
                                     {{-- Plat --}}
-                                    <div class="mb-3">
-                                        <label for="plat" class="form-label">Plat</label>
-                                        <input type="text" class="form-control" id="plat" name="plat"
-                                            value="{{ old('plat') }}">
+                                    <div class="mb-3 col-md-6 form-floating">
+                                        <input type="text" class="form-control" placeholder="..." id="plat" name="plat"
+                                        value="{{ old('plat') }}">
+                                        <label for="plat" class="ms-2">Plat</label>
+
                                         <span class="form-text">Contoh : W 8989 DR</span>
                                         @error('plat')
                                             <div class="form-text text-danger">{{ $message }}</div>

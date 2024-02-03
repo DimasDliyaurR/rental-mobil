@@ -38,6 +38,8 @@
     <link rel="stylesheet" href={{ asset('plugins/daterangepicker/daterangepicker.css') }}>
     <!-- summernote -->
     <link rel="stylesheet" href={{ asset('plugins/summernote/summernote-bs4.min.css') }}>
+    {{-- BOOTSTRAP ICONS --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     {{-- Livewire --}}
     @livewireStyles
     <style>

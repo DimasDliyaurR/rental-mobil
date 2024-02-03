@@ -8,6 +8,19 @@
                     <div class="card">
                         <div class="card-header">
                             <h1>{{ $title }}</h1>
+                            {{-- FORM SEARCH --}}
+                            <div class="row justify-content-end">
+                                <div class="col-md-4">
+                                    <form action="/kendaraan">
+                                        @csrf
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Cari nama kendaraan, plat nomor, tahun kendaraan..." value="{{ request('search') }}" name="search">
+                                            <button class="btn btn-primary" type="submit"">Search</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            {{-- END FORM SEARCH --}}
                             <div class="overflow-visible" style="width: 10wv">
                                 @if (session()->has('success'))
                                     <div class="text-lg text-white bg-green p-3 rounded mb-3">{{ session('success') }}</div>
@@ -16,30 +29,54 @@
                                 @endif
                                 <table class="table table-bordered" style="width: 10w">
                                     <tr>
-                                        <th>Kendaraan</th>
-                                        <th>Merek</th>
-                                        <th>plat</th>
-                                        <th>Tahun Kendaraan</th>
-                                        <th>Bahan Bakar</th>
-                                        <th>Harga Sewa (D)</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th class="text-center fs-6 text-uppercase" style="width: 1%">No.</th>
+                                        <th class="text-center fs-6 text-uppercase">Kendaraan</th>
+                                        <th class="text-center fs-6 text-uppercase">Merek</th>
+                                        <th class="text-center fs-6 text-uppercase">plat</th>
+                                        <th class="text-center fs-6 text-uppercase">Tahun Kendaraan</th>
+                                        <th class="text-center fs-6 text-uppercase">Bahan Bakar</th>
+                                        <th class="text-center fs-6 text-uppercase">Harga Sewa (D)</th>
+                                        <th class="text-center fs-6 text-uppercase">Status</th>
+                                        <th class="text-center fs-6 text-uppercase">Action</th>
                                     </tr>
-                                    @foreach ($data as $row)
-                                        <tr>
-                                            <td>{{ $row->nama_brand }}</td>
-                                            <td>{{ $row->nama_merek }}</td>
-                                            <td>{{ $row->plat }}</td>
-                                            <td>{{ $row->tahun_mobil }}</td>
-                                            <td>{{ $row->bahan_bakar }}</td>
-                                            <td>{{ $row->harga_sewa }}</td>
-                                            <td>{{ $row->status }}</td>
-                                            <td><a href="{{ asset('kendaraan/' . $row->id) }}"
-                                                    class="btn {{ $row->status === 'Sudah Terpakai' ? 'btn-primary' : '' }}">{{ $row->status === 'Sudah Terpakai' ? 'Ubah' : '' }}</a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                    @if ($data->count())
+                                        @foreach ($data as $row)
+                                            <tr>
+                                                <td class="text-capitalize text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-capitalize text-center">{{ $row->nama_brand }}</td>
+                                                <td class="text-capitalize text-center">{{ $row->nama_merek }}</td>
+                                                <td class="text-uppercase text-center">{{ $row->plat }}</td>
+                                                <td class="text-center">{{ $row->tahun_mobil }}</td>
+                                                <td class="text-capitalize text-center">{{ $row->bahan_bakar }}</td>
+                                                <td class="text-center">{{ $row->harga_sewa }}</td>
+                                                <td class="text-capitalize text-center">{{ ($row->status === 'Sudah Terpakai') ? 'Mobil Jalan' : 'Mobil Kembali' }}</td>
+                                                <td class="text-center">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <a href="{{ asset('kendaraan/' . $row->id) }}"
+                                                                class="btn {{ $row->status === 'Sudah Terpakai' ? 'btn-success' : '' }}">{!! $row->status === 'Sudah Terpakai' ? '<i class="bi bi-p-circle"></i> Update Status' : '' !!}
+                                                            </a>
+                                                        </div>
+                                                        <div class="col">
+                                                            <a href="" class="btn btn-danger">
+                                                                <i class="bi bi-trash3"></i>  Hapus
+                                                            </a>
+                                                        </div>
+                                                    </div>
+
+
+                                                </td>
+                                            </tr>
+                                        @endforeach
+
+                                    @else
+                                        <tr><td colspan="8" class="text-center">Kendaraan tidak ada.</td></tr>
+                                    @endif
+
                                 </table>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                {{ $data->links() }}
                             </div>
 
                         </div>

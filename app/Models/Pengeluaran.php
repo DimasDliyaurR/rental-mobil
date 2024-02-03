@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\Models\KreditDebit;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Pengeluaran extends Model
 {
@@ -23,4 +24,13 @@ class Pengeluaran extends Model
     {
         Carbon::parse($value)->translatedFormat("d F Y");
     }
+
+    public function scopeFilter($query){
+        if (request('search')) {
+            return $query
+            ->where('nama_pengeluaran','like','%'.request('search').'%');
+        }
+    }
+
+
 }

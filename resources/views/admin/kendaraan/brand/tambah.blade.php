@@ -10,19 +10,22 @@
                             <h1>{{ $title }}</h1>
                             <div class="overflow-visible" style="width: 10wv">
                                 @if (session()->has('success'))
-                                    <div class="text-lg text-white bg-green p-3 rounded mb-3">{{ session('success') }}</div>
+                                    <div class="text-lg text-white bg-green p-3 rounded mb-3 col-md-6">{{ session('success') }}</div>
                                 @elseif(session()->has('error'))
-                                    <div class="text-lg text-white bg-danger p-3 rounded mb-3">{{ session('error') }}</div>
+                                    <div class="text-lg text-white bg-danger p-3 rounded mb-3 col-md-6">{{ session('error') }}</div>
                                 @endif
                                 <form method="post" action="{{ asset('/kendaraan-tambah/tambah-brand') }}"
                                     enctype="multipart/form-data">
                                     @csrf
 
                                     {{-- Nama Kendaraan --}}
-                                    <div class="mb-3">
-                                        <label for="nama_kendaraan" class="form-label">Nama Brand</label>
-                                        <input type="text" class="form-control" id="nama_brand" name="nama_brand"
+                                    <div class="mb-3 mt-4 col-md-6 form-floating">
+
+                                            <input oninput="this.value = this.value.toLowerCase()" type="text" class="form-control" placeholder="..." id="nama_brand" name="nama_brand"
                                             value="{{ old('nama_brand') }}">
+                                            <label for="nama_kendaraan" class="ms-2">Nama Brand</label>
+
+
                                         <span class="form-text">Contoh : Toyota , Honda</span>
                                         @error('nama_brand')
                                             <div class="form-text text-danger">{{ $message }}</div>
@@ -30,10 +33,12 @@
                                     </div>
 
                                     {{-- Nama Merek --}}
-                                    <div class="mb-3">
-                                        <label for="plat" class="form-label">Nama Merek</label>
-                                        <input type="text" class="form-control" id="nama_merek" name="nama_merek"
-                                            value="{{ old('nama_merek') }}">
+                                    <div class="mb-3 col-md-6 form-floating">
+                                        <input oninput="this.value = this.value.toLowerCase()" type="text" class="form-control" placeholder="..." id="nama_merek" name="nama_merek"
+                                        value="{{ old('nama_merek') }}">
+                                        <label for="nama_merek" class="ms-2">Nama Merek</label>
+
+
                                         <span class="form-text">Contoh : BRIO SATYA S MT</span>
                                         @error('nama_merek')
                                             <div class="form-text text-danger">{{ $message }}</div>
@@ -41,9 +46,9 @@
                                     </div>
 
                                     {{-- Foto Kendaraan --}}
-                                    <div class="mb-3">
+                                    <div class="mb-3 col-md-6">
                                         <label for="foto_kendaraan" class="form-label">Foto Kendaraan</label>
-                                        <input type="file" class="form-control" id="foto_kendaraan" name="foto_kendaraan"
+                                        <input type="file" class="form-control form-control-lg" id="foto_kendaraan" name="foto_kendaraan"
                                             multiple>
                                         <span class="form-text">Hanya menerima file dengan exstension pg, jpeg, png, bmp,
                                             gif, svg, atau webp</span>
@@ -53,10 +58,12 @@
                                     </div>
 
                                     {{-- Tahun Mobil --}}
-                                    <div class="mb-3">
-                                        <label for="tahun_mobil" class="form-label">Tahun Mobil</label>
-                                        <input type="text" class="form-control" id="tahun_mobil" name="tahun_mobil"
-                                            value="{{ old('tahun_mobil') }}">
+                                    <div class="mb-3 col-md-6 form-floating">
+                                        <input type="text" class="form-control" placeholder="..." id="tahun_mobil" name="tahun_mobil"
+                                        value="{{ old('tahun_mobil') }}">
+                                        <label for="tahun_mobil" class="ms-2">Tahun Mobil</label>
+
+
                                         <span class="form-text">Contoh : 2013</span>
                                         @error('tahun_mobil')
                                             <div class="form-text text-danger">{{ $message }}</div>
@@ -64,10 +71,12 @@
                                     </div>
 
                                     {{-- Bahan Bakar --}}
-                                    <div class="mb-3">
-                                        <label for="bahan_bakar" class="form-label">Bahan Bakar</label>
-                                        <input type="text" class="form-control" id="bahan_bakar" name="bahan_bakar"
-                                            value="{{ old('bahan_bakar') }}">
+                                    <div class="mb-3 col-md-6 form-floating">
+                                        <input oninput="this.value = this.value.toLowerCase()" type="text" class="form-control" placeholder="..." id="bahan_bakar" name="bahan_bakar"
+                                        value="{{ old('bahan_bakar') }}">
+                                        <label for="bahan_bakar" class="ms-2">Bahan Bakar</label>
+
+
                                         <span class="form-text">Contoh : Solar , Bensin</span>
                                         @error('bahan_bakar')
                                             <div class="form-text text-danger">{{ $message }}</div>
@@ -75,10 +84,11 @@
                                     </div>
 
                                     {{-- Harga Sewa --}}
-                                    <div class="mb-3">
-                                        <label for="harga_sewa" class="form-label">Harga Sewa</label>
-                                        <input type="text" class="form-control" id="harga_sewa" name="harga_sewa"
-                                            value="{{ old('harga_sewa') }}">
+                                    <div class="mb-3 col-md-6 form-floating">
+                                        <input type="text" class="form-control" placeholder="..." id="harga_sewa" name="harga_sewa"
+                                        value="{{ old('harga_sewa') }}">
+                                        <label for="harga_sewa" class="ms-2">Harga Sewa</label>
+
                                         <span class="form-text">Contoh : 30000 | Tanpa Menggunakan Rp atau titik(.) atau
                                             symbol yang lain</span>
                                         @error('harga_sewa')
@@ -97,7 +107,7 @@
                                                 <button class="accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
                                                     aria-expanded="false" aria-controls="flush-collapseOne">
-                                                    # Tabel Brand Kendaraan
+                                                    <b>Tabel Brand Kendaraan</b>
                                                 </button>
                                             </h2>
                                             <div id="flush-collapseOne" class="accordion-collapse collapse"
@@ -105,24 +115,33 @@
                                                 <div class="accordion-body">
                                                     <table class="table table-bordered">
                                                         <tr>
-                                                            <td>No</td>
-                                                            <td>Nama Brand</td>
-                                                            <td>Tahun Mobil</td>
-                                                            <td>Bahan Bakar</td>
-                                                            <td>Harga Sewa (h)</td>
-                                                            <td>Foto Kendaraan</td>
+                                                            <td class="text-center fs-6 text-uppercase fw-bold">No</td>
+                                                            <td class="text-center fs-6 text-uppercase fw-bold">Nama Brand</td>
+                                                            <td class="text-center fs-6 text-uppercase fw-bold">Tahun Mobil</td>
+                                                            <td class="text-center fs-6 text-uppercase fw-bold">Bahan Bakar</td>
+                                                            <td class="text-center fs-6 text-uppercase fw-bold">Harga Sewa (h)</td>
+                                                            <td class="text-center fs-6 text-uppercase fw-bold">Foto Kendaraan</td>
+                                                            <td class="text-center fs-6 text-uppercase fw-bold">Action</td>
                                                         </tr>
                                                         @foreach ($data as $row)
                                                             <tr>
-                                                                <td>{{ $loop->iteration }}</td>
-                                                                <td>{{ $row->nama_kendaraan }}</td>
-                                                                <td>{{ $row->tahun_mobil }}</td>
-                                                                <td>{{ $row->bahan_bakar }}</td>
-                                                                <td>{{ $row->harga_sewa }}</td>
-                                                                <td><img src="{{ asset($row->foto_kendaraan) }}"
+                                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                                <td class="text-center">{{ $row->nama_brand.' '.$row->nama_merek}}</td>
+                                                                <td class="text-center">{{ $row->tahun_mobil }}</td>
+                                                                <td class="text-center">{{ $row->bahan_bakar }}</td>
+                                                                <td class="text-center">{{ $row->harga_sewa }}</td>
+                                                                <td class="text-center"><img src="{{ asset($row->foto_kendaraan) }}"
                                                                         alt="Gambar Transportasi" width="480"
                                                                         height="480"
-                                                                        style="background-size: contain;background-repeat: no-repeat;">
+                                                                        style="object-fit: contain;background-repeat: no-repeat;">
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <a href="" class="btn btn-info me-2">
+                                                                        <i class="bi bi-pencil-square"></i>  Update
+                                                                    </a>
+                                                                    <a href="" class="btn btn-danger">
+                                                                        <i class="bi bi-trash3"></i>  Hapus
+                                                                    </a>
                                                                 </td>
 
 

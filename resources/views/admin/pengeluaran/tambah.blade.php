@@ -10,12 +10,12 @@
                             <h1>{{ $title }}</h1>
                             <div class="overflow-visible" style="width: 10wv">
                                 @if (session()->has('success'))
-                                    <div class="form-text bg-green rounded p-2">
+                                    <div class="form-text bg-green rounded p-2 col-md-6">
                                         {{ session('success') }}
                                     </div>
                                 @elseif(session()->has('error'))
                                     <div class="alert-error">
-                                        <div class="form-text bg-danger rounded p-2">
+                                        <div class="form-text bg-danger rounded p-2 col-md-6">
                                             {{ session('error') }}
                                         </div>
                                     </div>
@@ -24,40 +24,48 @@
                                     @csrf
                                     {{-- Nama Pengeluaran --}}
 
-                                    <div class="mb-3">
-                                        <div class="mb-3">
-                                            <label for="nama_pengeluaran" class="form-label">Nama Pengeluaran</label>
-                                            <input type="text" class="form-control" id="nama_pengeluaran"
-                                                name="nama_pengeluaran">
+                                    <div class="mb-3 mt-4">
+                                        <div class="col-md-6 form-floating">
+                                            <input oninput="this.value = this.value.toLowerCase()" type="text" id="nama_pengeluaran"
+                                            name="nama_pengeluaran" class="form-control"
+                                            value="{{ old('nama_pengeluaran') }}" placeholder="Masukkan nama pengeluaran">
+                                            <label for="nama_pengeluaran" class="ms-2">Nama Pengeluaran</label>
+
+                                            @error('nama_pengeluaran')
+                                                <div class="form-text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
-                                        @error('nama_pengeluaran')
-                                            <div class="form-text text-danger">{{ $message }}</div>
-                                        @enderror
                                     </div>
 
                                     {{-- Deskripsi Pengeluaran --}}
 
                                     <div class="mb-3">
-                                        <div class="mb-3">
-                                            <label for="deskripsi_pengeluaran" class="form-label">Deskripsi
+                                        <div class="col-md-6 form-floating">
+
+
+                                            <textarea oninput="this.value = this.value.toLowerCase()" class="form-control" placeholder="Masukkan deskripsi pengeluaran" id="deskripsi_pengeluaran"
+                                            name="deskripsi_pengeluaran" style="height: 100px" value="{{ old('deskripsi_pengeluaran') }}"></textarea>
+                                            <label for="deskripsi_pengeluaran" class="ms-2">Deskripsi
                                                 Pengeluaran</label>
-                                            <input type="text" class="form-control" id="deskripsi_pengeluaran"
-                                                name="deskripsi_pengeluaran">
-                                        </div>
-                                        @error('deskripsi_pengeluaran')
+
+
+                                            @error('deskripsi_pengeluaran')
                                             <div class="form-text text-danger">{{ $message }}</div>
-                                        @enderror
+                                            @enderror
+                                        </div>
                                     </div>
                                     {{-- Harga Pengeluaran --}}
 
                                     <div class="mb-3">
-                                        <div class="mb-3">
-                                            <label for="harga_pengeluaran" class="form-label">Harga Pengeluaran</label>
-                                            <textarea type="text" class="form-control" id="harga_pengeluaran" name="harga_pengeluaran"></textarea>
-                                        </div>
-                                        @error('harga_pengeluaran')
+                                        <div class="col-md-6 form-floating">
+                                            <input type="text" id="harga_pengeluaran" name="harga_pengeluaran" class="form-control"
+                                            value="{{ old('harga_pengeluaran') }}" placeholder="Masukkan deskripsi pengeluaran">
+                                            <label for="harga_pengeluaran" class="ms-2">Harga Pengeluaran</label>
+                                            <small>Contoh: 50000 | tanpa menggunakan Rp atau tanda apapun</small>
+                                            @error('harga_pengeluaran')
                                             <div class="form-text text-danger">{{ $message }}</div>
-                                        @enderror
+                                            @enderror
+                                        </div>
                                     </div>
                                     <button class="btn btn-primary">Submit</button>
                                 </form>

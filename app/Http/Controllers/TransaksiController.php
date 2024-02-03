@@ -17,20 +17,52 @@ use Carbon\Carbon;
 class TransaksiController extends Controller
 {
     // Route Start
-    public function index()
+
+    public function index(Request $request)
     {
-        $data = DB::table("transaksi")
-            ->select("transaksi.*", "brand_kendaraan.nama_brand", "brand_kendaraan.nama_merek", "kendaraan.plat")
-            ->join("kendaraan", "kendaraan.id", "=", "transaksi.kendaraan_id")
-            ->join("brand_kendaraan", "brand_kendaraan.id", "=", "kendaraan.brand_kendaraan_id")
-            ->get();
+        $query = DB::table("transaksi")
+                ->select("transaksi.*", "brand_kendaraan.nama_brand", "brand_kendaraan.nama_merek", "kendaraan.plat")
+                ->join("kendaraan", "kendaraan.id", "=", "transaksi.kendaraan_id")
+                ->join("brand_kendaraan", "brand_kendaraan.id", "=", "kendaraan.brand_kendaraan_id");
+
+        // Pencarian (search)
+        $searchKeyword = $request->input('search');
+        if ($searchKeyword) {
+            $query->where(function ($q) use ($searchKeyword) {
+                $q->where('transaksi.nama_penyewa', 'LIKE', "%$searchKeyword%")
+                ->orWhere('brand_kendaraan.nama_brand', 'LIKE', "%$searchKeyword%")
+                ->orWhere('brand_kendaraan.nama_merek', 'LIKE', "%$searchKeyword%")
+                ->orWhere('kendaraan.plat', 'LIKE', "%$searchKeyword%");
+            });
+        }
+
+        $query->latest('transaksi.created_at');
+
+        // Paginasi
+        $data = $query->paginate(10, ['*'], 'page')->appends(request()->query());
 
         return view("admin.transaksi.lihat", [
             "title" => "Transaksi",
             "action" => "lihat_transaksi",
             "data" => $data,
+            "searchKeyword" => $searchKeyword,
         ]);
     }
+
+    // public function index()
+    // {
+    //     $data = DB::table("transaksi")
+    //         ->select("transaksi.*", "brand_kendaraan.nama_brand", "brand_kendaraan.nama_merek", "kendaraan.plat")
+    //         ->join("kendaraan", "kendaraan.id", "=", "transaksi.kendaraan_id")
+    //         ->join("brand_kendaraan", "brand_kendaraan.id", "=", "kendaraan.brand_kendaraan_id")
+    //         ->get();
+
+    //     return view("admin.transaksi.lihat", [
+    //         "title" => "Transaksi",
+    //         "action" => "lihat_transaksi",
+    //         "data" => $data,
+    //     ]);
+    // }
 
     public function tambah_index()
     {
@@ -445,5 +477,31 @@ class TransaksiController extends Controller
         }
 
         return $oldFilePath;
+    }
+
+    public function filter(Request $request){
+
+        $query = DB::table("transaksi")
+                ->select("transaksi.*", "brand_kendaraan.nama_brand", "brand_kendaraan.nama_merek", "kendaraan.plat")
+                ->join("kendaraan", "kendaraan.id", "=", "transaksi.kendaraan_id")
+                ->join("brand_kendaraan", "brand_kendaraan.id", "=", "kendaraan.brand_kendaraan_id");
+
+        // Pencarian (search)
+        $tanggal = $request->tanggal;
+        if ($tanggal) {
+            $query->where(function ($q) use ($tanggal) {
+                $q->whereDate('transaksi.created_at','=',$tanggal);
+            });
+        }
+        $query->latest('transaksi.created_at');
+        // Paginasi
+        $data = $query->paginate(10, ['*'], 'page')->appends(request()->query());
+
+        return view("admin.transaksi.lihat", [
+            "title" => "Transaksi",
+            "action" => "lihat_transaksi",
+            "data" => $data,
+        ]);
+
     }
 }

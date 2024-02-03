@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\KreditDebit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Brand_Kendaraan extends Model
 {
@@ -20,4 +21,6 @@ class Brand_Kendaraan extends Model
     {
         return $this->hasMany(Kendaraan::class, "brand_kendaraan_id");
     }
+
+
 }

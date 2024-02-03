@@ -22,17 +22,21 @@
                                 @endif
                                 <form action="{{ asset('/user-control/tambah') }}" method="post">
                                     @csrf
-                                    <div class="mb-3">
-                                        <label for="username" class="form-label">Username</label>
-                                        <input type="text" name="username" id="username" class="form-control">
+                                    <div class="mb-3 col-md-6 form-floating">
+                                        <input oninput="this.value = this.value.toLowerCase()" type="text" class="form-control" placeholder="..." name="username" id="username">
+                                        <label for="username" class="ms-2">Username</label>
+                                        <small>Gunakan huruf kecil</small>
+
                                         @error('username')
                                             <div class="form-text text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
 
-                                    <div class="mb-3">
-                                        <label for="password" class="form-label">Password</label>
-                                        <input type="text" name="password" id="password" class="form-control">
+                                    <div class="mb-3 col-md-6 form-floating">
+                                        <input oninput="this.value = this.value.toLowerCase()" type="text" class="form-control" placeholder="..." name="password" id="password">
+                                        <label for="password" class="ms-2">Password</label>
+                                        <small>Gunakan huruf kecil</small>
+
                                         @error('password')
                                             <div class="form-text text-danger">{{ $message }}</div>
                                         @enderror
@@ -49,17 +53,32 @@
                                             <button class="accordion-button collapsed" type="button"
                                                 data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
                                                 aria-expanded="false" aria-controls="flush-collapseOne">
-                                                Tabel User
+                                                <b>Tabel User</b>
                                             </button>
                                         </h2>
                                         <div id="flush-collapseOne" class="accordion-collapse collapse"
                                             aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                             <div class="accordion-body" id="kondisiMobil">
                                                 <table class="table">
+                                                    <tr>
+                                                        <th class="text-center fs-6 text-uppercase">No</th>
+                                                        <th class="text-center fs-6 text-uppercase">Username</th>
+                                                        <th class="text-center fs-6 text-uppercase">Role</th>
+                                                        <th class="text-center fs-6 text-uppercase">Action</th>
+                                                    </tr>
                                                     @foreach ($data as $row)
                                                         <tr>
-                                                            <td>{{ $row->username }}</td>
-                                                            <td>{{ $row->password }}</td>
+                                                            <td class="text-center">{{ $loop->iteration }}</td>
+                                                            <td class="text-center">{{ $row->username }}</td>
+                                                            <td class="text-center">{{ $row->level }}</td>
+                                                            <td class="text-center">
+                                                                <a href="" class="btn btn-info me-2">
+                                                                    <i class="bi bi-pencil-square"></i>  Update
+                                                                </a>
+                                                                <a href="" class="btn btn-danger">
+                                                                    <i class="bi bi-trash3"></i>  Hapus
+                                                                </a>
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 </table>

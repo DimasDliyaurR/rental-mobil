@@ -24,6 +24,7 @@ use App\Http\Controllers\UserControlController;
 Route::middleware(["auth", "owner"])->group(function () {
     Route::controller(TransaksiController::class)->group(function () {
         Route::get('/transaksi', "index")->name("transaksi.lihat");
+        Route::get('/transaksi/filter', "filter");
         Route::get('/transaksi/data_diri/{id}', "data_diri")->name("transaksi.datadiri");
         Route::get('/transaksi/detail_transaksi/{id}', "detail_transaksi")->name("transaksi.detailtransaksi");
 
@@ -44,6 +45,7 @@ Route::middleware(["auth", "owner"])->group(function () {
 
     Route::controller(PengeluaranController::class)->group(function () {
         Route::get("/pengeluaran", "index")->name('pengeluaran.lihat');
+        Route::get("/pengeluaran/filter", "filter")->name('pengeluaran.lihat');
         Route::get("/pengeluaran-tambah", "tambah_index")->name('pengeluaran.tambah');
         Route::post("/pengeluaran-tambah/tambah", "tambah_pengeluaran")->name('pengeluaran.tambah');
         // Tambah
@@ -99,9 +101,9 @@ Route::middleware(["auth"])->group(function () {
 
 
 Route::controller(LoginController::class)->group(function () {
-    Route::get("/login", "index")->name("login");
+    Route::get("/login", "index")->name("login")->middleware('guest');
     Route::post("/login", "login");
-    Route::get("/registrasi", "registrasi_index")->name("registrasi");
+    Route::get("/registrasi", "registrasi_index")->name("registrasi")->middleware('guest');
     Route::post("/registrasi", "registrasi");
 
     Route::get("/logout", "logout")->name("logout");
@@ -112,3 +114,6 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/', "home");
     Route::get('/detil/{id}', "detail");
 });
+
+
+Route::get('/cariKendaraan',[KendaraanController::class, 'filterKendaraan']);

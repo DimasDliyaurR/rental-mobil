@@ -10,12 +10,13 @@ class PengeluaranController extends Controller
 {
     public function index()
     {
-        $data = Pengeluaran::all();
+        $data = Pengeluaran::latest();
 
         return view("admin.pengeluaran.lihat", [
             "title" => "Pengeluaran",
             "action" => "lihat_pengeluaran",
-            "data" => $data
+            "data" => $data->filter()
+            ->paginate(10)->withQueryString()
         ]);
     }
 
@@ -52,5 +53,18 @@ class PengeluaranController extends Controller
         }
 
         return redirect("/pengeluaran-tambah")->with("success", "Berhasil Menambahkan " . $request->nama_pengeluaran);
+    }
+
+    public function filter(Request $request){
+
+        $tanggal = $request->tanggal;
+        $transaksi = Pengeluaran::whereDate('created_at','=',$tanggal)->paginate(10)->withQueryString();
+
+        return view("admin.pengeluaran.lihat", [
+            "title" => "Pengeluaran",
+            "action" => "lihat_pengeluaran",
+            "data" => $transaksi,
+        ]);
+
     }
 }

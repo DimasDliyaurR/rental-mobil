@@ -1,4 +1,3 @@
-invoice
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +7,7 @@ invoice
     <title>Invoice</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-    <link rel="stylesheet" href="{{ asset('asset/css/invoiceStyle.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/asset/css/invoiceStyle.css') }}" />
 </head>
 
 <body>
@@ -47,7 +46,7 @@ invoice
                             <tr>
                                 <td>Pemesan</td>
                                 <td class="px-2">:</td>
-                                <td><b>{{ $transaksi->nama_penyewa }}</b></td>
+                                <td class="text-capitalize"><b>{{ $transaksi->nama_penyewa }}</b></td>
                             </tr>
                             <tr>
                                 <td>No. Telepon</td>
@@ -55,9 +54,9 @@ invoice
                                 <td>{{ $transaksi->no_telp }}</td>
                             </tr>
                             <tr>
-                                <td>Alamat</td>
-                                <td class="px-2">:</td>
-                                <td>{{ $transaksi->alamat }}</td>
+                                <td class="align-top">Alamat</td>
+                                <td class="px-2 align-top">:</td>
+                                <td class="text-capitalize align-top">{{ $transaksi->alamat }}</td>
                             </tr>
                             <tr>
                                 <td>No. KTP</td>
@@ -86,14 +85,14 @@ invoice
                             </div>
                             <table class="data-table-kendaraan">
                                 <tr>
-                                    <td>Unit</td>
-                                    <td class="px-2">:</td>
-                                    <td>{{ $transaksi->nama_brand }} <br> {{ $transaksi->nama_merek }}</td>
+                                    <td class="align-top">Unit</td>
+                                    <td class="px-2 align-top">:</td>
+                                    <td class="text-capitalize align-top">{{ $transaksi->nama_brand .' '. $transaksi->nama_merek}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Plat Nomor</td>
-                                    <td class="px-2">:</td>
-                                    <td>{{ $transaksi->plat }}</td>
+                                    <td class="align-top">Plat Nomor</td>
+                                    <td class="px-2 align-top">:</td>
+                                    <td class="align-top">{{ $transaksi->plat }}</td>
                                 </tr>
                             </table>
                         </div>
@@ -122,12 +121,12 @@ invoice
                                     <td>{{ date('d-m-Y', strtotime($transaksi->waktu_pengambilan)) }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Lokasi Ambil</td>
-                                    <td class="px-3">:</td>
-                                    <td>{{ $transaksi->lokasi_pengambilan }}</td>
+                                    <td class="align-top">Lokasi Ambil</td>
+                                    <td class="px-3 align-top">:</td>
+                                    <td class="text-capitalize align-top">{{ $transaksi->lokasi_pengambilan }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Driver/Lepas Kunci</td>
+                                    <td>Pakai Driver</td>
                                     <td class="px-3">:</td>
                                     <td>{{ $transaksi->driver == 1 ? 'Iya' : 'Tidak' }}</td>
                                 </tr>
@@ -173,13 +172,13 @@ invoice
                 </div>
                 <div class="row">
 
-                    <div class="col">
-                        @foreach ($detail_foto_mobils as $row)
+                    @foreach ($detail_foto_mobils as $row)
+                        <div class="col-4">
                             <img src="{{ asset($row->foto_mobil) }}" class="foto-lampiran mt-2 mx-1"
                                 alt="Foto Kondisi Mobil" />
-                            <p>{{ $row->keterangan }}</p>
-                        @endforeach
-                    </div>
+                            <p class="mt-2 text-capitalize text-center">{{ $row->keterangan }}</p>
+                        </div>
+                    @endforeach
                 </div>
             </div>
 
@@ -197,11 +196,11 @@ invoice
                         <th>Biaya</th>
                     </tr>
                     <tr>
-                        <td>Biaya Sewa Mobil</td>
+                        <td>Biaya Sewa Mobil <b>{{ $transaksi->nama_brand .' '. $transaksi->nama_merek}} {{ $transaksi->durasi }} hari</b></td>
                         <td>Rp. {{ number_format($transaksi->harga_sewa * $transaksi->durasi, 0, ',', '.') }},-
                         </td>
                     </tr>
-                    {{ $transaksi->biaya_supir }}
+
                     @if ($transaksi->driver == 1)
                         <tr>
                             <td>Biaya Supir</td>
@@ -268,8 +267,8 @@ invoice
                 <h6>TTD</h6>
                 <h6>Penyewa</h6>
                 <img src="{{ asset($transaksi->tanda_tangan) }}" width="150px" height="150px"
-                    style="object-fit: contain" alt="" />
-                <p class="namaTerang">{{ $transaksi->nama_penyewa }}</p>
+                    style="object-fit: contain;transform: scale(1.2);" alt="" />
+                <p class="namaTerang text-capitalize">{{ $transaksi->nama_penyewa }}</p>
             </div>
             {{-- <div class="ttd-Admin text-center">
                 <h6>TTD</h6>

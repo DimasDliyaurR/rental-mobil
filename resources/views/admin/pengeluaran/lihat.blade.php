@@ -8,23 +8,63 @@
                     <div class="card">
                         <div class="card-header">
                             <h1>{{ $title }}</h1>
+                            {{-- FORM SEARCH --}}
+                            <div class="row justify-content-end">
+                                <div class="col-md-2">
+                                    <form action="/pengeluaran/filter">
+                                        @csrf
+                                        <div class="input-group mb-3">
+                                            <input type="date" class="form-control" value="{{ old('tanggal') }}" name="tanggal" id="tanggal">
+                                            <button class="btn btn-primary" type="submit"">Filter</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-md-4">
+                                    <form action="/pengeluaran">
+                                        @csrf
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Cari pengeluaran..." value="{{ request('search') }}" name="search">
+                                            <button class="btn btn-primary" type="submit"">Search</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            {{-- END FORM SEARCH --}}
                             <div class="overflow-visible" style="width: 10wv">
                                 <table class="table table-bordered" style="width: 10w">
                                     <tr>
-                                        <th>Pengeluaran</th>
-                                        <th>Deskripsi</th>
-                                        <th>Harga</th>
-                                        <th>Tanggal</th>
+                                        <th class="text-center fs-6 text-uppercase" style="width: 1%">No.</th>
+                                        <th class="text-center fs-6 text-uppercase">Pengeluaran</th>
+                                        <th class="text-center fs-6 text-uppercase">Deskripsi</th>
+                                        <th class="text-center fs-6 text-uppercase">Harga</th>
+                                        <th class="text-center fs-6 text-uppercase">Tanggal</th>
+                                        <th class="text-center fs-6 text-uppercase">Action</th>
                                     </tr>
-                                    @foreach ($data as $row)
-                                        <tr>
-                                            <td>{{ $row->nama_pengeluaran }}</td>
-                                            <td>{{ $row->deskripsi_pengeluaran }}</td>
-                                            <td>{{ $row->harga_pengeluaran }}</td>
-                                            <td>{{ $row->tanggal_pengeluaran }}</td>
-                                        </tr>
-                                    @endforeach
+                                    @if ($data->count())
+                                        @foreach ($data as $row)
+                                            <tr>
+                                                <td class="text-capitalize text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-capitalize text-center">{{ $row->nama_pengeluaran }}</td>
+                                                <td class="text-capitalize text-center">{{ $row->deskripsi_pengeluaran }}</td>
+                                                <td class="text-center">Rp. {{ $row->harga_pengeluaran }}</td>
+                                                <td class="text-center">{{ $row->tanggal_pengeluaran }}</td>
+                                                <td class="text-center">
+                                                    <a href="" class="btn btn-info me-2">
+                                                        <i class="bi bi-pencil-square"></i>  Update
+                                                    </a>
+                                                    <a href="" class="btn btn-danger">
+                                                        <i class="bi bi-trash3"></i>  Hapus
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr><td colspan="4" class="text-center">Pengeluaran tidak ada.</td></tr>
+                                    @endif
                                 </table>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                {{ $data->links() }}
                             </div>
 
                         </div>

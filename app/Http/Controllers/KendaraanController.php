@@ -10,11 +10,26 @@ use Illuminate\Database\QueryException;
 
 class KendaraanController extends Controller
 {
-    public function index()
+
+    public function index(Request $request)
     {
-        $data = DB::table("kendaraan")
-            ->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id")
-            ->get();
+        $query = DB::table("kendaraan")
+            ->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id");
+
+        // Pencarian (search)
+        $searchKeyword = $request->input('search');
+        if ($searchKeyword) {
+            $query->where(function ($q) use ($searchKeyword) {
+                $q->Where('brand_kendaraan.nama_brand', 'LIKE', "%$searchKeyword%")
+                ->orWhere('brand_kendaraan.nama_merek', 'LIKE', "%$searchKeyword%")
+                ->orWhere('brand_kendaraan.tahun_mobil', 'LIKE', "%$searchKeyword%")
+                ->orWhere('brand_kendaraan.bahan_bakar', 'LIKE', "%$searchKeyword%")
+                ->orWhere('kendaraan.plat', 'LIKE', "%$searchKeyword%");
+            });
+        }
+
+        // Paginasi
+        $data = $query->paginate(10, ['*'], 'page')->appends(request()->query());
 
         return view("admin.kendaraan.lihat", [
             "title" => "Kendaraan",
@@ -22,6 +37,52 @@ class KendaraanController extends Controller
             "data" => $data,
         ]);
     }
+
+    // public function index()
+    // {
+    //     $data = DB::table("kendaraan")
+    //         ->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id")
+    //         ->get();
+
+    //     return view("admin.kendaraan.lihat", [
+    //         "title" => "Kendaraan",
+    //         "action" => "lihat_kendaraan",
+    //         "data" => $data,
+    //     ]);
+    // }
+
+    public function filterKendaraan(){
+
+        $filterMerek = Kendaraan::join('brand_kendaraan', 'kendaraan.brand_kendaraan_id', '=', 'brand_kendaraan.id')
+        ->select('kendaraan.*', 'brand_kendaraan.*')
+        ->groupBy('brand_kendaraan.nama_merek')
+        ->get();
+        $filterBB = Kendaraan::join('brand_kendaraan', 'kendaraan.brand_kendaraan_id', '=', 'brand_kendaraan.id')
+        ->select('kendaraan.*', 'brand_kendaraan.*')
+        ->groupBy('brand_kendaraan.bahan_bakar')
+        ->get();
+
+        $filteredData = Kendaraan::join('brand_kendaraan', 'kendaraan.brand_kendaraan_id', '=', 'brand_kendaraan.id')
+        ->select('kendaraan.*', 'brand_kendaraan.nama_brand')
+        ->groupBy('brand_kendaraan.nama_merek')
+        ->selectRaw('brand_kendaraan.nama_merek, COUNT(*) as count')
+        ->filter(request(['merek','bahan_bakar']))
+        ->paginate(7)->withQueryString();
+
+        $banyakMobil = Kendaraan::join('brand_kendaraan', 'kendaraan.brand_kendaraan_id', '=', 'brand_kendaraan.id')
+        ->select('kendaraan.*', 'brand_kendaraan.nama_brand')
+        ->filter(request(['merek','bahan_bakar']))->count();
+
+        return view('layouts.home', [
+            "title" => "Kendaraan",
+            "action" => "tambah_kendaraan",
+            "data" => $filteredData,
+            'banyakMobil' => $banyakMobil,
+            'filterMerek' => $filterMerek,
+            'filterBB' => $filterBB,
+        ]);
+    }
+
 
     public function tambah_index()
     {
