@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('brand_kendaraan_id')->index("fk_brand_kendaraan_to_kendaraan");
             $table->string('plat')->uniqe();
             $table->enum('status', ['Tidak Terpakai', 'Sudah Terpakai']);
+            $table->timestamps();
         });
     }
 

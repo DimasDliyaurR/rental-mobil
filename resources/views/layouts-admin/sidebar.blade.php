@@ -18,18 +18,6 @@
             </div>
         </div>
 
-        <!-- SidebarSearch Form -->
-        {{-- <div class="form-inline">
-            <div class="input-group" data-widget="sidebar-search">
-                <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                    aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-sidebar">
-                        <i class="fas fa-search fa-fw"></i>
-                    </button>
-                </div>
-            </div>
-        </div> --}}
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -131,7 +119,7 @@
                     {{-- Unit Kendaraan End --}}
 
                     {{-- Beranda Start --}}
-                    <li class="nav-item {{ $title == 'Kredit Debit' ? 'menu-open' : '' }}">
+                    <li class="nav-item {{ $title == 'Tabel Debit Kredit' ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa-solid fa-chart-line"></i>
                             <p>

@@ -14,7 +14,8 @@
                                     <form action="/pengeluaran/filter">
                                         @csrf
                                         <div class="input-group mb-3">
-                                            <input type="date" class="form-control" value="{{ old('tanggal') }}" name="tanggal" id="tanggal">
+                                            <input type="date" class="form-control" value="{{ old('tanggal') }}"
+                                                name="tanggal" id="tanggal">
                                             <button class="btn btn-primary" type="submit"">Filter</button>
                                         </div>
                                     </form>
@@ -23,7 +24,8 @@
                                     <form action="/pengeluaran">
                                         @csrf
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control" placeholder="Cari pengeluaran..." value="{{ request('search') }}" name="search">
+                                            <input type="text" class="form-control" placeholder="Cari pengeluaran..."
+                                                value="{{ request('search') }}" name="search">
                                             <button class="btn btn-primary" type="submit"">Search</button>
                                         </div>
                                     </form>
@@ -45,21 +47,28 @@
                                             <tr>
                                                 <td class="text-capitalize text-center">{{ $loop->iteration }}</td>
                                                 <td class="text-capitalize text-center">{{ $row->nama_pengeluaran }}</td>
-                                                <td class="text-capitalize text-center">{{ $row->deskripsi_pengeluaran }}</td>
-                                                <td class="text-center">Rp. {{ $row->harga_pengeluaran }}</td>
+                                                <td class="text-capitalize text-center">{{ $row->deskripsi_pengeluaran }}
+                                                </td>
+                                                <td class="text-center">Rp.
+                                                    {{ number_format($row->harga_pengeluaran, 0, ',', '.') }}</td>
                                                 <td class="text-center">{{ $row->tanggal_pengeluaran }}</td>
                                                 <td class="text-center">
-                                                    <a href="" class="btn btn-info me-2">
-                                                        <i class="bi bi-pencil-square"></i>  Update
+                                                    <a href="{{ asset('/pengeluaran-update/' . $row->id) }}"
+                                                        class="btn btn-info me-2">
+                                                        <i class="bi bi-pencil-square"></i> Update
                                                     </a>
-                                                    <a href="" class="btn btn-danger">
-                                                        <i class="bi bi-trash3"></i>  Hapus
+                                                    <a href="{{ asset('/pengeluaran-hapus/' . $row->id) }}"
+                                                        class="btn btn-danger"
+                                                        onclick="return confirm('Apakah yakin mengahapus {{ $row->nama_pengeluaran }}')">
+                                                        <i class="bi bi-trash3"></i> Hapus
                                                     </a>
                                                 </td>
                                             </tr>
                                         @endforeach
                                     @else
-                                        <tr><td colspan="4" class="text-center">Pengeluaran tidak ada.</td></tr>
+                                        <tr>
+                                            <td colspan="4" class="text-center">Pengeluaran tidak ada.</td>
+                                        </tr>
                                     @endif
                                 </table>
                             </div>

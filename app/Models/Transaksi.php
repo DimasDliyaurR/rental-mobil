@@ -43,7 +43,7 @@ class Transaksi extends Model
 
     public function kendaraan(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Kendaraan', 'kendaraan_id', 'id');
+        return $this->belongsTo(Kendaraan::class);
     }
 
     public function data_diri(): HasOne
@@ -61,8 +61,8 @@ class Transaksi extends Model
         return $this->hasMany(Detail_foto_mobil::class, "detail_transaksi_id");
     }
 
-    public function brand_kendaraan(){
+    public function brand_kendaraan()
+    {
         return $this->hasMany(\App\Models\Kendaraan::class);
     }
-
 }

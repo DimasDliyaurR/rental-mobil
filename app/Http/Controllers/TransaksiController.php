@@ -21,18 +21,18 @@ class TransaksiController extends Controller
     public function index(Request $request)
     {
         $query = DB::table("transaksi")
-                ->select("transaksi.*", "brand_kendaraan.nama_brand", "brand_kendaraan.nama_merek", "kendaraan.plat")
-                ->join("kendaraan", "kendaraan.id", "=", "transaksi.kendaraan_id")
-                ->join("brand_kendaraan", "brand_kendaraan.id", "=", "kendaraan.brand_kendaraan_id");
+            ->select("transaksi.*", "brand_kendaraan.nama_brand", "brand_kendaraan.nama_merek", "kendaraan.plat")
+            ->join("kendaraan", "kendaraan.id", "=", "transaksi.kendaraan_id")
+            ->join("brand_kendaraan", "brand_kendaraan.id", "=", "kendaraan.brand_kendaraan_id");
 
         // Pencarian (search)
         $searchKeyword = $request->input('search');
         if ($searchKeyword) {
             $query->where(function ($q) use ($searchKeyword) {
                 $q->where('transaksi.nama_penyewa', 'LIKE', "%$searchKeyword%")
-                ->orWhere('brand_kendaraan.nama_brand', 'LIKE', "%$searchKeyword%")
-                ->orWhere('brand_kendaraan.nama_merek', 'LIKE', "%$searchKeyword%")
-                ->orWhere('kendaraan.plat', 'LIKE', "%$searchKeyword%");
+                    ->orWhere('brand_kendaraan.nama_brand', 'LIKE', "%$searchKeyword%")
+                    ->orWhere('brand_kendaraan.nama_merek', 'LIKE', "%$searchKeyword%")
+                    ->orWhere('kendaraan.plat', 'LIKE', "%$searchKeyword%");
             });
         }
 
@@ -66,10 +66,10 @@ class TransaksiController extends Controller
 
     public function tambah_index()
     {
-        $kendaraan = DB::table("kendaraan")
-            ->select("kendaraan.id", "kendaraan.plat", "brand_kendaraan.nama_brand", "brand_kendaraan.nama_merek")
+        $kendaraan = Kendaraan::select("kendaraan.*", "kendaraan.plat", "brand_kendaraan.nama_brand", "brand_kendaraan.nama_merek")
             ->join("brand_kendaraan", "brand_kendaraan.id", "=", "kendaraan.brand_kendaraan_id")
             ->where("kendaraan.status", "=", "Tidak Terpakai")
+            ->where("brand_kendaraan.deleted_at", "!=", "null")
             ->get();
 
         return view('admin.transaksi.tambah', [
@@ -85,8 +85,7 @@ class TransaksiController extends Controller
 
         $detail_foto_mobil = Detail_foto_mobil::whereTransaksiId($id)->get();
 
-        $kendaraan = DB::table("kendaraan")
-            ->select("kendaraan.id", "kendaraan.plat", "brand_kendaraan.nama_brand", "brand_kendaraan.nama_merek")
+        $kendaraan = Kendaraan::select("kendaraan.id", "kendaraan.plat", "brand_kendaraan.nama_brand", "brand_kendaraan.nama_merek")
             ->join("brand_kendaraan", "brand_kendaraan.id", "=", "kendaraan.brand_kendaraan_id")
             ->where("kendaraan.status", "=", "Tidak Terpakai")
             ->get();
@@ -97,7 +96,7 @@ class TransaksiController extends Controller
             "kendaraan_field" => $kendaraan,
             "detail_foto_mobil" => $detail_foto_mobil,
             "data" => $data,
-            "kendaraan" => $data->kendaraan,
+            "kendaraan" => Kendaraan::find($data->kendaraan_id),
         ]);
     }
 
@@ -225,7 +224,7 @@ class TransaksiController extends Controller
     }
 
     // Update Action
-    public function update_transaksi(Request $request)
+    public function update_transaksi(Request $request) // Bug
     {
         $validation = $request->validate([
             "kendaraan" => "required",
@@ -236,6 +235,7 @@ class TransaksiController extends Controller
             "no_ktp" => "required",
             "foto_ktp" => "image|max:10240",
             "no_sim" => "required",
+            // "kondisi_mobil" => "image|max:2000",
             "foto_sim" => "image|max:10240",
             "waktu_pengambilan" => "required",
             "lokasi_pengambilan" => "required",
@@ -248,7 +248,8 @@ class TransaksiController extends Controller
             "*.max" => "Ukuran file haris dibawah 10 Mb",
             "*.image" => "Tipe file tidak valid",
         ]);
-        // dd($request->all());
+
+        dd($request->all());
 
 
         try {
@@ -313,7 +314,7 @@ class TransaksiController extends Controller
                 ->with("error", "Silahkan Coba lagi");
         }
 
-        return redirect("transaksi")->with("success", "Berhasil Update");
+        return back()->with("success", "Berhasil Update");
     }
 
     // Delete Action
@@ -351,8 +352,7 @@ class TransaksiController extends Controller
     {
         $transaksi = Transaksi::findOrFail($id);
 
-        $data = DB::table('transaksi')
-            ->select('transaksi.nama_penyewa', 'transaksi.no_telp', 'transaksi.alamat', 'transaksi.no_ktp', 'transaksi.no_sim', 'transaksi.foto_penyewa', 'transaksi.driver', 'transaksi.biaya_supir', 'transaksi.tanda_tangan', 'transaksi.tanggal_sewa', 'transaksi.durasi', 'transaksi.waktu_pengambilan', 'transaksi.lokasi_pengambilan', 'transaksi.tanggal_kembali', 'transaksi.waktu_kembali', 'transaksi.foto_ktp', 'transaksi.foto_sim', 'transaksi.foto_kondisi_bbm', 'brand_kendaraan.nama_brand', 'brand_kendaraan.nama_merek', 'brand_kendaraan.harga_sewa', 'kendaraan.plat')
+        $data = Transaksi::select('transaksi.nama_penyewa', 'transaksi.no_telp', 'transaksi.alamat', 'transaksi.no_ktp', 'transaksi.no_sim', 'transaksi.foto_penyewa', 'transaksi.driver', 'transaksi.biaya_supir', 'transaksi.tanda_tangan', 'transaksi.tanggal_sewa', 'transaksi.durasi', 'transaksi.waktu_pengambilan', 'transaksi.lokasi_pengambilan', 'transaksi.tanggal_kembali', 'transaksi.waktu_kembali', 'transaksi.foto_ktp', 'transaksi.foto_sim', 'transaksi.foto_kondisi_bbm', 'brand_kendaraan.nama_brand', 'brand_kendaraan.nama_merek', 'brand_kendaraan.harga_sewa', 'kendaraan.plat')
             ->join('kendaraan', 'transaksi.kendaraan_id', '=', 'kendaraan.id')
             ->join('brand_kendaraan', 'kendaraan.brand_kendaraan_id', '=', 'brand_kendaraan.id')
             ->where('transaksi.id', '=', $id)
@@ -363,12 +363,6 @@ class TransaksiController extends Controller
         $detail_foto_mobils = DB::table("detail_foto_mobils")
             ->where("transaksi_id", "=", $id)
             ->get();
-
-        if (request("output") == "pdf") {
-            $pdf = Pdf::loadView("admin.transaksi.invoice.invoice", compact("transaksi", "detail_foto_mobils"));
-            // $pdf = Pdf::loadHTML("<p>Test</p>");
-            return $pdf->download("invoice.pdf");
-        }
 
         return view("admin.transaksi.invoice.invoice", [
             "transaksi" => $transaksi,
@@ -479,18 +473,19 @@ class TransaksiController extends Controller
         return $oldFilePath;
     }
 
-    public function filter(Request $request){
+    public function filter(Request $request)
+    {
 
         $query = DB::table("transaksi")
-                ->select("transaksi.*", "brand_kendaraan.nama_brand", "brand_kendaraan.nama_merek", "kendaraan.plat")
-                ->join("kendaraan", "kendaraan.id", "=", "transaksi.kendaraan_id")
-                ->join("brand_kendaraan", "brand_kendaraan.id", "=", "kendaraan.brand_kendaraan_id");
+            ->select("transaksi.*", "brand_kendaraan.nama_brand", "brand_kendaraan.nama_merek", "kendaraan.plat")
+            ->join("kendaraan", "kendaraan.id", "=", "transaksi.kendaraan_id")
+            ->join("brand_kendaraan", "brand_kendaraan.id", "=", "kendaraan.brand_kendaraan_id");
 
         // Pencarian (search)
         $tanggal = $request->tanggal;
         if ($tanggal) {
             $query->where(function ($q) use ($tanggal) {
-                $q->whereDate('transaksi.created_at','=',$tanggal);
+                $q->whereDate('transaksi.created_at', '=', $tanggal);
             });
         }
         $query->latest('transaksi.created_at');
@@ -502,6 +497,5 @@ class TransaksiController extends Controller
             "action" => "lihat_transaksi",
             "data" => $data,
         ]);
-
     }
 }

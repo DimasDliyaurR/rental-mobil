@@ -1,5 +1,5 @@
 function addKondisiMobil() {
-    var margin = $("<div class='mb-3'></div>");
+    var margin = $("<div class='mb-3' id='outlier-form'></div>");
     var marginKondisi = $("<div class='mb-3'></div>");
     var marginKeterangan = $("<div class='mb-3'></div>");
     var batas = $("<hr class='border border-secondary border-2 opacity-50'>");
@@ -48,7 +48,13 @@ $(document).ready(() => {
         var formFinish = $("#driver").after(form);
     });
 
+
+
     $("#driver-tidak").on("change", () => {
         $("#p").remove();
+    });
+
+    $("#remove").on("click", () => {
+        $('#outlier-form').remove();
     });
 });

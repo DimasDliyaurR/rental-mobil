@@ -9,27 +9,34 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
-    public function home(){
+    public function home()
+    {
 
         $filterMerek = Kendaraan::join('brand_kendaraan', 'kendaraan.brand_kendaraan_id', '=', 'brand_kendaraan.id')
-        ->select('kendaraan.*', 'brand_kendaraan.*')
-        ->groupBy('brand_kendaraan.nama_merek')
-        ->get();
+            ->select('kendaraan.plat', 'brand_kendaraan.*')
+            ->groupBy('brand_kendaraan.nama_merek')->get();
+
         $filterBB = Kendaraan::join('brand_kendaraan', 'kendaraan.brand_kendaraan_id', '=', 'brand_kendaraan.id')
-        ->select('kendaraan.*', 'brand_kendaraan.*')
-        ->groupBy('brand_kendaraan.bahan_bakar')
-        ->get();
+            ->select('kendaraan.*', 'brand_kendaraan.*')
+            ->groupBy('brand_kendaraan.bahan_bakar')
+            ->get();
 
         $filteredData = Kendaraan::join('brand_kendaraan', 'kendaraan.brand_kendaraan_id', '=', 'brand_kendaraan.id')
-        ->select('kendaraan.*', 'brand_kendaraan.nama_brand')
-        ->groupBy('brand_kendaraan.nama_merek')
-        ->selectRaw('brand_kendaraan.nama_merek, COUNT(*) as count')
-        ->filter(request(['merek','bahan_bakar']))
-        ->paginate(7)->withQueryString();
+            ->select('kendaraan.*', 'brand_kendaraan.nama_brand')
+            ->groupBy('brand_kendaraan.nama_merek')
+            ->selectRaw('brand_kendaraan.nama_merek, COUNT(*) as count')
+            ->filter(request(['merek', 'bahan_bakar']))
+            ->paginate(7)->withQueryString();
 
         $banyakMobil = Kendaraan::join('brand_kendaraan', 'kendaraan.brand_kendaraan_id', '=', 'brand_kendaraan.id')
-        ->select('kendaraan.*', 'brand_kendaraan.nama_brand')
-        ->filter(request(['merek','bahan_bakar']))->count();
+            ->select('kendaraan.*', 'brand_kendaraan.nama_brand')
+            ->filter(request(['merek', 'bahan_bakar']))->count();
+
+
+        // foreach ($filterMerek as $row) {
+        //     echo "<br>" . $row->brand_kendaraan->nama_merek;
+        // }
+        // dd($filteredData);
 
         return view('layouts.home', [
             "title" => "Kendaraan",

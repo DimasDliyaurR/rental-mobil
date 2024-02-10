@@ -18,14 +18,9 @@ class KendaraanSeeder extends Seeder
         $faker = Faker::create("id_ID");
 
         for ($i = 0; $i < 20; $i++) {
-            DB::table('Kendaraan')->insert([
-                'brand_kendaraan_id' => $faker->numberBetween(1, 20), // Faker::word akan menghasilkan kata acak
-                'plat' => $faker->numerify('##-###-##'), // Faker::numerify akan menghasilkan nomor acak
-                'unit_available' => $faker->numberBetween(1, 50), // Faker::numberBetween akan menghasilkan angka acak dalam range tertentu
-                'tahun_mobil' => $faker->year,
-                'bahan_bakar' => $faker->randomElement(['Bensin', 'Solar', 'Gas']),
-                'harga_sewa' => $faker->numberBetween(100000, 1000000),
-                'foto_mobil' => $faker->imageUrl(180, 180, "transportasi", true, "mobil", $format = "png"),
+            Kendaraan::create([
+                'brand_kendaraan_id' => $faker->numberBetween(1, 2), // Faker::word akan menghasilkan kata acak
+                'plat' => $faker->unique()->numerify('##-###-##'), // Faker::numerify akan menghasilkan nomor acak
             ]);
         }
     }

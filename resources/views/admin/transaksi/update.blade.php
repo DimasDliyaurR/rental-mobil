@@ -43,27 +43,29 @@
                                                 <label for="foto_penyewa" class="form-label">Foto Klien</label>
                                                 <input type="file" id="formFileLg" name="foto_penyewa"
                                                     class="form-control form-control-lg" multiple>
-                                                <img src="{{ asset($data->foto_penyewa) }}" class="img-fluid img-thumbnail mt-2"
-                                                    alt="Foto Penyewa" style="object-fit: cover; width: 200px;height: 300px;">
-                                                    @error('foto_penyewa')
+                                                <img src="{{ asset($data->foto_penyewa) }}"
+                                                    class="img-fluid img-thumbnail mt-2" alt="Foto Penyewa"
+                                                    style="object-fit: cover; width: 200px;height: 300px;">
+                                                @error('foto_penyewa')
                                                     <span class="form-text text-danger">
                                                         {{ $message }}
                                                     </span>
-                                                    @enderror
+                                                @enderror
                                             </div>
                                         </div>
                                         {{-- Nama Penyewa --}}
                                         <div class="mb-3">
                                             <div class="form-floating col-md-6">
-                                                <input oninput="this.value = this.value.toLowerCase()" type="text" name="nama_penyewa" class="form-control text-capitalize"
-                                                value="{{ $data->nama_penyewa }}" placeholder="...">
+                                                <input oninput="this.value = this.value.toLowerCase()" type="text"
+                                                    name="nama_penyewa" class="form-control text-capitalize"
+                                                    value="{{ $data->nama_penyewa }}" placeholder="...">
                                                 <label for="nama_penyewa" class="ms-2">Nama Penyewa</label>
 
 
                                                 @error('nama_penyewa')
-                                                <span class="form-text text-danger">
-                                                    {{ $message }}
-                                                </span>
+                                                    <span class="form-text text-danger">
+                                                        {{ $message }}
+                                                    </span>
                                                 @enderror
                                             </div>
                                         </div>
@@ -71,28 +73,30 @@
                                         {{-- No Telp --}}
                                         <div class="mb-3">
                                             <div class="form-floating col-md-6">
-                                                    <input type="text" id="no_telp" name="no_telp" class="form-control text-capitalize"
-                                                    value="{{ $data->no_telp }}" placeholder="...">
-                                                    <label for="no_telp" class="ms-2">Nomor Telepon</label>
+                                                <input type="text" id="no_telp" name="no_telp"
+                                                    class="form-control text-capitalize" value="{{ $data->no_telp }}"
+                                                    placeholder="...">
+                                                <label for="no_telp" class="ms-2">Nomor Telepon</label>
 
-                                                    @error('no_telp')
+                                                @error('no_telp')
                                                     <span class="form-text text-danger">
                                                         {{ $message }}
                                                     </span>
-                                                    @enderror
+                                                @enderror
                                             </div>
                                         </div>
 
                                         {{-- Alamat --}}
                                         <div class="mb-3">
                                             <div class="form-floating col-md-6">
-                                                <input oninput="this.value = this.value.toLowerCase()" type="text" id="alamat" name="alamat" class="form-control text-capitalize"
-                                                value="{{ $data->alamat }}" placeholder="...">
+                                                <input oninput="this.value = this.value.toLowerCase()" type="text"
+                                                    id="alamat" name="alamat" class="form-control text-capitalize"
+                                                    value="{{ $data->alamat }}" placeholder="...">
                                                 <label for="alamat" class="ms-2">Alamat Klien</label>
                                                 @error('alamat')
-                                                <span class="form-text text-danger">
-                                                    {{ $message }}
-                                                </span>
+                                                    <span class="form-text text-danger">
+                                                        {{ $message }}
+                                                    </span>
                                                 @enderror
                                             </div>
                                         </div>
@@ -100,13 +104,14 @@
                                         {{-- No KTP --}}
                                         <div class="mb-3">
                                             <div class="form-floating col-md-6">
-                                                <input type="text" id="no_ktp" name="no_ktp" class="form-control text-capitalize"
-                                                value="{{ $data->no_ktp }}" placeholder="...">
+                                                <input type="text" id="no_ktp" name="no_ktp"
+                                                    class="form-control text-capitalize" value="{{ $data->no_ktp }}"
+                                                    placeholder="...">
                                                 <label for="no_ktp" class="ms-2">Nomor KTP</label>
                                                 @error('no_ktp')
-                                                <span class="form-text text-danger">
-                                                    {{ $message }}
-                                                </span>
+                                                    <span class="form-text text-danger">
+                                                        {{ $message }}
+                                                    </span>
                                                 @enderror
                                             </div>
                                         </div>
@@ -114,13 +119,14 @@
                                         {{-- No SIM --}}
                                         <div class="mb-3">
                                             <div class="form-floating col-md-6">
-                                                <input type="text" id="no_sim" name="no_sim" class="form-control text-capitalize"
-                                                value="{{ $data->no_sim }}" placeholder="...">
+                                                <input type="text" id="no_sim" name="no_sim"
+                                                    class="form-control text-capitalize" value="{{ $data->no_sim }}"
+                                                    placeholder="...">
                                                 <label for="no_sim" class="ms-2">Nomor SIM</label>
                                                 @error('no_sim')
-                                                <span class="form-text text-danger">
-                                                    {{ $message }}
-                                                </span>
+                                                    <span class="form-text text-danger">
+                                                        {{ $message }}
+                                                    </span>
                                                 @enderror
                                             </div>
                                         </div>
@@ -130,30 +136,30 @@
                                             <div class="mb-3 col-lg-3">
                                                 <label for="foto_ktp" class="form-label">Foto KTP</label>
                                                 <input type="file" id="foto_ktp" name="foto_ktp"
-                                                    value="{{ $data->foto_ktp }}" class="form-control"
-                                                    multiple>
-                                                <img src="{{ asset($data->foto_ktp) }}" class="img-fluid img-thumbnail mt-3"
-                                                    alt="Foto KTP" style="object-fit: contain; width: 250px;height: 175px;">
-                                                    @error('foto_ktp')
+                                                    value="{{ $data->foto_ktp }}" class="form-control" multiple>
+                                                <img src="{{ asset($data->foto_ktp) }}"
+                                                    class="img-fluid img-thumbnail mt-3" alt="Foto KTP"
+                                                    style="object-fit: contain; width: 250px;height: 175px;">
+                                                @error('foto_ktp')
                                                     <span class="form-text text-danger">
                                                         {{ $message }}
                                                     </span>
-                                                    @enderror
+                                                @enderror
                                             </div>
                                             {{-- SIM --}}
                                             <div class="mb-3 col-lg-3">
                                                 <label for="foto_sim" class="form-label">Foto SIM</label>
                                                 <input type="file" id="foto_sim" name="foto_sim"
-                                                    value="{{ $data->foto_sim }}" class="form-control"
-                                                    multiple>
-                                                <img src="{{ asset($data->foto_sim) }}" class="img-fluid img-thumbnail mt-3"
-                                                    alt="Foto SIM" width="540" height="540"
+                                                    value="{{ $data->foto_sim }}" class="form-control" multiple>
+                                                <img src="{{ asset($data->foto_sim) }}"
+                                                    class="img-fluid img-thumbnail mt-3" alt="Foto SIM" width="540"
+                                                    height="540"
                                                     style="object-fit: contain; width: 250px;height: 175px;">
-                                                    @error('foto_sim')
+                                                @error('foto_sim')
                                                     <span class="form-text text-danger">
                                                         {{ $message }}
                                                     </span>
-                                                    @enderror
+                                                @enderror
                                             </div>
                                         </div>
 
@@ -171,22 +177,26 @@
                                         <div class="mb-3">
                                             <div class="col-md-6">
                                                 <label for="kendaraan" class="form-label">Daftar Kendaraan</label>
-                                                <select class="form-select form-select-lg" aria-label="Default select example" id="kendaraan" name="kendaraan">
-                                                    <option value='{{ $data->kendaraan_id }}' selected disabled hidden>-- Pilih
-                                                        Kendaraan --
+                                                <select class="form-select form-select-lg"
+                                                    aria-label="Default select example" id="kendaraan" name="kendaraan">
+                                                    <option value='{{ $data->kendaraan_id }}' selected hidden>
+                                                        {{ $kendaraan->brand_kendaraan->nama_brand }}
+                                                        {{ $kendaraan->brand_kendaraan->nama_merek }} ||
+                                                        {{ $kendaraan->plat }}
                                                     </option>
                                                     @foreach ($kendaraan_field as $row)
                                                         <option value="{{ $row->id }}"
-                                                            {{ $data->kendaraan_id == $row->id ? 'selected' : '' }}x>
-                                                            {{ $row->nama_brand . ' ' .$row->nama_merek }}  ||  {{ $row->plat }}
+                                                            {{ $data->kendaraan_id == $row->id ? 'selected' : '' }}>
+                                                            {{ $row->nama_brand . ' ' . $row->nama_merek }} ||
+                                                            {{ $row->plat }}
                                                         </option>
                                                     @endforeach
                                                 </select>
 
                                                 @error('kendaraan')
-                                                <span class="form-text text-danger">
-                                                    {{ $message }}
-                                                </span>
+                                                    <span class="form-text text-danger">
+                                                        {{ $message }}
+                                                    </span>
                                                 @enderror
                                             </div>
                                         </div>
@@ -197,36 +207,40 @@
                                                 <label class="form-label" for="foto_bbm">
                                                     Foto BBM
                                                 </label>
-                                                <input class="form-control form-control-lg mb-3" name="foto_bbm" type="file"
-                                                    value="{{ $data->foto_bbm }}" id="formFileLg" multiple>
+                                                <input class="form-control form-control-lg mb-3" name="foto_kondisi_bbm"
+                                                    type="file" value="{{ $data->foto_bbm }}" id="formFileLg"
+                                                    multiple>
                                                 <img src="{{ asset($data->foto_kondisi_bbm) }}"
                                                     class="img-fluid img-thumbnail" alt="Foto Kondisi BBM" width="540"
-                                                    height="540" style="object-fit: contain; width: 250px;height: 175px;">
-                                                    @error('foto_bbm')
+                                                    height="540"
+                                                    style="object-fit: contain; width: 250px;height: 175px;">
+                                                @error('foto_bbm')
                                                     <span class="form-text text-danger">
                                                         {{ $message }}
                                                     </span>
-                                                    @enderror
+                                                @enderror
                                             </div>
                                         </div>
 
                                         {{-- Jumlah BBM --}}
                                         <div class="mb-3">
                                             <div class="form-floating col-md-6">
-                                                <input type="text" id="jumlah_bbm" name="jumlah_bbm" class="form-control  text-capitalize"
-                                                value="{{ $data->jumlah_bbm }}" placeholder="...">
+                                                <input type="text" id="jumlah_bbm" name="jumlah_bbm"
+                                                    class="form-control  text-capitalize" value="{{ $data->jumlah_bbm }}"
+                                                    placeholder="...">
                                                 <label for="jumlah_bbm" class="ms-2">Jumlah BBM</label>
                                                 @error('jumlah_bbm')
-                                                <span class="form-text text-danger">
-                                                    {{ $message }}
-                                                </span>
+                                                    <span class="form-text text-danger">
+                                                        {{ $message }}
+                                                    </span>
                                                 @enderror
                                             </div>
                                         </div>
 
                                         {{-- Tabel Brand Kendaraan --}}
                                         <div class="mt-3 col-md-6">
-                                            <div class="accordion accordion-flush rounded border" id="accordionFlushExample">
+                                            <div class="accordion accordion-flush rounded border"
+                                                id="accordionFlushExample">
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header" id="flush-headingOne">
                                                         <button class="accordion-button collapsed" type="button"
@@ -241,12 +255,15 @@
                                                         <div class="accordion-body" id="kondisiMobil">
                                                             {{-- Kondisi Mobil --}}
                                                             <div class="d-flex justify-content-end">
-                                                                <div class="btn btn-info rounded" id="add"
+                                                                <div class="btn btn-info rounded mr-3" id="add"
                                                                     onclick="addKondisiMobil()">Add +</div>
+
+                                                                <div class="btn btn-danger rounded" id="remove">Hapus -
+                                                                </div>
                                                             </div>
 
                                                             @foreach ($detail_foto_mobil as $index => $row)
-                                                                <div class="" id="form-kondisi-mobil">
+                                                                <div class="">
                                                                     {{-- Koondisi Mobil --}}
                                                                     <div class="mb-3">
                                                                         <hr
@@ -257,6 +274,7 @@
                                                                                 Mobil</label>
                                                                             <input class="form-control form-control"
                                                                                 name="kondisi_mobil[]" type="file"
+                                                                                accept="image/*" capture="camera"
                                                                                 id="formFile" multiple>
                                                                             @error('kondisi_mobil')
                                                                                 <span class="form-text text-danger">
@@ -269,10 +287,17 @@
                                                                                 height="540"
                                                                                 style="object-fit: contain; width: 250px;height: 175px;">
                                                                         </div>
-                                                                        <div class="mb-3 form-floating" id="keterangan-kondisi-mobil">
-                                                                                <input oninput="this.value = this.value.toLowerCase()" type="text" id="keterangan[]" name="keterangan[]" class="form-control text-capitalize"
-                                                                                value="{{ $row->keterangan }}" placeholder="...">
-                                                                                <label for="keterangan[]" class="">Keterangan</label>
+                                                                        <div class="mb-3 form-floating"
+                                                                            id="keterangan-kondisi-mobil">
+                                                                            <input
+                                                                                oninput="this.value = this.value.toLowerCase()"
+                                                                                type="text" id="keterangan[]"
+                                                                                name="keterangan[]"
+                                                                                class="form-control text-capitalize"
+                                                                                value="{{ $row->keterangan }}"
+                                                                                placeholder="...">
+                                                                            <label for="keterangan[]"
+                                                                                class="">Keterangan</label>
                                                                             @error('keterangan')
                                                                                 <span class="form-text text-danger">
                                                                                     {{ $message }}
@@ -280,9 +305,9 @@
                                                                             @enderror
                                                                         </div>
                                                                     </div>
-
                                                                 </div>
                                                             @endforeach
+                                                            <div id="form-kondisi-mobil"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -310,7 +335,8 @@
                                                 <div class="form-check mx-3 mb-2">
                                                     <input class="form-check-input" type="radio" name="driver"
                                                         value="1" id="driver-iya"
-                                                        {{ $data->driver !== null && $data->driver == 1 ? 'checked' : '' }} style="font-size: 24px">
+                                                        {{ $data->driver !== null && $data->driver == 1 ? 'checked' : '' }}
+                                                        style="font-size: 24px">
                                                     <label class="form-check-label" for="driver-iya">
                                                         Iya
                                                     </label>
@@ -318,15 +344,16 @@
                                                 <div class="form-check mx-3 mb-2">
                                                     <input class="form-check-input" type="radio" name="driver"
                                                         value="0" id="driver-tidak"
-                                                        {{ $data->driver !== null && $data->driver == 0 ? 'checked' : '' }} style="font-size: 24px">
+                                                        {{ $data->driver !== null && $data->driver == 0 ? 'checked' : '' }}
+                                                        style="font-size: 24px">
                                                     <label class="form-check-label" for="driver-tidak">
                                                         Tidak
                                                     </label>
                                                 </div>
                                                 @error('driver')
-                                                <span class="form-text text-danger">
-                                                    {{ $message }}
-                                                </span>
+                                                    <span class="form-text text-danger">
+                                                        {{ $message }}
+                                                    </span>
                                                 @enderror
                                             </div>
 
@@ -345,14 +372,16 @@
                                         {{-- Lokasi Pengambilan --}}
                                         <div class="mb-3">
                                             <div class="form-floating col-md-6">
-                                                <input oninput="this.value = this.value.toLowerCase()" type="text" id="lokas_pengambilan" name="lokasi_pengambilan" class="form-control text-capitalize"
-                                                value="{{ $data->lokasi_pengambilan }}" placeholder="...">
+                                                <input oninput="this.value = this.value.toLowerCase()" type="text"
+                                                    id="lokas_pengambilan" name="lokasi_pengambilan"
+                                                    class="form-control text-capitalize"
+                                                    value="{{ $data->lokasi_pengambilan }}" placeholder="...">
                                                 <label for="lokasi_pengambilan" class="ms-2">Lokasi Pengambilan</label>
 
                                                 @error('lokasi_pengembalian')
-                                                <span class="form-text text-danger">
-                                                    {{ $message }}
-                                                </span>
+                                                    <span class="form-text text-danger">
+                                                        {{ $message }}
+                                                    </span>
                                                 @enderror
                                             </div>
                                         </div>
@@ -363,27 +392,29 @@
                                             <div class="col-md-6">
                                                 <label for="waktu_pengambilan" class="form-label">Waktu
                                                     Pengambilan</label>
-                                                <input class="form-control form-control-lg" id="waktu_pengambilan" type="date"
-                                                    name="waktu_pengambilan" value="{{ $data->waktu_pengambilan }}">
-                                                    @error('waktu_pengambilan')
+                                                <input class="form-control form-control-lg" id="waktu_pengambilan"
+                                                    type="date" name="waktu_pengambilan"
+                                                    value="{{ $data->waktu_pengambilan }}">
+                                                @error('waktu_pengambilan')
                                                     <span class="form-text text-danger">
                                                         {{ $message }}
                                                     </span>
-                                                    @enderror
+                                                @enderror
                                             </div>
                                         </div>
 
                                         {{-- Durasi --}}
                                         <div class="mb-3">
                                             <div class="form-floating col-md-6">
-                                                <input type="text" name="durasi" id="durasi" class="form-control text-capitalize"
-                                                value="{{ $data->durasi }}" placeholder="...">
+                                                <input type="text" name="durasi" id="durasi"
+                                                    class="form-control text-capitalize" value="{{ $data->durasi }}"
+                                                    placeholder="...">
                                                 <label for="durasi" class="ms-2">Durasi sewa dalam hari</label>
 
                                                 @error('durasi')
-                                                <span class="form-text text-danger">
-                                                    {{ $message }}
-                                                </span>
+                                                    <span class="form-text text-danger">
+                                                        {{ $message }}
+                                                    </span>
                                                 @enderror
                                             </div>
                                         </div>

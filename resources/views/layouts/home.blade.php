@@ -6,15 +6,14 @@
         <div class="container d-flex flex-column mt-5 pt-5">
             <h1 class="display-5 fw-bold col-md-5 mt-5 pt-5">CARI MOBIL UNTUK KENYAMANAN <br />ANDA.</h1>
             <p class="col-md-5 mt-3 fs-4">KAMI MEMPUNYAI BEBERAPA PILIHAN <br />UNTUK ANDA.</p>
-            <a href="#mobil-untuk-anda"
-                class="tombolSelengkapnya d-flex align-items-center justify-content-center px-3">Mobil Tersedia<i
-                    class="uil uil-arrow-circle-right ms-2"></i></a>
+            <a href="#mobil-untuk-anda" class="tombolSelengkapnya d-flex align-items-center justify-content-center px-3">Mobil
+                Tersedia<i class="uil uil-arrow-circle-right ms-2"></i></a>
         </div>
     </div>
     <!-- END BANNER -->
     <!-- MOBIL UNTUK ANDA -->
     <div class="py-3" id="mobil-untuk-anda">
-        <h2 class="container text-center mt-5 pt-5" >Mobil Untuk Anda</h2>
+        <h2 class="container text-center mt-5 pt-5">Mobil Untuk Anda</h2>
         <div class="container mt-3">
             <div class="row gx-5">
                 <div class="col-lg-3 col-md-12 searchBox p-3 py-5 mt-3">
@@ -26,7 +25,8 @@
                             <select class="form-select" id="inputGroupSelect01" name="merek">
                                 <option value="">Semua</option>
                                 @foreach ($filterMerek as $row)
-                                    <option value="{{ $row->brand_kendaraan->nama_merek }}">{{ $row->brand_kendaraan->nama_merek }}</option>
+                                    <option value="{{ $row->brand_kendaraan->nama_merek }}">
+                                        {{ $row->brand_kendaraan->nama_merek }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -35,11 +35,13 @@
                             <select class="form-select" id="inputGroupSelect02" name="bahan_bakar">
                                 <option value="">Semua</option>
                                 @foreach ($filterBB as $row)
-                                    <option value="{{ $row->brand_kendaraan->bahan_bakar }}">{{ $row->brand_kendaraan->bahan_bakar }}</option>
+                                    <option value="{{ $row->brand_kendaraan->bahan_bakar }}">
+                                        {{ $row->brand_kendaraan->bahan_bakar }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <button class="buttonCari p-2" onclick="scrollToResults()"><i class="uil uil-search"></i> Cari</button>
+                        <button class="buttonCari p-2" onclick="scrollToResults()"><i class="uil uil-search"></i>
+                            Cari</button>
                     </form>
                 </div>
 
@@ -52,17 +54,24 @@
                         @foreach ($data as $row)
                             <div class="row cardMobil mt-3 p-2">
                                 <div class="col-md">
-                                    <img src="{{ asset($row->brand_kendaraan->foto_kendaraan) }}" class="img-fluid w-100 mx-auto" alt="" />
+                                    <img src="{{ asset($row->brand_kendaraan->foto_kendaraan) }}"
+                                        class="img-fluid w-100 mx-auto" alt="" />
                                 </div>
                                 <div class="col-md p-3">
-                                    <h1 class="merekMobil fw-3">{{ $row->brand_kendaraan->nama_brand }}, {{ $row->nama_merek }}</h1>
-                                    <p class="hargaMobil">Rp. {{ number_format($row->brand_kendaraan->harga_sewa, 0, ',', '.') }} / Hari</p>
+                                    <h1 class="merekMobil fw-3">{{ $row->brand_kendaraan->nama_brand }},
+                                        {{ $row->nama_merek }}</h1>
+                                    <p class="hargaMobil">Rp.
+                                        {{ number_format($row->brand_kendaraan->harga_sewa, 0, ',', '.') }} / Hari</p>
                                     <div class="row my-3 infoMobil">
-                                        <div class="col"><i class="uil uil-user me-2"></i>{{ $row->count }} Tersedia</div>
-                                        <div class="col"><i class="uil uil-pump me-2"></i>{{ $row->brand_kendaraan->bahan_bakar }}</div>
+                                        <div class="col"><i class="uil uil-user me-2"></i>{{ $row->count }} Tersedia
+                                        </div>
+                                        <div class="col"><i
+                                                class="uil uil-pump me-2"></i>{{ $row->brand_kendaraan->bahan_bakar }}
+                                        </div>
                                         <div class="col"></div>
                                     </div>
-                                    <a href="{{ asset('detil/' . $row->brand_kendaraan->id) }}" class="lihatDetilKendaraan py-2 px-3 mt-4"> Lihat
+                                    <a href="{{ asset('detil/' . $row->brand_kendaraan->id) }}"
+                                        class="lihatDetilKendaraan py-2 px-3 mt-4"> Lihat
                                         Detil <i class="uil uil-arrow-circle-right"></i> </a>
                                 </div>
                             </div>

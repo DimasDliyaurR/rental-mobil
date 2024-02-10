@@ -41,23 +41,26 @@
                                                 <label for="foto_penyewa" class="form-label">Foto Klien</label>
                                                 <input type="file" accept="image/*" capture="camera" id="formFileLg"
                                                     name="foto_penyewa" class="form-control form-control-lg" multiple>
-                                                    @error('foto_penyewa')
+                                                @error('foto_penyewa')
                                                     <span class="form-text text-danger">
                                                         {{ $message }}
                                                     </span>
-                                                    @enderror
+                                                @enderror
                                             </div>
                                         </div>
 
                                         {{-- Nama Penyewa --}}
                                         <div class="mb-3 row">
                                             <div class="col-md-6 form-floating">
-                                                <input oninput="this.value = this.value.toLowerCase()" type="text" class="form-control" id="nama_penyewa" placeholder="Masukkan nama penyewa" name="nama_penyewa" value="{{ old('nama_penyewa') }}">
+                                                <input oninput="this.value = this.value.toLowerCase()" type="text"
+                                                    class="form-control" id="nama_penyewa"
+                                                    placeholder="Masukkan nama penyewa" name="nama_penyewa"
+                                                    value="{{ old('nama_penyewa') }}">
                                                 <label for="nama_penyewa" class="ms-2">Nama Klien</label>
                                                 @error('nama_penyewa')
-                                                <span class="form-text text-danger">
-                                                    {{ $message }}
-                                                </span>
+                                                    <span class="form-text text-danger">
+                                                        {{ $message }}
+                                                    </span>
                                                 @enderror
                                             </div>
                                         </div>
@@ -66,12 +69,12 @@
                                         <div class="mb-3 row">
                                             <div class="col-md-6 form-floating">
                                                 <input type="text" id="no_telp" name="no_telp" class="form-control"
-                                                value="{{ old('no_telp') }}" placeholder="Masukkan nomor telepon">
+                                                    value="{{ old('no_telp') }}" placeholder="Masukkan nomor telepon">
                                                 <label for="no_telp" class="ms-2">Nomor Telepon</label>
                                                 @error('no_telp')
-                                                <span class="form-text text-danger">
-                                                    {{ $message }}
-                                                </span>
+                                                    <span class="form-text text-danger">
+                                                        {{ $message }}
+                                                    </span>
                                                 @enderror
                                             </div>
                                         </div>
@@ -79,13 +82,14 @@
                                         {{-- Alamat --}}
                                         <div class="mb-3 row">
                                             <div class="col-md-6 form-floating">
-                                                <input oninput="this.value = this.value.toLowerCase()" type="text" id="alamat" name="alamat" class="form-control"
-                                                value="{{ old('alamat') }}" placeholder="Masukkan alamat">
+                                                <input oninput="this.value = this.value.toLowerCase()" type="text"
+                                                    id="alamat" name="alamat" class="form-control"
+                                                    value="{{ old('alamat') }}" placeholder="Masukkan alamat">
                                                 <label for="alamat" class="ms-2">Alamat Klien</label>
                                                 @error('alamat')
-                                                <span class="form-text text-danger">
-                                                    {{ $message }}
-                                                </span>
+                                                    <span class="form-text text-danger">
+                                                        {{ $message }}
+                                                    </span>
                                                 @enderror
                                             </div>
                                         </div>
@@ -94,12 +98,12 @@
                                         <div class="mb-3 row">
                                             <div class="col-md-6 form-floating">
                                                 <input type="text" id="no_ktp" name="no_ktp" class="form-control"
-                                                value="{{ old('no_ktp') }}" placeholder="Masukkan nomor KTP">
+                                                    value="{{ old('no_ktp') }}" placeholder="Masukkan nomor KTP">
                                                 <label for="no_ktp" class="ms-2">Nomor KTP Klien</label>
                                                 @error('no_ktp')
-                                                <span class="form-text text-danger">
-                                                    {{ $message }}
-                                                </span>
+                                                    <span class="form-text text-danger">
+                                                        {{ $message }}
+                                                    </span>
                                                 @enderror
                                             </div>
                                         </div>
@@ -108,12 +112,12 @@
                                         <div class="mb-4 row">
                                             <div class="col-md-6 form-floating">
                                                 <input type="text" id="no_sim" name="no_sim" class="form-control"
-                                                value="{{ old('no_sim') }}" placeholder="Masukkan nomor SIM">
+                                                    value="{{ old('no_sim') }}" placeholder="Masukkan nomor SIM">
                                                 <label for="no_sim" class="ms-2">Nomor SIM Klien</label>
                                                 @error('no_sim')
-                                                <span class="form-text text-danger">
-                                                    {{ $message }}
-                                                </span>
+                                                    <span class="form-text text-danger">
+                                                        {{ $message }}
+                                                    </span>
                                                 @enderror
                                             </div>
                                         </div>
@@ -124,11 +128,11 @@
                                                 <label for="foto_ktp" class="form-label">Foto KTP</label>
                                                 <input type="file" accept="image/*" capture="camera" id="foto_ktp"
                                                     name="foto_ktp" class="form-control form-control-lg" multiple>
-                                                    @error('foto_ktp')
+                                                @error('foto_ktp')
                                                     <span class="form-text text-danger">
                                                         {{ $message }}
                                                     </span>
-                                                    @enderror
+                                                @enderror
                                             </div>
 
                                             {{-- FOTO SIM --}}
@@ -136,11 +140,11 @@
                                                 <label for="foto_sim" class="form-label">Foto SIM</label>
                                                 <input type="file" accept="image/*" capture="camera" id="foto_sim"
                                                     name="foto_sim" class="form-control form-control-lg" multiple>
-                                                    @error('foto_sim')
+                                                @error('foto_sim')
                                                     <span class="form-text text-danger">
                                                         {{ $message }}
                                                     </span>
-                                                    @enderror
+                                                @enderror
                                             </div>
                                         </div>
 
@@ -157,21 +161,23 @@
                                         <div class="mb-3">
                                             <div class="col-md-6">
                                                 <label for="kendaraan" class="form-label">Daftar Kendaraan</label>
-                                                <select class="form-select form-select-lg" aria-label="Default select example" id="kendaraan" name="kendaraan">
+                                                <select class="form-select form-select-lg"
+                                                    aria-label="Default select example" id="kendaraan" name="kendaraan">
                                                     <option selected disabled hidden>
                                                         {{ count($kendaraan) == 0 ? 'Kendaraan tidak ada yang tersedia' : 'Pilih Kendaraan...' }}
                                                     </option>
                                                     @foreach ($kendaraan as $row)
                                                         <option value="{{ $row->id }}">
-                                                            {{ $row->nama_brand . ' ' . $row->nama_merek }} || {{ $row->plat }}
+                                                            {{ $row->nama_brand . ' ' . $row->nama_merek }} ||
+                                                            {{ $row->plat }}
                                                         </option>
                                                     @endforeach
                                                 </select>
 
                                                 @error('kendaraan')
-                                                <span class="form-text text-danger">
-                                                    {{ $message }}
-                                                </span>
+                                                    <span class="form-text text-danger">
+                                                        {{ $message }}
+                                                    </span>
                                                 @enderror
                                             </div>
                                         </div>
@@ -185,32 +191,34 @@
                                                 <input class="form-control form-control-lg" name="foto_kondisi_bbm"
                                                     type="file" accept="image/*" capture="camera" id="formFileLg"
                                                     multiple>
-                                                    @error('foto_kondisi_bbm')
+                                                @error('foto_kondisi_bbm')
                                                     <span class="form-text text-danger">
                                                         {{ $message }}
                                                     </span>
-                                                    @enderror
+                                                @enderror
                                             </div>
                                         </div>
 
                                         {{-- Jumlah BBM --}}
                                         <div class="mb-3">
                                             <div class="col-md-6 form-floating">
-                                                <input type="text" id="jumlah_bbm" name="jumlah_bbm" class="form-control"
-                                                value="{{ old('jumlah_bbm') }}" placeholder="Masukkan jumlah bbm">
+                                                <input type="text" id="jumlah_bbm" name="jumlah_bbm"
+                                                    class="form-control" value="{{ old('jumlah_bbm') }}"
+                                                    placeholder="Masukkan jumlah bbm">
                                                 <label for="jumlah_bbm" class="ms-2">Jumlah BBM</label>
 
                                                 @error('jumlah_bbm')
-                                                <span class="form-text text-danger">
-                                                    {{ $message }}
-                                                </span>
+                                                    <span class="form-text text-danger">
+                                                        {{ $message }}
+                                                    </span>
                                                 @enderror
                                             </div>
                                         </div>
 
                                         {{-- Tabel Brand Kendaraan --}}
                                         <div class="mt-3 col-md-6">
-                                            <div class="accordion accordion-flush rounded border" id="accordionFlushExample">
+                                            <div class="accordion accordion-flush rounded border"
+                                                id="accordionFlushExample">
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header" id="flush-headingOne">
                                                         <button class="accordion-button collapsed" type="button"
@@ -225,20 +233,25 @@
                                                         <div class="accordion-body" id="kondisiMobil">
                                                             {{-- Kondisi Mobil --}}
                                                             <div class="d-flex justify-content-end">
-                                                                <div class="btn btn-info rounded" id="add"
-                                                                    onclick="addKondisiMobil()">Add +</div>
+                                                                <div class="btn btn-info rounded mr-3" id="add"
+                                                                    onclick="addKondisiMobil()">Tambah +</div>
+
+                                                                <div class="btn btn-danger rounded" id="remove">Hapus -
+                                                                </div>
                                                             </div>
                                                             <div class="" id="form-kondisi-mobil">
                                                                 {{-- Koondisi Mobil --}}
                                                                 <div class="mb-3">
-                                                                    <hr class="border border-secondary border-2 opacity-50">
-                                                                    <div class="mb-3" id="kondisi-mobil">
-                                                                        <label class="form-label" for="kondisi_mobil">Kondisi
+                                                                    <hr
+                                                                        class="border border-secondary border-2 opacity-50">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label"
+                                                                            for="kondisi_mobil">Kondisi
                                                                             Mobil</label>
                                                                         <input class="form-control form-control"
                                                                             name="kondisi_mobil[]" type="file"
-                                                                            accept="image/*" capture="camera" id="formFile"
-                                                                            multiple>
+                                                                            accept="image/*" capture="camera"
+                                                                            id="formFile" multiple>
                                                                         @error('kondisi_mobil')
                                                                             <span class="form-text text-danger">
                                                                                 {{ $message }}
@@ -248,7 +261,9 @@
                                                                     <div class="mb-3" id="keterangan-kondisi-mobil">
                                                                         <label
                                                                             for="keterangan[]"class="form-label">Keterangan</label>
-                                                                        <input oninput="this.value = this.value.toLowerCase()" type="text" class="form-control"
+                                                                        <input
+                                                                            oninput="this.value = this.value.toLowerCase()"
+                                                                            type="text" class="form-control"
                                                                             id="keterangan" name="keterangan[]"
                                                                             value="{{ old('keterangan[]') }}">
                                                                         @error('keterangan')
@@ -275,14 +290,15 @@
                                         {{-- Driver --}}
                                         <div class="mb-3 col-md-6" id="driver">
                                             <div class="mb-3">
-                                                <label class="form-label" for="driver" id="driver" >
+                                                <label class="form-label" for="driver" id="driver">
                                                     Pakai Driver?
                                                 </label>
 
                                                 <div class="form-check mx-3 mb-2">
                                                     <input class="form-check-input" type="radio" name="driver"
                                                         value="1" id="driver-iya"
-                                                        {{ old('driver') !== null && old('driver') == 1 ? 'checked' : '' }} style="font-size: 24px">
+                                                        {{ old('driver') !== null && old('driver') == 1 ? 'checked' : '' }}
+                                                        style="font-size: 24px">
                                                     <label class="form-check-label" for="driver-iya">
                                                         Iya
                                                     </label>
@@ -290,7 +306,8 @@
                                                 <div class="form-check mx-3">
                                                     <input class="form-check-input" type="radio" name="driver"
                                                         value="0" id="driver-tidak"
-                                                        {{ old('driver') !== null && old('driver') == 0 ? 'checked' : '' }} style="font-size: 24px">
+                                                        {{ old('driver') !== null && old('driver') == 0 ? 'checked' : '' }}
+                                                        style="font-size: 24px">
                                                     <label class="form-check-label" for="driver-tidak">
                                                         Tidak
                                                     </label>
@@ -307,14 +324,16 @@
                                         {{-- Lokasi Pengambilan --}}
                                         <div class="mb-3 mt-5">
                                             <div class="col-md-6 form-floating">
-                                                <input oninput="this.value = this.value.toLowerCase()" type="text" id="lokas_pengambilan" name="lokasi_pengambilan" class="form-control"
-                                                value="{{ old('lokasi_pengambilan') }}" placeholder="Lokasi pengambilan">
+                                                <input oninput="this.value = this.value.toLowerCase()" type="text"
+                                                    id="lokas_pengambilan" name="lokasi_pengambilan" class="form-control"
+                                                    value="{{ old('lokasi_pengambilan') }}"
+                                                    placeholder="Lokasi pengambilan">
                                                 <label for="lokasi_pengambilan" class="ms-2">Lokasi Pengambilan</label>
 
                                                 @error('lokasi_pengembalian')
-                                                <span class="form-text text-danger">
-                                                    {{ $message }}
-                                                </span>
+                                                    <span class="form-text text-danger">
+                                                        {{ $message }}
+                                                    </span>
                                                 @enderror
                                             </div>
                                         </div>
@@ -324,13 +343,14 @@
                                             <div class="col-md-6">
                                                 <label for="waktu_pengambilan" class="form-label">Tanggal
                                                     Pengambilan</label>
-                                                <input class="form-control form-control-lg" id="waktu_pengambilan" type="date"
-                                                    name="waktu_pengambilan" value="{{ old('waktu_pengambilan') }}">
-                                                    @error('waktu_pengambilan')
+                                                <input class="form-control form-control-lg" id="waktu_pengambilan"
+                                                    type="date" name="waktu_pengambilan"
+                                                    value="{{ old('waktu_pengambilan') }}">
+                                                @error('waktu_pengambilan')
                                                     <span class="form-text text-danger">
                                                         {{ $message }}
                                                     </span>
-                                                    @enderror
+                                                @enderror
                                             </div>
                                         </div>
 
@@ -338,12 +358,12 @@
                                         <div class="mb-3">
                                             <div class="col-md-6 form-floating">
                                                 <input type="text" id="durasi" name="durasi" class="form-control"
-                                                value="{{ old('durasi') }}" placeholder="Durasi sewa">
+                                                    value="{{ old('durasi') }}" placeholder="Durasi sewa">
                                                 <label for="durasi" class="ms-2">Durasi sewa dalam hari</label>
                                                 @error('durasi')
-                                                <span class="form-text text-danger">
-                                                    {{ $message }}
-                                                </span>
+                                                    <span class="form-text text-danger">
+                                                        {{ $message }}
+                                                    </span>
                                                 @enderror
                                             </div>
                                         </div>
@@ -356,16 +376,18 @@
                                                 <div class="sign-container">
                                                     <div id="sig"></div>
                                                     <style>
-                                                        #sig{
+                                                        #sig {
                                                             width: 500px
                                                         }
+
                                                         @media only screen and (min-width: 768px) and (max-width: 991px) {
-                                                            #sig{
+                                                            #sig {
                                                                 width: 400px
                                                             }
                                                         }
+
                                                         @media only screen and (max-width: 767px) {
-                                                            #sig{
+                                                            #sig {
                                                                 width: 300px
                                                             }
                                                         }

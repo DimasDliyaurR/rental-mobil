@@ -58,8 +58,22 @@ Route::middleware(["auth", "owner"])->group(function () {
         Route::get("/kendaraan-tambah/brand", "brand_index")->name('kendaraan.brand');
         Route::post("/kendaraan-tambah/tambah-brand", "tambah_brand")->name('kendaraan.brand.tambah');
 
-        // Update Status kendaraan
+        // Update kendaraan
+        Route::get("kendaraan-update/{id}", "update_kendaraan_index")->name("kendaraan_update");
+        Route::post("kendaraan/update/{id}", "update_kendaraan")->name("kendaraan_update");
+
+        // update Brand
+        Route::get("brand-update/{id}", "update_brand_index")->name("brand_update");
+        Route::post("brand/update", "update_brand")->name("brand_update");
+
+        // Status Kendaraan
         Route::get("kendaraan/{id}", "update_status")->name("kendaraan_status");
+
+        // Delete Kendaraan
+        Route::get("kendaraan/{id}/hapus", "delete_kendaraan")->name("kendaraan_delete");
+
+        // Delete Brand
+        Route::get("brand/{id}/hapus", "delete_brand")->name("brand_delete");
     });
 
     Route::controller(KreditDebitController::class)->group(function () {
@@ -96,6 +110,13 @@ Route::middleware(["auth"])->group(function () {
     Route::controller(PengeluaranController::class)->group(function () {
         Route::get("/pengeluaran-tambah", "tambah_index")->name('pengeluaran.tambah');
         Route::post("/pengeluaran-tambah/tambah", "tambah_pengeluaran")->name('pengeluaran.tambah');
+
+        // Update 
+        Route::get("/pengeluaran-update/{id}", "update_index")->name('pengeluaran.update');
+        Route::post("/pengeluaran-update/update", "update_pengeluaran")->name('pengeluaran.update');
+
+        // Delete
+        Route::get("/pengeluaran-hapus/{id}", "delete_pengeluaran")->name('pengeluaran.delete');
     });
 });
 
@@ -116,4 +137,4 @@ Route::controller(HomeController::class)->group(function () {
 });
 
 
-Route::get('/cariKendaraan',[KendaraanController::class, 'filterKendaraan']);
+Route::get('/cariKendaraan', [KendaraanController::class, 'filterKendaraan']);
