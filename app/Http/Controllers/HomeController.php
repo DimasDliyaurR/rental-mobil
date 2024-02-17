@@ -32,7 +32,6 @@ class HomeController extends Controller
             ->select('kendaraan.*', 'brand_kendaraan.nama_brand')
             ->filter(request(['merek', 'bahan_bakar']))->count();
 
-
         // foreach ($filterMerek as $row) {
         //     echo "<br>" . $row->brand_kendaraan->nama_merek;
         // }

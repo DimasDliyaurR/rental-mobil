@@ -314,7 +314,7 @@ class TransaksiController extends Controller
                     }
                 }
 
-                // Update Keterangan Kondisi Mobil (Baru)
+                // Update Keterangan Kondisi Mobil dan Keterangan (Baru)
                 if ($request->kondisi_mobil != null) {
 
                     foreach ($request->kondisi_mobil as $index => $value) {

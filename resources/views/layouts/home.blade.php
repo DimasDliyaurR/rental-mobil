@@ -25,8 +25,8 @@
                             <select class="form-select" id="inputGroupSelect01" name="merek">
                                 <option value="">Semua</option>
                                 @foreach ($filterMerek as $row)
-                                    <option value="{{ $row->brand_kendaraan->nama_merek }}">
-                                        {{ $row->brand_kendaraan->nama_merek }}</option>
+                                    <option value="{{ $row->nama_merek }}">
+                                        {{ $row->nama_merek }}</option>
                                 @endforeach
                             </select>
                         </div>
