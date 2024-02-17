@@ -262,21 +262,25 @@
                                                                 </div>
                                                             </div>
 
-                                                            @foreach ($detail_foto_mobil as $index => $row)
-                                                                <div class="">
+                                                            @foreach ($detail_foto_mobil as $row)
+                                                                <div>
                                                                     {{-- Koondisi Mobil --}}
                                                                     <div class="mb-3">
                                                                         <hr
                                                                             class="border border-secondary border-2 opacity-50">
                                                                         <div class="mb-3" id="kondisi-mobil">
                                                                             <label class="form-label"
-                                                                                for="kondisi_mobil">Kondisi
+                                                                                for="kondisi_mobil_old">Kondisi
                                                                                 Mobil</label>
                                                                             <input class="form-control form-control"
-                                                                                name="kondisi_mobil[]" type="file"
+                                                                                name="kondisi_mobil_old[]" type="file"
                                                                                 accept="image/*" capture="camera"
-                                                                                id="formFile" multiple>
-                                                                            @error('kondisi_mobil')
+                                                                                id="formFile"
+                                                                                value="{{ $row->foto_mobil }}" multiple>
+                                                                            <input type="text"
+                                                                                name="kondisi_mobil_old_id[]"
+                                                                                value="{{ $row->id }}" hidden>
+                                                                            @error('kondisi_mobil_old')
                                                                                 <span class="form-text text-danger">
                                                                                     {{ $message }}
                                                                                 </span>
@@ -291,20 +295,28 @@
                                                                             id="keterangan-kondisi-mobil">
                                                                             <input
                                                                                 oninput="this.value = this.value.toLowerCase()"
-                                                                                type="text" id="keterangan[]"
-                                                                                name="keterangan[]"
+                                                                                type="text" id="keterangan_old[]"
+                                                                                name="keterangan_old[]"
                                                                                 class="form-control text-capitalize"
                                                                                 value="{{ $row->keterangan }}"
                                                                                 placeholder="...">
-                                                                            <label for="keterangan[]"
+                                                                            <label for="keterangan_old[]"
                                                                                 class="">Keterangan</label>
-                                                                            @error('keterangan')
+                                                                            @error('keterangan_old')
                                                                                 <span class="form-text text-danger">
                                                                                     {{ $message }}
                                                                                 </span>
                                                                             @enderror
                                                                         </div>
+                                                                        <div class="col">
+
+                                                                            <a href="{{ asset('kondisi_mobil/' . $row->id . '/hapus') }}"
+                                                                                class="btn btn-danger"
+                                                                                onclick="return confirm('Apakah yakin ingin menghapus ?')">hapus</a>
+                                                                        </div>
                                                                     </div>
+
+
                                                                 </div>
                                                             @endforeach
                                                             <div id="form-kondisi-mobil"></div>

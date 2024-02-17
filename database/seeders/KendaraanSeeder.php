@@ -19,7 +19,7 @@ class KendaraanSeeder extends Seeder
 
         for ($i = 0; $i < 20; $i++) {
             Kendaraan::create([
-                'brand_kendaraan_id' => $faker->numberBetween(1, 2), // Faker::word akan menghasilkan kata acak
+                'brand_kendaraan_id' => $faker->numberBetween(1, 3), // Faker::word akan menghasilkan kata acak
                 'plat' => $faker->unique()->numerify('##-###-##'), // Faker::numerify akan menghasilkan nomor acak
             ]);
         }

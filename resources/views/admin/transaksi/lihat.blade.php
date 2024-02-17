@@ -23,6 +23,9 @@
 
                                     </form>
                                 </div>
+
+
+
                                 <div class="col-md-4">
                                     <form action="/transaksi">
                                         @csrf
@@ -36,6 +39,7 @@
                                         </div>
                                     </form>
                                 </div>
+
                             </div>
                             {{-- END FORM SEARCH --}}
                             <div class="overflow-visible" style="width: 10wv">

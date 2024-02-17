@@ -108,29 +108,24 @@ class KendaraanController extends Controller
         ]);
     }
 
-    public function history_kendaraan_index(Request $request)
+    public function history_brand_index()
     {
-        $query = Kendaraan::onlyTrashed()->select('kendaraan.*', 'brand_kendaraan.nama_brand', 'brand_kendaraan.nama_merek', 'brand_kendaraan.tahun_mobil', 'brand_kendaraan.bahan_bakar', 'brand_kendaraan.harga_sewa')
-            ->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id");
+        $data = Brand_Kendaraan::onlyTrashed()->get();
 
-        // Pencarian (search)
-        $searchKeyword = $request->input('search');
-        if ($searchKeyword) {
-            $query->where(function ($q) use ($searchKeyword) {
-                $q->Where('brand_kendaraan.nama_brand', 'LIKE', "%$searchKeyword%")
-                    ->orWhere('brand_kendaraan.nama_merek', 'LIKE', "%$searchKeyword%")
-                    ->orWhere('brand_kendaraan.tahun_mobil', 'LIKE', "%$searchKeyword%")
-                    ->orWhere('brand_kendaraan.bahan_bakar', 'LIKE', "%$searchKeyword%")
-                    ->orWhere('kendaraan.plat', 'LIKE', "%$searchKeyword%");
-            });
-        }
+        return view("admin.kendaraan.brand.history", [
+            "title" => "brand",
+            "action" => "history_brand",
+            "data" => $data,
+        ]);
+    }
 
-        // Paginasi
-        $data = $query->paginate(10, ['*'], 'page')->appends(request()->query());
+    public function history_kendaraan_index()
+    {
+        $data = Kendaraan::onlyTrashed()->get();
 
-        return view("admin.kendaraan.lihat", [
-            "title" => "Kendaraan",
-            "action" => "lihat_kendaraan",
+        return view("admin.kendaraan.history", [
+            "title" => "kendaraan",
+            "action" => "history_kendaraan",
             "data" => $data,
         ]);
     }
@@ -356,7 +351,7 @@ class KendaraanController extends Controller
         try {
             $findBrandOnKendaraan = Kendaraan::whereBrandKendaraanId($id)->get();
             $findBrandOnTransaksi = Transaksi::whereBrandKendaraanId($id)->join("kendaraan", "transaksi.kendaraan_id", "=", "kendaraan.id")->get();
-            if (count($findBrandOnKendaraan) != 0 and count($findBrandOnTransaksi) != 0) {
+            if (count($findBrandOnKendaraan) != 0 or count($findBrandOnTransaksi) != 0) {
                 Brand_Kendaraan::whereId($brand->id)->delete();
             } else {
 
@@ -367,5 +362,33 @@ class KendaraanController extends Controller
             return back()->with("error", "Ups Ada sesuatu yang salah");
         }
         return back()->with("success", "Berhasil Menghapus Brand " . $brand->nama_kendaraan);
+    }
+
+    // Un-delete Action
+
+    public function restore_brand($id)
+    {
+        $brand = Brand_Kendaraan::onlyTrashed()->findOrFail($id);
+
+        try {
+            Brand_Kendaraan::onlyTrashed()->whereId($id)->restore();
+        } catch (\Exception $th) {
+            return back()->with("error", "Ups ada yang salah");
+        }
+
+        return back()->with("success", "Berhasil restore data " . $brand->nama_brand . " " . $brand->nama_merek);
+    }
+
+    public function restore_kendaraan($id)
+    {
+        $kendaraan = Kendaraan::onlyTrashed()->findOrFail($id);
+
+        try {
+            Kendaraan::onlyTrashed()->whereId($id)->restore();
+        } catch (\Exception $th) {
+            return back()->with("error", "Ups ada yang salah");
+        }
+
+        return back()->with("success", "Berhasil restore data " . $kendaraan->plat);
     }
 }

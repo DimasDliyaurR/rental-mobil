@@ -41,6 +41,10 @@ Route::middleware(["auth", "owner"])->group(function () {
         // Update
         Route::get("/transaksi/update/{id}", "update_index")->name('transaksi-update-index');
         Route::post("/transaksi/update", "update_transaksi")->name('transaksi-update');
+
+
+        // Delete Kondisi Mobil
+        Route::get("kondisi_mobil/{id}/hapus", "delete_kondisi_mobil")->name("kondisi_kendaraan_delete");
     });
 
     Route::controller(PengeluaranController::class)->group(function () {
@@ -74,6 +78,14 @@ Route::middleware(["auth", "owner"])->group(function () {
 
         // Delete Brand
         Route::get("brand/{id}/hapus", "delete_brand")->name("brand_delete");
+
+        // History Brand
+        Route::get("history-brand", "history_brand_index")->name("brand_history");
+        Route::get("history-brand/restore/{id}", "restore_brand")->name("restore_history");
+
+        // History Kendaraan
+        Route::get("history-kendaraan", "history_kendaraan_index")->name("kendaraan_history");
+        Route::get("history-kendaraan/restore/{id}", "restore_kendaraan")->name("kendaraan_history");
     });
 
     Route::controller(KreditDebitController::class)->group(function () {

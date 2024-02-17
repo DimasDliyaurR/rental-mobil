@@ -13,10 +13,10 @@ use App\Models\Brand_Kendaraan;
 use App\Models\Detail_foto_mobil;
 use Barryvdh\DomPDF\Facade\Pdf as Pdf;
 use Carbon\Carbon;
+use Illuminate\Validation\Rules\Exists;
 
 class TransaksiController extends Controller
 {
-    // Route Start
 
     public function index(Request $request)
     {
@@ -66,10 +66,9 @@ class TransaksiController extends Controller
 
     public function tambah_index()
     {
-        $kendaraan = Kendaraan::select("kendaraan.*", "kendaraan.plat", "brand_kendaraan.nama_brand", "brand_kendaraan.nama_merek")
+        $kendaraan = Kendaraan::withoutTrashed()->select("kendaraan.*", "kendaraan.plat", "brand_kendaraan.nama_brand", "brand_kendaraan.nama_merek")
             ->join("brand_kendaraan", "brand_kendaraan.id", "=", "kendaraan.brand_kendaraan_id")
             ->where("kendaraan.status", "=", "Tidak Terpakai")
-            ->where("brand_kendaraan.deleted_at", "!=", "null")
             ->get();
 
         return view('admin.transaksi.tambah', [
@@ -194,8 +193,8 @@ class TransaksiController extends Controller
                     "jumlah_bbm" => $request->jumlah_bbm,
                 ]);
 
-                $keterangan = $request->keterangan;
-                for ($i = 0; $i < count($keterangan); $i++) {
+                $kondisi_mobil = $request->keterangan;
+                for ($i = 0; $i < count($kondisi_mobil); $i++) {
                     $kondisi_mobil = $this->saveImageMultiple($request, "kondisi_mobil", "foto_kondisi_mobil", $i);
 
                     $kondisi = Detail_foto_mobil::create([
@@ -226,6 +225,7 @@ class TransaksiController extends Controller
     // Update Action
     public function update_transaksi(Request $request) // Bug
     {
+
         $validation = $request->validate([
             "kendaraan" => "required",
             "foto_penyewa" => "image|max:10240",
@@ -235,7 +235,7 @@ class TransaksiController extends Controller
             "no_ktp" => "required",
             "foto_ktp" => "image|max:10240",
             "no_sim" => "required",
-            // "kondisi_mobil" => "image|max:2000",
+            "kondisi_mobil" => "max:10240",
             "foto_sim" => "image|max:10240",
             "waktu_pengambilan" => "required",
             "lokasi_pengambilan" => "required",
@@ -246,10 +246,8 @@ class TransaksiController extends Controller
         ], [
             "*.required" => ":attribute belum diisi",
             "*.max" => "Ukuran file haris dibawah 10 Mb",
-            "*.image" => "Tipe file tidak valid",
+            "*.image" => ":attribute Tipe file tidak valid",
         ]);
-
-        dd($request->all());
 
 
         try {
@@ -273,8 +271,6 @@ class TransaksiController extends Controller
                 //  Tanda Tangan
                 $file = $this->update_tanda_tangan($request);
 
-
-                // dd(["alamat" => $request->alamat]);
                 $transaksi = Transaksi::whereId($request->id)->update([
                     "kendaraan_id" => $request->kendaraan,
                     "foto_penyewa" => $penyewa,
@@ -298,19 +294,42 @@ class TransaksiController extends Controller
                     "jumlah_bbm" => $request->jumlah_bbm,
                 ]);
 
-                $keterangan = $request->keterangan;
-                $kondisi_mobil_id = Detail_foto_mobil::whereTransaksiId($request->id)->get();
-                for ($i = 0; $i < count($keterangan); $i++) {
-                    $kondisi_mobil = $this->updateImageMultiple($request, "foto_mobil", "foto_kondisi_mobil", $i, "detail_foto_mobils", $request->id, "transaksi_id");
+                // Update Keterangan (Lama)
 
-                    $kondisi = Detail_foto_mobil::whereTransaksiId($request->id)->whereId($kondisi_mobil_id[$i]->id)->update([
-                        "keterangan" => $request->keterangan[$i],
-                        "foto_mobil" => $kondisi_mobil,
+                foreach ($request->keterangan_old as $key => $value) {
+                    $kondisi = Detail_foto_mobil::whereTransaksiId($request->id)->whereId($request->kondisi_mobil_old_id[$key])->update([
+                        "keterangan" => $request->keterangan_old[$key],
                     ]);
+                }
+
+                // Update Keterangan Kondisi Mobil (Lama)
+
+                if ($request->kondisi_mobil_old != null) {
+                    foreach ($request->kondisi_mobil_old as $i => $value) {
+                        $kondisi_mobil_old = $this->updateImageMultiple($request, "foto_mobil", "kondisi_mobil_old", "foto_kondisi_mobil", $i, "detail_foto_mobils", $request->id, "transaksi_id");
+
+                        $kondisi = Detail_foto_mobil::whereTransaksiId($request->id)->whereId($request->kondisi_mobil_old_id[$i])->update([
+                            "foto_mobil" => $kondisi_mobil_old,
+                        ]);
+                    }
+                }
+
+                // Update Keterangan Kondisi Mobil (Baru)
+                if ($request->kondisi_mobil != null) {
+
+                    foreach ($request->kondisi_mobil as $index => $value) {
+                        $kondisi_mobil = $this->saveImageMultiple($request, "kondisi_mobil", "foto_kondisi_mobil", $index);
+
+                        $kondisi = Detail_foto_mobil::create([
+                            "transaksi_id" => $request->id,
+                            "foto_mobil" => $kondisi_mobil,
+                            "keterangan" => $request->keterangan[$index],
+                        ]);
+                    }
                 }
             });
         } catch (\ErrorException $th) {
-            return redirect("transaksi-tambah")
+            return back()
                 ->with("error", "Silahkan Coba lagi");
         }
 
@@ -339,6 +358,7 @@ class TransaksiController extends Controller
             DB::table("kendaraan")->where("id", $transaksi->kendaraan_id)->update([
                 "status" => "Tidak Terpakai",
             ]);
+
             Transaksi::where('id', $id)->delete();
         } catch (\Exception $th) {
             return redirect("/transaksi")
@@ -346,6 +366,23 @@ class TransaksiController extends Controller
         }
 
         return redirect("/transaksi")->with("success", "Delete Berhasil dilakukan");
+    }
+
+    public function delete_kondisi_mobil($id)
+    {
+        $kondisi_mobil = Detail_foto_mobil::findOrFail($id);
+
+        try {
+
+            if (file_exists($kondisi_mobil->foto_mobil)) {
+                unlink($kondisi_mobil->foto_mobil);
+            }
+
+            Detail_foto_mobil::whereId($kondisi_mobil->id)->delete();
+        } catch (\Exception $th) {
+            return back()->with("error", "ups ada yang salah");
+        }
+        return back();
     }
 
     public function invoice($id)
@@ -417,12 +454,13 @@ class TransaksiController extends Controller
         return $file_path;
     }
 
-    public function updateImageMultiple($request, $name, $path, $i, $db, $id, $foregnIdName)
+    public function updateImageMultiple($request, $name, $nameForm, $path, $i, $db, $id, $foregnIdName)
     {
         $data =  DB::table($db)->where($foregnIdName, $id)->pluck($name);
         $oldFilePath = $data[$i];
-        if ($request->$name != null) {
-            $file = $request->file($name)[$i];
+        // dd($request->file($nameForm)[1]);
+        if ($request->file($nameForm)[$i] != null) {
+            $file = $request->file($nameForm)[$i];
             $file_type = $file->getClientOriginalExtension();
             $file_name =  uniqid() . '.' . $file_type;
             $file_path =  $path . '/' . $file_name;
