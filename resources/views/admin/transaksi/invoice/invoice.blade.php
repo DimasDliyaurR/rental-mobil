@@ -34,7 +34,9 @@
                 </div>
             </section>
             <div class="invoice-details mt-2 p-4">
+
                 <!-- DATA PENYEWA -->
+
                 <div class="data-penyewa mb-3">
                     <div class="row">
                         <div class="col">
@@ -87,7 +89,8 @@
                                 <tr>
                                     <td class="align-top">Unit</td>
                                     <td class="px-2 align-top">:</td>
-                                    <td class="text-capitalize align-top">{{ $transaksi->nama_brand .' '. $transaksi->nama_merek}}</td>
+                                    <td class="text-capitalize align-top">
+                                        {{ $transaksi->nama_brand . ' ' . $transaksi->nama_merek }}</td>
                                 </tr>
                                 <tr>
                                     <td class="align-top">Plat Nomor</td>
@@ -182,39 +185,6 @@
                 </div>
             </div>
 
-            <table class="invoice-table mt-2">
-                <thead>
-                    <tr>
-                        <th colspan="2" class="text-center">
-                            <h5>Rincian Pembayaran</h5>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>Keterangan</th>
-                        <th>Biaya</th>
-                    </tr>
-                    <tr>
-                        <td>Biaya Sewa Mobil <b>{{ $transaksi->nama_brand .' '. $transaksi->nama_merek}} {{ $transaksi->durasi }} hari</b></td>
-                        <td>Rp. {{ number_format($transaksi->harga_sewa * $transaksi->durasi, 0, ',', '.') }},-
-                        </td>
-                    </tr>
-
-                    @if ($transaksi->driver == 1)
-                        <tr>
-                            <td>Biaya Supir</td>
-                            <td>Rp. {{ number_format($transaksi->biaya_supir, 0, ',', '.') }},-</td>
-                        </tr>
-                    @endif
-                    <tr>
-                        <td><strong>Total</strong></td>
-                        <td><strong>Rp.
-                                {{ number_format($transaksi->harga_sewa * $transaksi->durasi + ($transaksi->biaya_supir != null ? $transaksi->biaya_supir : 0), 0, ',', '.') }},-</strong>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
 
         <div class="container mx-5 syarat-dan-ketentuan">

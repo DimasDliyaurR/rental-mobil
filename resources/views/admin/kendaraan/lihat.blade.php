@@ -20,8 +20,8 @@
                                     <form action="/kendaraan">
                                         @csrf
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control"
-                                                placeholder="Cari nama kendaraan, plat nomor, tahun kendaraan..."
+                                            <input type="text" class="form-control" pl
+                                                aceholder="Cari nama kendaraan, plat nomor, tahun kendaraan..."
                                                 value="{{ request('search') }}" name="search">
                                             <button class="btn btn-primary" type="submit"">Search</button>
                                         </div>
@@ -61,13 +61,15 @@
                                                 <td class="text-center">{{ number_format($row->harga_sewa, 0, ',', '.') }}
                                                 </td>
                                                 <td class="text-capitalize text-center">
-                                                    {{ $row->status === 'Sudah Terpakai' ? 'Mobil Jalan' : 'Mobil Kembali' }}
+                                                    {{ $row->status === 'Sudah Terpakai' ? 'Mobil Jalan' : '' }}
+                                                    {{ $row->status === 'Tidak Terpakai' ? 'Mobil Belum terpakai' : '' }}
+                                                    {{ $row->status === 'booking' ? 'Telah Disewa' : '' }}
                                                 </td>
                                                 <td class="text-center">
                                                     <div class="row">
                                                         <div class="col">
                                                             @if ($row->status === 'Sudah Terpakai')
-                                                                <a href="{{ asset('kendaraan/' . $row->id) }}"
+                                                                <a href="{{ asset('kendaraan-kembali/' . $row->id) }}"
                                                                     class="btn {{ $row->status === 'Sudah Terpakai' ? 'btn-success' : '' }}">{!! $row->status === 'Sudah Terpakai' ? '<i class="bi bi-p-circle"></i> Update Status' : '' !!}
                                                                 </a>
                                                             @endif

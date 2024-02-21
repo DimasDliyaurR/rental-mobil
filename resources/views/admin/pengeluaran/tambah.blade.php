@@ -26,9 +26,10 @@
 
                                     <div class="mb-3 mt-4">
                                         <div class="col-md-6 form-floating">
-                                            <input oninput="this.value = this.value.toLowerCase()" type="text" id="nama_pengeluaran"
-                                            name="nama_pengeluaran" class="form-control"
-                                            value="{{ old('nama_pengeluaran') }}" placeholder="Masukkan nama pengeluaran">
+                                            <input oninput="this.value = this.value.toLowerCase()" type="text"
+                                                id="nama_pengeluaran" name="nama_pengeluaran" class="form-control"
+                                                value="{{ old('nama_pengeluaran') }}"
+                                                placeholder="Masukkan nama pengeluaran">
                                             <label for="nama_pengeluaran" class="ms-2">Nama Pengeluaran</label>
 
                                             @error('nama_pengeluaran')
@@ -43,14 +44,15 @@
                                         <div class="col-md-6 form-floating">
 
 
-                                            <textarea oninput="this.value = this.value.toLowerCase()" class="form-control" placeholder="Masukkan deskripsi pengeluaran" id="deskripsi_pengeluaran"
-                                            name="deskripsi_pengeluaran" style="height: 100px" value="{{ old('deskripsi_pengeluaran') }}"></textarea>
+                                            <textarea oninput="this.value = this.value.toLowerCase()" class="form-control"
+                                                placeholder="Masukkan deskripsi pengeluaran" id="deskripsi_pengeluaran" name="deskripsi_pengeluaran"
+                                                style="height: 100px" value="{{ old('deskripsi_pengeluaran') }}"></textarea>
                                             <label for="deskripsi_pengeluaran" class="ms-2">Deskripsi
                                                 Pengeluaran</label>
 
 
                                             @error('deskripsi_pengeluaran')
-                                            <div class="form-text text-danger">{{ $message }}</div>
+                                                <div class="form-text text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
@@ -58,26 +60,30 @@
 
                                     <div class="mb-3">
                                         <div class="col-md-6 form-floating">
-                                            <input type="text" id="harga_pengeluaran" name="harga_pengeluaran" class="form-control"
-                                            value="{{ old('harga_pengeluaran') }}" placeholder="Masukkan deskripsi pengeluaran">
+                                            <input type="text" id="harga_pengeluaran" name="harga_pengeluaran"
+                                                class="form-control" value="{{ old('harga_pengeluaran') }}"
+                                                placeholder="Masukkan deskripsi pengeluaran">
                                             <label for="harga_pengeluaran" class="ms-2">Harga Pengeluaran</label>
                                             <small>Contoh: 50000 | tanpa menggunakan Rp atau tanda apapun</small>
                                             @error('harga_pengeluaran')
-                                            <div class="form-text text-danger">{{ $message }}</div>
+                                                <div class="form-text text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
-                                    <button class="btn btn-primary">Submit</button>
-                                </form>
                             </div>
 
-                        </div>
-                    </div>
 
+                            <button class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+
+                    </div>
                 </div>
 
             </div>
+
         </div>
+    </div>
 
     </div>
 @endsection

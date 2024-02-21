@@ -35,6 +35,9 @@ Route::middleware(["auth", "owner"])->group(function () {
         // Delete
         Route::get("/transaksi/delete/{id}", "delete_transaksi")->name('tansaksi-delete');
 
+        // Delete semua foto transaksi
+        Route::get("transaksi-hapus", "hapus_foto_transaksi")->name("transaksi_delete");
+
         //Invoice
         Route::get("/transaksi/invoice/{id}", "invoice")->name('tansaksi-invoice');
 
@@ -70,8 +73,14 @@ Route::middleware(["auth", "owner"])->group(function () {
         Route::get("brand-update/{id}", "update_brand_index")->name("brand_update");
         Route::post("brand/update", "update_brand")->name("brand_update");
 
-        // Status Kendaraan
-        Route::get("kendaraan/{id}", "update_status")->name("kendaraan_status");
+        // Status Kendaraan kembali
+        Route::get("kendaraan-kembali/{id}", "update_status_kembali")->name("update_status");
+
+        // Status Kendaraan Terbayar
+        Route::get("kendaraan-bayar/{id}", "update_status_terbayar")->name("update_status");
+
+        // Status Kendaraan Tidak Terbayar
+        Route::get("kendaraan-tidak-bayar/{id}", "update_status_tidak_terbayar")->name("update_status");
 
         // Delete Kendaraan
         Route::get("kendaraan/{id}/hapus", "delete_kendaraan")->name("kendaraan_delete");

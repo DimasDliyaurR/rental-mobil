@@ -156,7 +156,6 @@ class KendaraanController extends Controller
             Kendaraan::create([
                 "brand_kendaraan_id" => $request->nama_brand,
                 "plat" => $request->plat,
-                "status" => 'Tidak Terpakai',
             ]);
         } catch (\Exception $th) {
             return redirect("kendaraan-tambah")
@@ -213,11 +212,6 @@ class KendaraanController extends Controller
 
 
         try {
-            // $file = $request->file("foto_kendaraan");
-            // $file_type = $file->getClientOriginalExtension();
-            // $file_name =  preg_replace('/[^A-Za-z0-9]+/', '_', $request->nama_merek) . '.' . $file_type;
-            // $file_path =  'brand/' . preg_replace('/[^A-Za-z0-9]+/', '_', $request->nama_merek) . '.' . $file_type;
-
             $foto_kendaraan = $service->saveImage($request, "foto_kendaraan", "brand");
 
             Brand_Kendaraan::create([
@@ -236,24 +230,24 @@ class KendaraanController extends Controller
         return redirect("kendaraan-tambah/brand")->with("success", "Berhasil Menambahkan Brand " . $request->nama_kendaraan);
     }
 
-    // Action Update
+    // Action Update status kendaraan kembali
 
-    public function update_status($id)
+    public function update_status_kembali($id)
     {
-        $kendaraan = Kendaraan::findOrFail($id)->first();
-
-        try {
-            if ($kendaraan->status != null) {
-                DB::table("kendaraan")->whereId($id)->update([
-                    "status" => "Tidak Terpakai",
-                ]);
-            }
-        } catch (\Exception $th) {
-            return back()->with("error", "Ups Ada sesuatu yang salah");
-        }
-
-        return redirect("kendaraan")->with("success", "Status Kendaraan dengan plat " . $kendaraan->plat . " berhasil diubah");
+        return $this->update_status($id, "Tidak Terpakai");
     }
+
+    public function update_status_terbayar($id)
+    {
+        return $this->update_status($id, "Sudah Terpakai");
+    }
+
+    public function update_status_tidak_terbayar($id)
+    {
+        return $this->update_status($id, "Booking");
+    }
+
+    // Action update status kendaraan Terbayar
 
     public function update_kendaraan(Request $request, $id)
     {
@@ -390,5 +384,23 @@ class KendaraanController extends Controller
         }
 
         return back()->with("success", "Berhasil restore data " . $kendaraan->plat);
+    }
+
+    // Service 
+    public function update_status($id, $status)
+    {
+        $kendaraan = Kendaraan::findOrFail($id)->first();
+
+        try {
+            if ($kendaraan->status != null) {
+                DB::table("kendaraan")->whereId($id)->update([
+                    "status" => "$status",
+                ]);
+            }
+        } catch (\Exception $th) {
+            return back()->with("error", "Ups Ada sesuatu yang salah");
+        }
+
+        return back()->with("success", "Status Kendaraan dengan plat " . $kendaraan->plat . " berhasil diubah");
     }
 }

@@ -193,8 +193,12 @@ class TransaksiController extends Controller
                     "jumlah_bbm" => $request->jumlah_bbm,
                 ]);
 
+                Kendaraan::find($request->kendaraan)->update([
+                    "status" => "booking",
+                ]);
+
                 $kondisi_mobil = $request->keterangan;
-                for ($i = 0; $i < count($kondisi_mobil); $i++) {
+                foreach ($request->keterangan as $i => $value) {
                     $kondisi_mobil = $this->saveImageMultiple($request, "kondisi_mobil", "foto_kondisi_mobil", $i);
 
                     $kondisi = Detail_foto_mobil::create([
@@ -208,7 +212,7 @@ class TransaksiController extends Controller
                 $kendaraan = DB::table("kendaraan")
                     ->where('id', $request->kendaraan)
                     ->update([
-                        "status" => "Sudah Terpakai"
+                        "status" => "booking"
                     ]);
 
                 file_put_contents($file, $image_base64);
@@ -535,5 +539,46 @@ class TransaksiController extends Controller
             "action" => "lihat_transaksi",
             "data" => $data,
         ]);
+    }
+
+    // Mengahapus semua foto dari transaksi
+    public function hapus_foto_transaksi()
+    {
+        $transaksi = Transaksi::all();
+        $count = 0;
+        try {
+            foreach ($transaksi as $row) {
+
+                $oldPathFotoPenyewa = file_exists($row->foto_penyewa);
+                $oldPathFotoSim = file_exists($row->foto_sim);
+                $oldPathFotoKtp = file_exists($row->foto_ktp);
+                $oldPathFotoTandaTangan = file_exists($row->tanda_tangan);
+
+
+                if ($oldPathFotoPenyewa or $oldPathFotoSim or $oldPathFotoKtp or $oldPathFotoTandaTangan) {
+                    $count += 1;
+                }
+
+                if ($oldPathFotoPenyewa) {
+                    unlink($row->foto_penyewa);
+                }
+
+                if ($oldPathFotoSim) {
+                    unlink($row->foto_sim);
+                }
+
+                if ($oldPathFotoKtp) {
+                    unlink($row->foto_ktp);
+                }
+
+                if ($oldPathFotoTandaTangan) {
+                    unlink($row->tanda_tangan);
+                }
+            }
+        } catch (\Exception $th) {
+            return back()->with("error", "Ups ada yang salah");
+        }
+
+        return back()->with("success", "Berhasil Menghapus " . $count . " Baris");
     }
 }

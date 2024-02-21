@@ -467,9 +467,19 @@
 
                                     <button class="btn btn-primary">Submit</button>
                                     @if ($kendaraan->status == 'Sudah Terpakai')
-                                        <a href="{{ asset('kendaraan/' . $data->kendaraan_id) }}"
+                                        <a href="{{ asset('kendaraan-kembali/' . $data->kendaraan_id) }}"
                                             class="btn btn-success ml-1">Update Status
-                                            Kendaraan</a>
+                                            Kendaraan Sudah kembali</a>
+                                    @endif
+
+                                    @if ($kendaraan->status == 'booking')
+                                        <a href="{{ asset('kendaraan-bayar/' . $data->kendaraan_id) }}"
+                                            class="btn btn-info ml-1">Update Status
+                                            sudah membayar</a>
+                                    @else
+                                        <a href="{{ asset('kendaraan-tidak-bayar/' . $data->kendaraan_id) }}"
+                                            class="btn btn-info ml-1">Update Status
+                                            belum membayar</a>
                                     @endif
                                     {{-- Kendaraan Form End --}}
                                 </form>

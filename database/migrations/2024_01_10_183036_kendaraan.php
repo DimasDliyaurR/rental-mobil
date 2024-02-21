@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('kendaraan', function (Blueprint $table) {
             $table->id();
             $table->foreignId('brand_kendaraan_id')->index("fk_brand_kendaraan_to_kendaraan");
-            $table->string('plat')->uniqe();
-            $table->enum('status', ['Tidak Terpakai', 'Sudah Terpakai']);
+            $table->string('plat')->unique();
+            $table->enum('status', ['Tidak Terpakai', 'Sudah Terpakai', 'booking'])->default('Tidak Terpakai');
             $table->timestamps();
         });
     }
