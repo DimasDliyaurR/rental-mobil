@@ -439,6 +439,21 @@
                                     </div>
                                     {{-- END DATA SEWA --}}
 
+                                    <div class="mb-3">
+                                        <div class="form-floating col-md-6">
+                                            <input type="text" name="promo" id="promo"
+                                                class="form-control text-capitalize" value="{{ $data->promo }}"
+                                                placeholder="...">
+                                            <label for="promo" class="ms-2">Promo sewa dalam hari</label>
+
+                                            @error('promo')
+                                                <span class="form-text text-danger">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
 
 
 

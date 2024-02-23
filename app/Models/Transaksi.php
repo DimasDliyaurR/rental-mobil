@@ -39,6 +39,7 @@ class Transaksi extends Model
         "waktu_kembali",
         "foto_kondisi_bbm",
         "jumlah_bbm",
+        "promo",
     ];
 
     public function kendaraan(): BelongsTo

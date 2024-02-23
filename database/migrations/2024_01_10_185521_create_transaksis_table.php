@@ -32,6 +32,7 @@ return new class extends Migration
             $table->date("tanggal_kembali");
             $table->time("waktu_kembali");
             $table->string("foto_kondisi_bbm");
+            $table->integer("promo")->nullable();
             $table->string("jumlah_bbm");
             $table->timestamps();
         });

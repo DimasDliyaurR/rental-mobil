@@ -24,9 +24,7 @@
                                     </form>
                                 </div>
 
-
-
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <form action="/transaksi">
                                         @csrf
                                         <label for="search" class="me-2 align-middle"
@@ -48,10 +46,16 @@
                                         {{ session('success') }}
                                     </div>
                                 @elseif(session()->has('error'))
-                                    <div class="bg-danger rounded p-2">
+                                    <div class="alert alert-danger">
                                         {{ session('error') }}
                                     </div>
                                 @endif
+
+                                <div class="col-md-4 mt-2">
+                                    <a href="{{ asset('transaksi-hapus') }}" class="btn btn-danger">Hapus Foto
+                                        Transaksi</a>
+                                </div>
+
                                 <table class="table table-bordered mt-3" style="width: 10w">
                                     <tr>
                                         <th class="text-center fs-6 text-uppercase">No.</th>

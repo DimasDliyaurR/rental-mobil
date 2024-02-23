@@ -34,7 +34,41 @@ function addKondisiMobil() {
     $("#form-kondisi-mobil").append(outlierBody);
 }
 
+// Tampilkan harga
+function showPrice() {
+    let data = $("#kendaraan").val();
+    let price_kendaraan = $("#harga").text();
+    let url = "get-kendaraan/" + data;
+
+    $.ajax({
+        url: "get-kendaraan/" + data,
+        method: "GET",
+        dataType: "json",
+        success: (result) => {
+            $(result).each((i, brand_kendaraan) => {
+                $("#result-kendaraan").text("Harga Kendaraan " + brand_kendaraan.harga_sewa);
+                $("#result-kendaraan-promo").val(brand_kendaraan.harga_sewa);
+            });
+        }
+    });
+}
+
+function unmask_transaksi() {
+
+    // Mask tambah transaksi harga
+
+    $("#promo").unmask();
+
+    // Mask tambah transaksi nomor telepon
+    $("#no_telp").unmask();
+
+    return $("#form-transaksi").submit();
+}
+
 $(document).ready(() => {
+
+    // Form Driver
+
     $("#driver-iya").on("change", () => {
         var parent = $(
             "<div class='mb-3 card col-md-6 p-2' id='p' style='background-color: #e8f4ea ;color: #2b4c40;'></div>"
@@ -48,8 +82,6 @@ $(document).ready(() => {
         var formFinish = $("#driver").after(form);
     });
 
-
-
     $("#driver-tidak").on("change", () => {
         $("#p").remove();
     });
@@ -57,4 +89,23 @@ $(document).ready(() => {
     $("#remove").on("click", () => {
         $('#outlier-form').remove();
     });
+
+    // Mask tambah transaksi harga
+
+    $("#promo").mask("###.###.###.###", { reverse: true });
+
+    // Mask tambah transaksi nomor telepon
+    $("#no_telp").mask("###-####-####-####", { reverse: true });
+
+    // SUM Potongan Harga
+    $("#promo").on("input", () => {
+
+        let promo = $("#promo").unmask().val();
+        let sum = NaN ? 0 : parseInt($("#result-kendaraan-promo").val()) - parseInt(promo);
+
+        $("#result-promo").val(promo);
+
+        $("#result").val(sum);
+    });
+
 });

@@ -28,7 +28,7 @@
                                 @endif
 
                                 <form action="{{ asset('transaksi-tambah/tambah') }}" method="post"
-                                    enctype="multipart/form-data">
+                                    enctype="multipart/form-data" id="form-transaksi">
                                     @csrf
 
                                     {{-- DATA PENYEWA --}}
@@ -162,7 +162,8 @@
                                             <div class="col-md-6">
                                                 <label for="kendaraan" class="form-label">Daftar Kendaraan</label>
                                                 <select class="form-select form-select-lg"
-                                                    aria-label="Default select example" id="kendaraan" name="kendaraan">
+                                                    aria-label="Default select example" id="kendaraan" name="kendaraan"
+                                                    oninput="showPrice()">
                                                     <option selected disabled hidden>
                                                         {{ count($kendaraan) == 0 ? 'Kendaraan tidak ada yang tersedia' : 'Pilih Kendaraan...' }}
                                                     </option>
@@ -174,11 +175,16 @@
                                                     @endforeach
                                                 </select>
 
+
+
                                                 @error('kendaraan')
                                                     <span class="form-text text-danger">
                                                         {{ $message }}
                                                     </span>
                                                 @enderror
+                                            </div>
+                                            <div>
+                                                <span id="result-kendaraan"></span>
                                             </div>
                                         </div>
 
@@ -368,8 +374,39 @@
                                             </div>
                                         </div>
 
+                                        {{-- Promo field --}}
+                                        <div class="mb-3">
+                                            <div class="col-md-6 form-floating">
+                                                <input type="text" id="promo" name="promo" class="form-control"
+                                                    value="{{ old('promo') }}" placeholder="promo sewa">
+                                                <label for="promo" class="ms-2">Potongan Harga</label>
+                                                @error('promo')
+                                                    <span class="form-text text-danger">
+                                                        {{ $message }}
+                                                    </span>
+                                                @enderror
+                                                <div class="d-flex mt-2">
+                                                    <div class="mb-3">
+                                                        <input type="text" class="form-control" readonly
+                                                            id="result-kendaraan-promo">
+                                                    </div>
+                                                    <span class="p-2">+</span>
+                                                    <div class="mb-3">
+                                                        <input type="text" class="form-control" readonly
+                                                            id="result-promo">
+                                                    </div>
+                                                    <span class="p-2">=</span>
+                                                    <div class="mb-3">
+                                                        <input type="text" class="form-control" readonly
+                                                            id="result">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
 
 
+                                        {{-- Tanda Tangan --}}
                                         <div class="mb-3">
                                             <div class="mb-3 col-md-6">
                                                 <label for="signature" class="form-label">Tanda Tangan</label>
@@ -402,8 +439,8 @@
                                                 @enderror
                                             </div>
                                         </div>
-
-                                        <button class="btn btn-primary">Submit</button>
+                                        <span class="btn btn-primary" onclick="unmask_transaksi()">submit</span>
+                                        {{-- <button id="submit-transaksi">Submit</button> --}}
                                     </div>
 
                                     {{-- Kendaraan Form End --}}

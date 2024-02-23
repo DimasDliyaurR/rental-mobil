@@ -95,6 +95,9 @@ Route::middleware(["auth", "owner"])->group(function () {
         // History Kendaraan
         Route::get("history-kendaraan", "history_kendaraan_index")->name("kendaraan_history");
         Route::get("history-kendaraan/restore/{id}", "restore_kendaraan")->name("kendaraan_history");
+
+        // Collection data
+        Route::get("get-kendaraan/{id}", "get_kendaraan")->name("kendaraan_get");
     });
 
     Route::controller(KreditDebitController::class)->group(function () {

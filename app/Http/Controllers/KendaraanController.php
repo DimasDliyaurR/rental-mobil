@@ -403,4 +403,13 @@ class KendaraanController extends Controller
 
         return back()->with("success", "Status Kendaraan dengan plat " . $kendaraan->plat . " berhasil diubah");
     }
+
+    // JSON KENDARAAN
+
+    public function get_kendaraan($id)
+    {
+        $data = Kendaraan::select("brand_kendaraan.harga_sewa")->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id")->where("kendaraan.id", "=", $id)->first();
+
+        return response()->json($data);
+    }
 }

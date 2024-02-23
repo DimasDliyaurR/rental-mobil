@@ -66,7 +66,7 @@ class TransaksiController extends Controller
 
     public function tambah_index()
     {
-        $kendaraan = Kendaraan::withoutTrashed()->select("kendaraan.*", "kendaraan.plat", "brand_kendaraan.nama_brand", "brand_kendaraan.nama_merek")
+        $kendaraan = Kendaraan::withoutTrashed()->select("kendaraan.*", "kendaraan.plat", "brand_kendaraan.nama_brand", "brand_kendaraan.nama_merek", "brand_kendaraan.harga_sewa")
             ->join("brand_kendaraan", "brand_kendaraan.id", "=", "kendaraan.brand_kendaraan_id")
             ->where("kendaraan.status", "=", "Tidak Terpakai")
             ->get();
@@ -120,6 +120,7 @@ class TransaksiController extends Controller
     // Transaksi Action
     public function tambah_transaksi(Request $request)
     {
+        dd($request->all());
 
         $validation = $request->validate([
             "kendaraan" => "required",
@@ -136,12 +137,14 @@ class TransaksiController extends Controller
             "lokasi_pengambilan" => "required",
             "driver" => "required",
             "durasi" => "required",
+            "promo" => "integer",
             "foto_kondisi_bbm" => "required|image|max:10240",
             "jumlah_bbm" => "required",
         ], [
             "*.required" => ":attribute belum diisi",
-            "*.max" => "Ukuran file haris dibawah 10 Mb",
+            "*.max" => "Ukuran file harus di bawah 10 Mb",
             "*.image" => "Tipe file tidak valid",
+            "*.integer" => ":attribute harus menggunakan nomor",
         ]);
 
 
@@ -191,6 +194,7 @@ class TransaksiController extends Controller
                     "waktu_kembali" => $waktu_kembali,
                     "foto_kondisi_bbm" => $bbm,
                     "jumlah_bbm" => $request->jumlah_bbm,
+                    "promo" => $request->promo,
                 ]);
 
                 Kendaraan::find($request->kendaraan)->update([
