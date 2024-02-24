@@ -390,7 +390,7 @@
                                                         <input type="text" class="form-control" readonly
                                                             id="result-kendaraan-promo">
                                                     </div>
-                                                    <span class="p-2">+</span>
+                                                    <span class="p-2">-</span>
                                                     <div class="mb-3">
                                                         <input type="text" class="form-control" readonly
                                                             id="result-promo">

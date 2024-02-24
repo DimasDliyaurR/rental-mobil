@@ -24,14 +24,14 @@ class KreditDebitController extends Controller
 
         if ($bulan_tahun) {
             $transaksi = DB::table("transaksi")
-            ->select(DB::raw("SUM(COALESCE(brand_kendaraan.harga_sewa * transaksi.durasi, 0) + COALESCE(transaksi.biaya_supir, 0)) as jumlah_transaksi, transaksi.nama_penyewa"))
-            ->join("kendaraan", "transaksi.kendaraan_id", "=", "kendaraan.id")
-            ->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id")
-            ->whereMonth('transaksi.created_at', '=', $bulan)
-            ->whereYear('transaksi.created_at', '=', $tahun)
-            ->groupBy("transaksi.nama_penyewa")
-            ->orderBy('transaksi.created_at')
-            ->get();
+                ->select(DB::raw("SUM(COALESCE(brand_kendaraan.harga_sewa * transaksi.durasi, 0) + COALESCE(transaksi.biaya_supir, 0)) as jumlah_transaksi, transaksi.nama_penyewa"))
+                ->join("kendaraan", "transaksi.kendaraan_id", "=", "kendaraan.id")
+                ->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id")
+                ->whereMonth('transaksi.created_at', '=', $bulan)
+                ->whereYear('transaksi.created_at', '=', $tahun)
+                ->groupBy("transaksi.nama_penyewa")
+                ->orderBy('transaksi.created_at')
+                ->get();
 
 
             $pengeluaran = DB::table("pengeluaran")
@@ -61,7 +61,7 @@ class KreditDebitController extends Controller
 
             // Menghitung total dari hasil subquery
             $total_transaksi = $total_transaksi->sum('jumlah_transaksi');
-        }else{
+        } else {
 
             $transaksi = DB::table("transaksi")
                 ->select(DB::raw("SUM(COALESCE(brand_kendaraan.harga_sewa * transaksi.durasi, 0) + COALESCE(transaksi.biaya_supir, 0)) as jumlah_transaksi, transaksi.nama_penyewa"))
@@ -104,10 +104,29 @@ class KreditDebitController extends Controller
             "total_transaksi" => $total_transaksi,
             'debit_kredit'  => $total_transaksi - $total_pengeluaran->total_pengeluaran,
             'bulan' => $nama_bulan,
-            'tahun' =>$tahun
+            'tahun' => $tahun
         ]);
     }
 
+    public function jadwal()
+    {
+        return view("admin.jadwal.lihat", [
+            "title" => "Jadwal",
+            "action" => "lihat_jadwal",
+        ]);
+    }
+
+    public function get_event()
+    {
+        $data = Transaksi::select("brand_kendaraan.nama_merek", "brand_kendaraan.nama_brand", "transaksi.id", "transaksi.waktu_pengambilan", "transaksi.tanggal_kembali", "kendaraan.plat")
+            ->join("kendaraan", "transaksi.kendaraan_id", "=", "kendaraan.id")->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id")->get()
+            ->map(fn ($item) => [
+                "id" => $item->id,
+                "title" => ucwords($item->nama_brand . " " . $item->nama_merek . " | " . $item->plat),
+                "start" => $item->waktu_pengambilan,
+                "end" => $item->tanggal_kembali,
+            ]);
+
+        return response()->json($data);
+    }
 }
-
-

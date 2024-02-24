@@ -101,7 +101,7 @@ $(document).ready(() => {
     $("#promo").on("input", () => {
 
         let promo = $("#promo").unmask().val();
-        let sum = NaN ? 0 : parseInt($("#result-kendaraan-promo").val()) - parseInt(promo);
+        let sum = parseInt($("#result-kendaraan-promo").val()) - parseInt(promo);
 
         $("#result-promo").val(promo);
 

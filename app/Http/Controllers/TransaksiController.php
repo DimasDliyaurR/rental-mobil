@@ -120,7 +120,6 @@ class TransaksiController extends Controller
     // Transaksi Action
     public function tambah_transaksi(Request $request)
     {
-        dd($request->all());
 
         $validation = $request->validate([
             "kendaraan" => "required",

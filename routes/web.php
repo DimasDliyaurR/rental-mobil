@@ -102,6 +102,12 @@ Route::middleware(["auth", "owner"])->group(function () {
 
     Route::controller(KreditDebitController::class)->group(function () {
         Route::get("/kredit-debit", "index");
+
+        // Jadwal
+        Route::get("/jadwal", "jadwal");
+
+        // Get Event
+        Route::get("/get-event", "get_event")->name("get-event");
     });
 
     Route::controller(UserControlController::class)->group(function () {
