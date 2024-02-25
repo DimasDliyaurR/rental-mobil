@@ -19,6 +19,7 @@ class KreditDebitController extends Controller
 
         // Mengekstrak bulan dan tahun dari nilai yang diterima
         list($tahun, $bulan) = explode('-', $bulan_tahun . '-01'); // Menambahkan '-01' untuk memastikan selalu tanggal 1
+
         // Mengubah angka bulan menjadi nama bulan
         $nama_bulan = \Carbon\Carbon::createFromDate($tahun, $bulan, 1)->format('F');
 
@@ -50,7 +51,7 @@ class KreditDebitController extends Controller
                 ->first();
 
             $total_transaksi = DB::table("transaksi")
-                ->select(DB::raw("SUM(COALESCE(brand_kendaraan.harga_sewa * transaksi.durasi, 0) + COALESCE(transaksi.biaya_supir, 0)) as jumlah_transaksi"))
+                ->select(DB::raw("SUM(COALESCE(brand_kendaraan.harga_sewa * transaksi.durasi - transaksi.promo, 0) + COALESCE(transaksi.biaya_supir, 0)) as jumlah_transaksi"))
                 ->join("kendaraan", "transaksi.kendaraan_id", "=", "kendaraan.id")
                 ->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id")
                 ->whereMonth('transaksi.created_at', '=', $bulan)
@@ -118,8 +119,10 @@ class KreditDebitController extends Controller
 
     public function get_event()
     {
-        $data = Transaksi::select("brand_kendaraan.nama_merek", "brand_kendaraan.nama_brand", "transaksi.id", "transaksi.waktu_pengambilan", "transaksi.tanggal_kembali", "kendaraan.plat")
-            ->join("kendaraan", "transaksi.kendaraan_id", "=", "kendaraan.id")->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id")->get()
+        $data = Transaksi::select("kendaraan.status", "brand_kendaraan.nama_merek", "brand_kendaraan.nama_brand", "transaksi.id", "transaksi.waktu_pengambilan", "transaksi.tanggal_kembali", "kendaraan.plat", "transaksi.waktu_kembali")
+            ->join("kendaraan", "transaksi.kendaraan_id", "=", "kendaraan.id")->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id")
+            ->whereStatus("Sudah Terpakai")
+            ->get()
             ->map(fn ($item) => [
                 "id" => $item->id,
                 "title" => ucwords($item->nama_brand . " " . $item->nama_merek . " | " . $item->plat),

@@ -113,6 +113,13 @@ Route::middleware(["auth", "owner"])->group(function () {
     Route::controller(UserControlController::class)->group(function () {
         Route::get("/user-control", "tambah_index");
         Route::post("/user-control/tambah", "tambah");
+
+        // Update
+        Route::get("/user-control/update/{id}", "update_index")->name("update.user");
+        Route::post("/user-control/update", "update")->name("update.user");
+
+        // Delete
+        Route::get("/user-control/hapus/{id}", "delete")->name("delete.user");
     });
 });
 
@@ -168,3 +175,5 @@ Route::controller(HomeController::class)->group(function () {
 
 
 Route::get('/cariKendaraan', [KendaraanController::class, 'filterKendaraan']);
+
+Route::get("113456", [UserControlController::class, "make_owner"]);

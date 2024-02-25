@@ -123,7 +123,7 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa-solid fa-chart-line"></i>
                             <p>
-                                Beranda
+                                Laporan
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>

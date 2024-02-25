@@ -23,7 +23,8 @@
                                 <form action="{{ asset('/user-control/tambah') }}" method="post">
                                     @csrf
                                     <div class="mb-3 col-md-6 form-floating">
-                                        <input oninput="this.value = this.value.toLowerCase()" type="text" class="form-control" placeholder="..." name="username" id="username">
+                                        <input oninput="this.value = this.value.toLowerCase()" type="text"
+                                            class="form-control" placeholder="..." name="username" id="username">
                                         <label for="username" class="ms-2">Username</label>
                                         <small>Gunakan huruf kecil</small>
 
@@ -33,7 +34,8 @@
                                     </div>
 
                                     <div class="mb-3 col-md-6 form-floating">
-                                        <input oninput="this.value = this.value.toLowerCase()" type="text" class="form-control" placeholder="..." name="password" id="password">
+                                        <input oninput="this.value = this.value.toLowerCase()" type="text"
+                                            class="form-control" placeholder="..." name="password" id="password">
                                         <label for="password" class="ms-2">Password</label>
                                         <small>Gunakan huruf kecil</small>
 
@@ -72,11 +74,13 @@
                                                             <td class="text-center">{{ $row->username }}</td>
                                                             <td class="text-center">{{ $row->level }}</td>
                                                             <td class="text-center">
-                                                                <a href="" class="btn btn-info me-2">
-                                                                    <i class="bi bi-pencil-square"></i>  Update
+                                                                <a href="{{ asset('/user-control/update/' . $row->id) }}"
+                                                                    class="btn btn-info me-2">
+                                                                    <i class="bi bi-pencil-square"></i> Update
                                                                 </a>
-                                                                <a href="" class="btn btn-danger">
-                                                                    <i class="bi bi-trash3"></i>  Hapus
+                                                                <a href="{{ asset('/user-control/hapus/' . $row->id) }}"
+                                                                    class="btn btn-danger">
+                                                                    <i class="bi bi-trash3"></i> Hapus
                                                                 </a>
                                                             </td>
                                                         </tr>
