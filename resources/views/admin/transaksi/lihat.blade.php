@@ -68,9 +68,9 @@
                                         <th class="text-center fs-6 text-uppercase">Action</th>
                                     </tr>
                                     @if ($data->count())
-                                        @foreach ($data as $row)
+                                        @foreach ($data as $key => $row)
                                             <tr>
-                                                <td class="text-capitalize text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-capitalize text-center">{{ $data->firstItem() + $key }}</td>
                                                 <td class="text-capitalize text-center">{{ $row->nama_penyewa }}</td>
                                                 <td class="text-capitalize text-center">
                                                     {{ $row->nama_merek . ' ' . $row->nama_brand }}</td>
@@ -83,7 +83,7 @@
                                                     {{ date('d-m-Y', strtotime($row->tanggal_sewa)) . ' ' . date('h:i:s', strtotime($row->waktu_kembali)) }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <a href="{{ asset('transaksi/invoice/' . $row->id) }}"
+                                                    <a target="blank" href="{{ asset('transaksi/invoice/' . $row->id) }}"
                                                         class="btn btn-success">
                                                         <i class="bi bi-receipt"></i> Invoice
                                                     </a>
@@ -109,7 +109,15 @@
                                     @endif
                                 </table>
                             </div>
-                            <div class="d-flex justify-content-center">
+                            <div>
+                                Showing
+                                {{ $data->firstItem() }}
+                                to
+                                {{ $data->lastItem() }}
+                                of
+                                {{ $data->total() }} datas
+                            </div>
+                            <div class="d-flex justify-content-end">
                                 {{ $data->links() }}
 
                             </div>

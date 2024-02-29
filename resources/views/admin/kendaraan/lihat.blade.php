@@ -76,7 +76,7 @@
                                                         </div>
                                                         <div class="col">
                                                             <a href="{{ asset('kendaraan-update/' . $row->id) }}"
-                                                                class="btn btn-info"><i class="bi bi-p-circle"></i> Update
+                                                                class="btn btn-info"><i class="bi bi-pencil-square"></i> Update
                                                             </a>
                                                         </div>
                                                         <div class="col">
