@@ -21,7 +21,7 @@ class TransaksiController extends Controller
     public function index(Request $request)
     {
         $query = DB::table("transaksi")
-            ->select("transaksi.*", "brand_kendaraan.nama_brand", "brand_kendaraan.nama_merek", "kendaraan.plat")
+            ->select("transaksi.*", "brand_kendaraan.nama_brand", "brand_kendaraan.nama_merek", "kendaraan.plat", "kendaraan.status")
             ->join("kendaraan", "kendaraan.id", "=", "transaksi.kendaraan_id")
             ->join("brand_kendaraan", "brand_kendaraan.id", "=", "kendaraan.brand_kendaraan_id");
 
@@ -552,31 +552,32 @@ class TransaksiController extends Controller
         try {
             foreach ($transaksi as $row) {
 
+                $detail_transaksi = Detail_foto_mobil::where("transaksi_id", "=", $row->id)->get();
+
+                foreach ($detail_transaksi as $row_inner) {
+                    if (file_exists($row_inner->foto_mobil)) unlink($row_inner->foto_mobil);
+                }
+
                 $oldPathFotoPenyewa = file_exists($row->foto_penyewa);
                 $oldPathFotoSim = file_exists($row->foto_sim);
                 $oldPathFotoKtp = file_exists($row->foto_ktp);
                 $oldPathFotoTandaTangan = file_exists($row->tanda_tangan);
+                $oldPathFotoKondisiBBM = file_exists($row->foto_kondisi_bbm);
 
 
                 if ($oldPathFotoPenyewa or $oldPathFotoSim or $oldPathFotoKtp or $oldPathFotoTandaTangan) {
                     $count += 1;
                 }
 
-                if ($oldPathFotoPenyewa) {
-                    unlink($row->foto_penyewa);
-                }
+                if ($oldPathFotoPenyewa) unlink($row->foto_penyewa);
 
-                if ($oldPathFotoSim) {
-                    unlink($row->foto_sim);
-                }
+                if ($oldPathFotoKondisiBBM) unlink($row->foto_kondisi_bbm);
 
-                if ($oldPathFotoKtp) {
-                    unlink($row->foto_ktp);
-                }
+                if ($oldPathFotoSim) unlink($row->foto_sim);
 
-                if ($oldPathFotoTandaTangan) {
-                    unlink($row->tanda_tangan);
-                }
+                if ($oldPathFotoKtp) unlink($row->foto_ktp);
+
+                if ($oldPathFotoTandaTangan) unlink($row->tanda_tangan);
             }
         } catch (\Exception $th) {
             return back()->with("error", "Ups ada yang salah");

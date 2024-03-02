@@ -65,18 +65,6 @@
             }
         }
     </style>
-
-    {{-- Callender --}}
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth'
-            });
-            calendar.render();
-        });
-    </script>
 </head>
 
 <body class="sidebar-mini layout-fixed">
@@ -147,6 +135,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"
         integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- DataTables  & Plugins -->
+    <script src="{{ asset('../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('../../plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('../../plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('../../plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('../../plugins/jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('../../plugins/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('../../plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('../../plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('../../plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('../../plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
 </body>
 

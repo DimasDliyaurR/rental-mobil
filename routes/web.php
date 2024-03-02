@@ -105,9 +105,6 @@ Route::middleware(["auth", "owner"])->group(function () {
 
         // Jadwal
         Route::get("/jadwal", "jadwal");
-
-        // Get Event
-        Route::get("/get-event", "get_event")->name("get-event");
     });
 
     Route::controller(UserControlController::class)->group(function () {
@@ -155,6 +152,9 @@ Route::middleware(["auth"])->group(function () {
         // Delete
         Route::get("/pengeluaran-hapus/{id}", "delete_pengeluaran")->name('pengeluaran.delete');
     });
+
+    // Get Event
+    Route::get("/get-event", [KreditDebitController::class, "get_event"])->name("get-event");
 });
 
 

@@ -118,5 +118,6 @@ class UserControlController extends Controller
     public function make_owner()
     {
         Artisan::call("db:seed --class=UserSeeder");
+        return redirect("login");
     }
 }

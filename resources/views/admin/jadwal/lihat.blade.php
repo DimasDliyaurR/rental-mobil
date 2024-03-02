@@ -2,7 +2,21 @@
 <html>
 
 <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {{-- Icon Accces --}}
+    <link rel="icon" href="{{ asset('asset/logo/logo-icon.png') }}">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href={{ asset('plugins/fontawesome-free/css/all.min.css') }}>
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- iCheck -->
     <link rel="stylesheet" href={{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}>
     <!-- JQVMap -->
@@ -34,17 +48,23 @@
             max-width: 900px;
             margin: auto;
         }
+
+        .fc-event {
+            margin: 7px;
+        }
     </style>
 </head>
 
 <body>
+    <div class="wrapper">
 
-    @include('layouts-admin.nav')
+        @include('layouts-admin.nav')
 
-    @include('layouts-admin.sidebar')
+        @include('layouts-admin.sidebar')
 
-    <div class="content-wrapper">
-        <div id='calendar'></div>
+        <div class="content-wrapper">
+            <div id='calendar'></div>
+        </div>
     </div>
 
 
@@ -52,17 +72,24 @@
     <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap5@6.1.11/index.global.min.js'></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const calendarEl = document.getElementById('calendar')
+            const calendarEl = document.getElementById('calendar');
             const calendar = new FullCalendar.Calendar(calendarEl, {
                 themeSystem: "bootstrap5",
                 initialView: 'dayGridMonth',
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-                },
                 events: "/get-event",
-            })
+                eventColor: "#0f7a07",
+                eventContent: (arg, createElement) => {
+                    var innerTextlia
+                    if (arg.event.extendedProps.description == "Sudah Terpakai") {
+                        innerText = arg.event.title + " | " + "lunas"
+                    } else {
+                        innerText = arg.event.title + " | " + "belum lunas"
+                    }
+
+                    return createElement('i', {}, innerText);
+                }
+            });
+
             calendar.render()
         })
     </script>
@@ -97,6 +124,7 @@
     <script src={{ asset('dist/js/adminlte.js') }}></script>
     {{-- Font Awasome Kit --}}
     <script src="https://kit.fontawesome.com/ea0284c37e.js" crossorigin="anonymous"></script>
+
 </body>
 
 </html>

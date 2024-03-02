@@ -51,63 +51,132 @@
                                     </div>
                                 @endif
 
-                                <div class="col-md-4 mt-2">
-                                    <a href="{{ asset('transaksi-hapus') }}" class="btn btn-danger">Hapus Foto
-                                        Transaksi</a>
+                                @if (auth()->user()->level == 'owner')
+                                    <div class="col-md-4 mt-2">
+                                        <a href="{{ asset('transaksi-hapus') }}" class="btn btn-danger"
+                                            onclick="return confirm('apakah anda yakin ingin menghapus foto ?')">Hapus Foto
+                                            Transaksi</a>
+                                    </div>
+                                @endif
+                                <div class="card-body">
+                                    {{-- <table class="table table-bordered mt-3 dataTable dtr-inline collapsed" id="example1"
+                                        style="width: 10w">
+                                        <tr>
+                                            <th class="text-center fs-6 text-uppercase">No.</th>
+                                            <th class="text-center fs-6 text-uppercase">Penyewa</th>
+                                            <th class="text-center fs-6 text-uppercase">Nama Kendaraan</th>
+                                            <th class="text-center fs-6 text-uppercase">Plat Kendaraan</th>
+                                            <th class="text-center fs-6 text-uppercase">Detail</th>
+                                            <th class="text-center fs-6 text-uppercase">Tanggal Sewa</th>
+                                            <th class="text-center fs-6 text-uppercase">Invoice</th>
+                                            <th class="text-center fs-6 text-uppercase">Action</th>
+                                            <th class="text-center fs-6 text-uppercase"><i class="fa fa-sort-amount-asc"
+                                                    aria-hidden="true"></i></th>
+                                        </tr>
+                                        @if ($data->count())
+                                            @foreach ($data as $key => $row)
+                                                <tr>
+                                                    <td class="text-capitalize text-center">{{ $data->firstItem() + $key }}
+                                                    </td>
+                                                    <td class="text-capitalize text-center">{{ $row->nama_penyewa }}</td>
+                                                    <td class="text-capitalize text-center">
+                                                        {{ $row->nama_merek . ' ' . $row->nama_brand }}</td>
+                                                    <td class="text-uppercase text-center">{{ $row->plat }}</td>
+
+                                                    <td class="text-center"><a
+                                                            href="{{ asset('/transaksi/detail_transaksi/' . $row->id) }}">Lihat
+                                                            Detail</a></td>
+                                                    <td class="text-center">
+                                                        {{ date('d-m-Y', strtotime($row->tanggal_sewa)) . ' ' . date('h:i:s', strtotime($row->waktu_kembali)) }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a target="blank"
+                                                            href="{{ asset('transaksi/invoice/' . $row->id) }}"
+                                                            class="btn btn-success">
+                                                            <i class="bi bi-receipt"></i> Invoice
+                                                        </a>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="{{ asset('/transaksi/update/' . $row->id) }}"
+                                                            class="btn btn-info me-2">
+                                                            <i class="bi bi-pencil-square"></i> Update
+                                                        </a>
+                                                        <a href="{{ asset('transaksi/delete/' . $row->id) }}"
+                                                            class="btn btn-danger"
+                                                            onclick="return confirm('Apakah yakin mengahapus {{ $row->nama_penyewa }}')">
+                                                            <i class="bi bi-trash3"></i> Hapus
+                                                        </a>
+                                                    </td>
+
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td colspan="7" class="text-center">Transaksi tidak ada.</td>
+                                            </tr>
+                                        @endif
+                                    </table> --}}
+
+                                    <table id="example2" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center fs-6 text-uppercase">No.</th>
+                                                <th class="text-center fs-6 text-uppercase">Penyewa</th>
+                                                <th class="text-center fs-6 text-uppercase">Nama Kendaraan</th>
+                                                <th class="text-center fs-6 text-uppercase">Plat Kendaraan</th>
+                                                <th class="text-center fs-6 text-uppercase">Detail</th>
+                                                <th class="text-center fs-6 text-uppercase">Tanggal Sewa</th>
+                                                <th class="text-center fs-6 text-uppercase">Invoice</th>
+                                                <th class="text-center fs-6 text-uppercase">Action</th>
+                                                <th class="text-center fs-6 text-uppercase"><i class="fa fa-sort-amount-asc"
+                                                        aria-hidden="true"></i></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if ($data->count())
+                                                @foreach ($data as $key => $row)
+                                                    <tr>
+                                                        <td class="text-capitalize text-center">
+                                                            {{ $data->firstItem() + $key }}
+                                                        </td>
+                                                        <td class="text-capitalize text-center">{{ $row->nama_penyewa }}
+                                                        </td>
+                                                        <td class="text-capitalize text-center">
+                                                            {{ $row->nama_merek . ' ' . $row->nama_brand }}</td>
+                                                        <td class="text-uppercase text-center">{{ $row->plat }}</td>
+
+                                                        <td class="text-center"><a
+                                                                href="{{ asset('/transaksi/detail_transaksi/' . $row->id) }}">Lihat
+                                                                Detail</a></td>
+                                                        <td class="text-center">
+                                                            {{ date('d-m-Y', strtotime($row->tanggal_sewa)) . ' ' . date('h:i:s', strtotime($row->waktu_kembali)) }}
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <a target="blank"
+                                                                href="{{ asset('transaksi/invoice/' . $row->id) }}"
+                                                                class="btn btn-success">
+                                                                <i class="bi bi-receipt"></i> Invoice
+                                                            </a>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <a href="{{ asset('/transaksi/update/' . $row->id) }}"
+                                                                class="btn btn-info me-2">
+                                                                <i class="bi bi-pencil-square"></i> Update
+                                                            </a>
+                                                            <a href="{{ asset('transaksi/delete/' . $row->id) }}"
+                                                                class="btn btn-danger"
+                                                                onclick="return confirm('Apakah yakin mengahapus {{ $row->nama_penyewa }}')">
+                                                                <i class="bi bi-trash3"></i> Hapus
+                                                            </a>
+                                                        </td>
+
+                                                    </tr>
+                                                @endforeach
+                                            @endif
+                                        </tbody>
+                                    </table>
                                 </div>
 
-                                <table class="table table-bordered mt-3" style="width: 10w">
-                                    <tr>
-                                        <th class="text-center fs-6 text-uppercase">No.</th>
-                                        <th class="text-center fs-6 text-uppercase">Penyewa</th>
-                                        <th class="text-center fs-6 text-uppercase">Nama Kendaraan</th>
-                                        <th class="text-center fs-6 text-uppercase">Plat Kendaraan</th>
-                                        <th class="text-center fs-6 text-uppercase">Detail</th>
-                                        <th class="text-center fs-6 text-uppercase">Tanggal Sewa</th>
-                                        <th class="text-center fs-6 text-uppercase">Invoice</th>
-                                        <th class="text-center fs-6 text-uppercase">Action</th>
-                                    </tr>
-                                    @if ($data->count())
-                                        @foreach ($data as $key => $row)
-                                            <tr>
-                                                <td class="text-capitalize text-center">{{ $data->firstItem() + $key }}</td>
-                                                <td class="text-capitalize text-center">{{ $row->nama_penyewa }}</td>
-                                                <td class="text-capitalize text-center">
-                                                    {{ $row->nama_merek . ' ' . $row->nama_brand }}</td>
-                                                <td class="text-uppercase text-center">{{ $row->plat }}</td>
-
-                                                <td class="text-center"><a
-                                                        href="{{ asset('/transaksi/detail_transaksi/' . $row->id) }}">Lihat
-                                                        Detail</a></td>
-                                                <td class="text-center">
-                                                    {{ date('d-m-Y', strtotime($row->tanggal_sewa)) . ' ' . date('h:i:s', strtotime($row->waktu_kembali)) }}
-                                                </td>
-                                                <td class="text-center">
-                                                    <a target="blank" href="{{ asset('transaksi/invoice/' . $row->id) }}"
-                                                        class="btn btn-success">
-                                                        <i class="bi bi-receipt"></i> Invoice
-                                                    </a>
-                                                </td>
-                                                <td class="text-center">
-                                                    <a href="{{ asset('/transaksi/update/' . $row->id) }}"
-                                                        class="btn btn-info me-2">
-                                                        <i class="bi bi-pencil-square"></i> Update
-                                                    </a>
-                                                    <a href="{{ asset('transaksi/delete/' . $row->id) }}"
-                                                        class="btn btn-danger"
-                                                        onclick="return confirm('Apakah yakin mengahapus {{ $row->nama_penyewa }}')">
-                                                        <i class="bi bi-trash3"></i> Hapus
-                                                    </a>
-                                                </td>
-
-                                            </tr>
-                                        @endforeach
-                                    @else
-                                        <tr>
-                                            <td colspan="7" class="text-center">Transaksi tidak ada.</td>
-                                        </tr>
-                                    @endif
-                                </table>
                             </div>
                             <div>
                                 Showing

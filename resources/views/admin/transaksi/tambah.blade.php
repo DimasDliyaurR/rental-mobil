@@ -182,9 +182,9 @@
                                                         {{ $message }}
                                                     </span>
                                                 @enderror
-                                            </div>
-                                            <div>
-                                                <span id="result-kendaraan"></span>
+                                                <div>
+                                                    <span id="result-kendaraan" class="form-text"></span>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -392,8 +392,8 @@
                                                     </div>
                                                     <span class="p-2">-</span>
                                                     <div class="mb-3">
-                                                        <input type="text" class="form-control" readonly
-                                                            id="result-promo">
+                                                        <input type="text" class="form-control" id="result-promo"
+                                                            readonly>
                                                     </div>
                                                     <span class="p-2">=</span>
                                                     <div class="mb-3">

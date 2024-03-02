@@ -99,7 +99,6 @@ $(document).ready(() => {
 
     // SUM Potongan Harga
     $("#promo").on("input", () => {
-
         let promo = $("#promo").unmask().val();
         let sum = parseInt($("#result-kendaraan-promo").val()) - parseInt(promo);
         if (sum < 0 || Number.isNaN(sum)) {

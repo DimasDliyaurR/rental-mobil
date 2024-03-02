@@ -33,7 +33,7 @@ class KreditDebitController extends Controller
 
         if ($bulan_tahun) {
             $transaksi = DB::table("transaksi")
-                ->select(DB::raw("SUM(COALESCE((brand_kendaraan.harga_sewa - transaksi.promo) * transaksi.durasi, 0) + COALESCE(transaksi.biaya_supir, 0)) as jumlah_transaksi, transaksi.nama_penyewa"))
+                ->select(DB::raw("SUM(COALESCE((brand_kendaraan.harga_sewa,0) * transaksi.durasi, 0)) - COALESCE(transaksi.promo , 0) + COALESCE(transaksi.biaya_supir, 0)) as jumlah_transaksi, transaksi.nama_penyewa"))
                 ->join("kendaraan", "transaksi.kendaraan_id", "=", "kendaraan.id")
                 ->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id")
                 ->whereMonth('transaksi.created_at', '=', $bulan)
@@ -107,7 +107,7 @@ class KreditDebitController extends Controller
         }
 
         return view("admin.kredit_debit.lihat", [
-            "title" => "Tabel Debit Kredit",
+            "title" => "Laporan",
             "action" => "Kredit_Debit_Lihat",
             "transaksi" => $transaksi,
             "pengeluaran" => $pengeluaran,
@@ -131,13 +131,14 @@ class KreditDebitController extends Controller
     {
         $data = Transaksi::select("kendaraan.status", "brand_kendaraan.nama_merek", "brand_kendaraan.nama_brand", "transaksi.id", "transaksi.waktu_pengambilan", "transaksi.tanggal_kembali", "kendaraan.plat", "transaksi.waktu_kembali")
             ->join("kendaraan", "transaksi.kendaraan_id", "=", "kendaraan.id")->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id")
-            ->whereStatus("Sudah Terpakai")
+            ->where("transaksi.waktu_kembali", "!=", now())
             ->get()
             ->map(fn ($item) => [
                 "id" => $item->id,
                 "title" => ucwords($item->nama_brand . " " . $item->nama_merek . " | " . $item->plat),
                 "start" => $item->waktu_pengambilan,
                 "end" => $item->tanggal_kembali,
+                "description" => $item->status,
             ]);
 
         return response()->json($data);

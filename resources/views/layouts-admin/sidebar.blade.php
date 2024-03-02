@@ -119,8 +119,8 @@
                     {{-- Unit Kendaraan End --}}
 
                     {{-- Beranda Start --}}
-                    <li class="nav-item {{ $title == 'Tabel Debit Kredit' ? 'menu-open' : '' }}">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item {{ $title == 'Laporan' ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ $title == 'Laporan' ? 'active' : '' }}">
                             <i class="nav-icon fa-solid fa-chart-line"></i>
                             <p>
                                 Laporan
@@ -140,7 +140,7 @@
 
                     {{-- User Controller --}}
                     <li class="nav-item {{ $title == 'User' ? 'menu-open' : '' }}">
-                        <a href="#" class="nav-link">
+                        <a href="#" class="nav-link {{ $title == 'User' ? 'active' : '' }}">
                             <i class="nav-icon fa-solid fa-user"></i>
                             <p>
                                 User Admin
