@@ -42,6 +42,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     {{-- Livewire --}}
     @livewireStyles
+
     <style>
         .kbw-signature {
             width: 20vw;
@@ -52,6 +53,17 @@
             width: 100%;
             height: auto;
         }
+
+        #calendar {
+            max-width: 1100px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .fc-event {
+            margin: 7px;
+        }
+
 
         @media only screen and (max-width:300px) {
             .kbw-signature {
@@ -96,6 +108,32 @@
 
     <script src="{{ asset('js/transaksi.js') }}"></script>
 
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap5@6.1.11/index.global.min.js'></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calendarEl = document.getElementById('calendar');
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                themeSystem: "bootstrap5",
+                initialView: 'dayGridMonth',
+                events: "/get-event",
+                eventColor: "#0f7a07",
+                eventContent: (arg, createElement) => {
+                    var innerTextlia
+                    if (arg.event.extendedProps.description == "Sudah Terpakai") {
+                        innerText = arg.event.title + " | " + "lunas"
+                    } else {
+                        innerText = arg.event.title + " | " + "belum lunas"
+                    }
+
+                    return createElement('i', {}, innerText);
+                }
+            });
+
+            calendar.render()
+        })
+    </script>
+
     {{-- Bootsrap 5 --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
@@ -135,20 +173,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"
         integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <!-- DataTables  & Plugins -->
-    <script src="{{ asset('../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('../../plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('../../plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('../../plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('../../plugins/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('../../plugins/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('../../plugins/pdfmake/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('../../plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('../../plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('../../plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
 </body>
 

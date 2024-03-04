@@ -13,7 +13,7 @@ class Brand_Kendaraan extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = "Brand_Kendaraan";
+    protected $table = "brand_kendaraan";
     protected $fillable = [
         "nama_brand",
         "nama_merek",

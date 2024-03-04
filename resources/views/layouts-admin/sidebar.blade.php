@@ -159,7 +159,7 @@
                     </li>
 
                     <li class="nav-item {{ $title == 'Jadwal' ? 'menu-open' : '' }}">
-                        <a href="#" class="nav-link">
+                        <a href="#" class="nav-link {{ $title == 'Jadwal' ? 'active' : '' }}">
                             <i class="nav-icon fa-regular fa-calendar-days"></i>
                             <p>
                                 Jadwal

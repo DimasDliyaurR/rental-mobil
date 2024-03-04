@@ -25,15 +25,24 @@
                                         @csrf
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" placeholder="Cari pengeluaran..."
-                                                value="{{ request('search') }}" name="search">
+                                                value="{{ request('searkamch') }}" name="search">
                                             <button class="btn btn-primary" type="submit"">Search</button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                             {{-- END FORM SEARCH --}}
-                            <div class="overflow-visible" style="width: 10wv">
-                                <table class="table table-bordered" style="width: 10w">
+                            @if (session()->has('success'))
+                                <div class="bg-green rounded p-2">
+                                    {{ session('success') }}
+                                </div>
+                            @elseif(session()->has('error'))
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+                            <div class="table-responsive" style="width: 10wv">
+                                <table class="table table-bordered table-hover text-nowrap" style="width: 10w">
                                     <tr>
                                         <th class="text-center fs-6 text-uppercase" style="width: 1%">No.</th>
                                         <th class="text-center fs-6 text-uppercase">Pengeluaran</th>
@@ -67,7 +76,7 @@
                                         @endforeach
                                     @else
                                         <tr>
-                                            <td colspan="4" class="text-center">Pengeluaran tidak ada.</td>
+                                            <td colspan="6" class="text-center">Pengeluaran tidak ada.</td>
                                         </tr>
                                     @endif
                                 </table>

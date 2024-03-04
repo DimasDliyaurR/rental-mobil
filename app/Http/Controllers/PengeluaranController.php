@@ -97,12 +97,13 @@ class PengeluaranController extends Controller
     // Action delete
     public function delete_pengeluaran($id)
     {
+        $pengeluaran = Pengeluaran::findOrFail($id);
         try {
-            $pengeluaran = Pengeluaran::findOrFail($id)->delete();
+            $pengeluaran->delete();
         } catch (\Exception $th) {
             return back()->with("error", "Coba isi kembali");
         }
-        return back()->with("success", "Berhasil Menghapus " . $pengeluaran->nama_pengeluaran);
+        return back()->with("success", "Berhasil Menghapus");
     }
 
     public function filter(Request $request)

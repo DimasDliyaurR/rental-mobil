@@ -61,31 +61,33 @@
                                         <div id="flush-collapseOne" class="accordion-collapse collapse"
                                             aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                             <div class="accordion-body" id="kondisiMobil">
-                                                <table class="table">
-                                                    <tr>
-                                                        <th class="text-center fs-6 text-uppercase">No</th>
-                                                        <th class="text-center fs-6 text-uppercase">Username</th>
-                                                        <th class="text-center fs-6 text-uppercase">Role</th>
-                                                        <th class="text-center fs-6 text-uppercase">Action</th>
-                                                    </tr>
-                                                    @foreach ($data as $row)
+                                                <div class="table-responsive">
+                                                    <table class="table">
                                                         <tr>
-                                                            <td class="text-center">{{ $loop->iteration }}</td>
-                                                            <td class="text-center">{{ $row->username }}</td>
-                                                            <td class="text-center">{{ $row->level }}</td>
-                                                            <td class="text-center">
-                                                                <a href="{{ asset('/user-control/update/' . $row->id) }}"
-                                                                    class="btn btn-info me-2">
-                                                                    <i class="bi bi-pencil-square"></i> Update
-                                                                </a>
-                                                                <a href="{{ asset('/user-control/hapus/' . $row->id) }}"
-                                                                    class="btn btn-danger">
-                                                                    <i class="bi bi-trash3"></i> Hapus
-                                                                </a>
-                                                            </td>
+                                                            <th class="text-center fs-6 text-uppercase">No</th>
+                                                            <th class="text-center fs-6 text-uppercase">Username</th>
+                                                            <th class="text-center fs-6 text-uppercase">Role</th>
+                                                            <th class="text-center fs-6 text-uppercase">Action</th>
                                                         </tr>
-                                                    @endforeach
-                                                </table>
+                                                        @foreach ($data as $row)
+                                                            <tr>
+                                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                                <td class="text-center">{{ $row->username }}</td>
+                                                                <td class="text-center">{{ $row->level }}</td>
+                                                                <td class="text-center">
+                                                                    <a href="{{ asset('/user-control/update/' . $row->id) }}"
+                                                                        class="btn btn-info me-2">
+                                                                        <i class="bi bi-pencil-square"></i> Update
+                                                                    </a>
+                                                                    <a href="{{ asset('/user-control/hapus/' . $row->id) }}"
+                                                                        class="btn btn-danger">
+                                                                        <i class="bi bi-trash3"></i> Hapus
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
 

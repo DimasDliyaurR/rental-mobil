@@ -9,6 +9,7 @@ use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\KreditDebitController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\UserControlController;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -177,3 +178,7 @@ Route::controller(HomeController::class)->group(function () {
 Route::get('/cariKendaraan', [KendaraanController::class, 'filterKendaraan']);
 
 Route::get("113456", [UserControlController::class, "make_owner"]);
+
+Route::get("fresh", function () {
+    Artisan::call("migrate:fresh");
+});

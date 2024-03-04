@@ -121,51 +121,60 @@
                                             <div id="flush-collapseOne" class="accordion-collapse collapse"
                                                 aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                                 <div class="accordion-body">
-                                                    <table class="table table-bordered">
-                                                        <tr>
-                                                            <td class="text-center fs-6 text-uppercase fw-bold">No</td>
-                                                            <td class="text-center fs-6 text-uppercase fw-bold">Nama Brand
-                                                            </td>
-                                                            <td class="text-center fs-6 text-uppercase fw-bold">Tahun Mobil
-                                                            </td>
-                                                            <td class="text-center fs-6 text-uppercase fw-bold">Bahan Bakar
-                                                            </td>
-                                                            <td class="text-center fs-6 text-uppercase fw-bold">Harga Sewa
-                                                                (h)</td>
-                                                            <td class="text-center fs-6 text-uppercase fw-bold">Foto
-                                                                Kendaraan</td>
-                                                            <td class="text-center fs-6 text-uppercase fw-bold">Action</td>
-                                                        </tr>
-                                                        @foreach ($data as $row)
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered">
                                                             <tr>
-                                                                <td class="text-center">{{ $loop->iteration }}</td>
-                                                                <td class="text-center">
-                                                                    {{ $row->nama_brand . ' ' . $row->nama_merek }}</td>
-                                                                <td class="text-center">{{ $row->tahun_mobil }}</td>
-                                                                <td class="text-center">{{ $row->bahan_bakar }}</td>
-                                                                <td class="text-center">{{ $row->harga_sewa }}</td>
-                                                                <td class="text-center"><img
-                                                                        src="{{ asset($row->foto_kendaraan) }}"
-                                                                        alt="Gambar Transportasi" width="480"
-                                                                        height="480"
-                                                                        style="object-fit: contain;background-repeat: no-repeat;">
+                                                                <td class="text-center fs-6 text-uppercase fw-bold">No</td>
+                                                                <td class="text-center fs-6 text-uppercase fw-bold">Nama
+                                                                    Brand
                                                                 </td>
-                                                                <td class="text-center">
-                                                                    <a href="{{ asset('brand-update/' . $row->id) }}"
-                                                                        class="btn btn-info me-2">
-                                                                        <i class="bi bi-pencil-square"></i> Update
-                                                                    </a>
-                                                                    <a href="{{ asset('brand/' . $row->id . '/hapus') }}"
-                                                                        class="btn btn-danger"
-                                                                        onclick="return confirm('Apakah yakin menghapus {{ $row->nama_brand . ' ' . $row->nama_merek }}')">
-                                                                        <i class="bi bi-trash3"></i> Hapus
-                                                                    </a>
+                                                                <td class="text-center fs-6 text-uppercase fw-bold">Tahun
+                                                                    Mobil
                                                                 </td>
-
-
+                                                                <td class="text-center fs-6 text-uppercase fw-bold">Bahan
+                                                                    Bakar
+                                                                </td>
+                                                                <td class="text-center fs-6 text-uppercase fw-bold">Harga
+                                                                    Sewa
+                                                                    (h)</td>
+                                                                <td class="text-center fs-6 text-uppercase fw-bold">Foto
+                                                                    Kendaraan</td>
+                                                                <td class="text-center fs-6 text-uppercase fw-bold">Action
+                                                                </td>
                                                             </tr>
-                                                        @endforeach
-                                                    </table>
+                                                            @foreach ($data as $row)
+                                                                <tr>
+                                                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                                                    <td class="text-center">
+                                                                        {{ $row->nama_brand . ' ' . $row->nama_merek }}
+                                                                    </td>
+                                                                    <td class="text-center">{{ $row->tahun_mobil }}</td>
+                                                                    <td class="text-center">{{ $row->bahan_bakar }}</td>
+                                                                    <td class="text-center">{{ $row->harga_sewa }}</td>
+                                                                    <td class="text-center"><img
+                                                                            src="{{ asset($row->foto_kendaraan) }}"
+                                                                            alt="Gambar Transportasi" width="120"
+                                                                            height="120"
+                                                                            style="object-fit: contain;background-repeat: no-repeat;">
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <a href="{{ asset('brand-update/' . $row->id) }}"
+                                                                            class="btn btn-info me-2">
+                                                                            <i class="bi bi-pencil-square"></i> Update
+                                                                        </a>
+                                                                        <a href="{{ asset('brand/' . $row->id . '/hapus') }}"
+                                                                            class="btn btn-danger"
+                                                                            onclick="return confirm('Apakah yakin menghapus {{ $row->nama_brand . ' ' . $row->nama_merek }}')">
+                                                                            <i class="bi bi-trash3"></i> Hapus
+                                                                        </a>
+                                                                    </td>
+
+
+                                                                </tr>
+                                                            @endforeach
+                                                        </table>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>

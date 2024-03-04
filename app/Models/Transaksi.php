@@ -15,7 +15,7 @@ class Transaksi extends Model
     use HasFactory;
 
     protected $primarykey = "id_transaksi";
-    protected $table = "Transaksi";
+    protected $table = "transaksi";
     protected $dates = ["waktu_kembali", "tanggal_kembali", "waktu_pengambilan"];
 
     protected $fillable = [
@@ -45,16 +45,6 @@ class Transaksi extends Model
     public function kendaraan(): BelongsTo
     {
         return $this->belongsTo(Kendaraan::class);
-    }
-
-    public function data_diri(): HasOne
-    {
-        return $this->hasOne(Data_diri::class, "transaksi_id");
-    }
-
-    public function detail_transaksi(): HasMany
-    {
-        return $this->hasMany(Detail_transaksi::class, "transaksi_id");
     }
 
     public function detail_foto_mobil(): HasMany

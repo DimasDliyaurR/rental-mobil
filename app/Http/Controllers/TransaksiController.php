@@ -353,14 +353,29 @@ class TransaksiController extends Controller
             $kondisi_mobil = Detail_foto_mobil::where("transaksi_id", $id)->get();
 
             // dd($transaksi);
-            unlink($transaksi->foto_penyewa);
-            unlink($transaksi->foto_ktp);
-            unlink($transaksi->foto_sim);
-            unlink($transaksi->tanda_tangan);
-            unlink($transaksi->foto_kondisi_bbm);
+            foreach ($transaksi->get() as $row) {
 
-            foreach ($kondisi_mobil as $row) {
-                unlink($row->foto_mobil);
+                $detail_transaksi = Detail_foto_mobil::where("transaksi_id", "=", $row->id)->get();
+
+                foreach ($detail_transaksi as $row_inner) {
+                    if (file_exists($row_inner->foto_mobil)) unlink($row_inner->foto_mobil);
+                }
+
+                $oldPathFotoPenyewa = file_exists($row->foto_penyewa);
+                $oldPathFotoSim = file_exists($row->foto_sim);
+                $oldPathFotoKtp = file_exists($row->foto_ktp);
+                $oldPathFotoTandaTangan = file_exists($row->tanda_tangan);
+                $oldPathFotoKondisiBBM = file_exists($row->foto_kondisi_bbm);
+
+                if ($oldPathFotoPenyewa) unlink($row->foto_penyewa);
+
+                if ($oldPathFotoKondisiBBM) unlink($row->foto_kondisi_bbm);
+
+                if ($oldPathFotoSim) unlink($row->foto_sim);
+
+                if ($oldPathFotoKtp) unlink($row->foto_ktp);
+
+                if ($oldPathFotoTandaTangan) unlink($row->tanda_tangan);
             }
             DB::table("kendaraan")->where("id", $transaksi->kendaraan_id)->update([
                 "status" => "Tidak Terpakai",

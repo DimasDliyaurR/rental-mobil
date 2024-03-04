@@ -40,7 +40,7 @@
 
                             </div>
                             {{-- END FORM SEARCH --}}
-                            <div class="overflow-visible" style="width: 10wv">
+                            <div class="overflow-visible">
                                 @if (session()->has('success'))
                                     <div class="bg-green rounded p-2">
                                         {{ session('success') }}
@@ -52,13 +52,13 @@
                                 @endif
 
                                 @if (auth()->user()->level == 'owner')
-                                    <div class="col-md-4 mt-2">
+                                    <div class="col-md-4 mt-2 mb-2">
                                         <a href="{{ asset('transaksi-hapus') }}" class="btn btn-danger"
                                             onclick="return confirm('apakah anda yakin ingin menghapus foto ?')">Hapus Foto
                                             Transaksi</a>
                                     </div>
                                 @endif
-                                <div class="card-body">
+                                <div class="table-responsive">
                                     {{-- <table class="table table-bordered mt-3 dataTable dtr-inline collapsed" id="example1"
                                         style="width: 10w">
                                         <tr>
@@ -117,7 +117,7 @@
                                         @endif
                                     </table> --}}
 
-                                    <table id="example2" class="table table-bordered table-hover">
+                                    <table id="example2" class="table table-bordered table-hover text-nowrap">
                                         <thead>
                                             <tr>
                                                 <th class="text-center fs-6 text-uppercase">No.</th>
@@ -128,8 +128,6 @@
                                                 <th class="text-center fs-6 text-uppercase">Tanggal Sewa</th>
                                                 <th class="text-center fs-6 text-uppercase">Invoice</th>
                                                 <th class="text-center fs-6 text-uppercase">Action</th>
-                                                <th class="text-center fs-6 text-uppercase"><i class="fa fa-sort-amount-asc"
-                                                        aria-hidden="true"></i></th>
                                             </tr>
                                         </thead>
                                         <tbody>

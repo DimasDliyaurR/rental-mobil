@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Transaksi', function (Blueprint $table) {
+        Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kendaraan_id')->nullable()->index('fk_Transaksi_to_Kendaraan');
+            $table->foreignId('kendaraan_id')->nullable()->index('fk_transaksi_to_kendaraan');
             $table->string("foto_penyewa");
             $table->string("nama_penyewa");
             $table->string("no_telp");
@@ -43,6 +43,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('Transaksi');
+        Schema::dropIfExists('transaksi');
     }
 };
