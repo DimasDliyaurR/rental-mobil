@@ -411,8 +411,9 @@
                                             <div class="mb-3 col-md-6">
                                                 <label for="signature" class="form-label">Tanda Tangan</label>
                                                 <div class="sign-container">
-                                                    <div id="sig"></div>
-                                                    <style>
+                                                    {{-- <div id="sig"></div> --}}
+
+                                                    {{-- <style>
                                                         #sig {
                                                             width: 500px
                                                         }
@@ -429,9 +430,16 @@
                                                             }
                                                         }
                                                     </style>
-                                                    <textarea id="signature64" name="tanda_tangan" style="display: none"></textarea>
+                                                    <textarea id="signature64" name="tanda_tangan" style="display: none"></textarea> --}}
+
+                                                    <canvas width="300" height="150" style="border:1px solid grey"
+                                                        id="tanda_tangan_pad"></canvas>
+
+                                                    <input type="text" name="tanda_tangan" id="tanda_tangan" hidden>
+
                                                 </div>
-                                                <button id="clear" class="btn btn-danger btn-sm mt-3">Reset</button>
+                                                <button id="clear" onclick="deletePad()"
+                                                    class="btn btn-danger btn-sm mt-3">Reset</button>
                                                 @error('tanda_tangan')
                                                     <span class="form-text text-danger">
                                                         {{ $message }}
@@ -440,7 +448,9 @@
                                             </div>
                                         </div>
                                         <span class="btn btn-primary" onclick="unmask_transaksi()">submit</span>
+
                                         {{-- <button id="submit-transaksi">Submit</button> --}}
+
                                     </div>
 
                                     {{-- Kendaraan Form End --}}
@@ -456,4 +466,15 @@
         </div>
 
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <script>
+        $(document).ready(() => {
+            new SignaturePad(document.querySelector("#tanda_tangan_pad"));
+        });
+
+        function deletePad() {
+            new SignaturePad(document.querySelector("#tanda_tangan_pad")).clear();
+        }
+    </script>
 @endsection

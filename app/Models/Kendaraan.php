@@ -26,7 +26,7 @@ class Kendaraan extends Model
      */
 
 
-    protected $table = "Kendaraan";
+    protected $table = "kendaraan";
 
     protected $fillable = [
         'brand_kendaraan_id',
