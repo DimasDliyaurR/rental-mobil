@@ -34,10 +34,10 @@ Route::middleware(["auth", "owner"])->group(function () {
         Route::post("/transaksi-tambah/tambah", "tambah_transaksi");
 
         // Delete
-        Route::get("/transaksi/delete/{id}", "delete_transaksi")->name('tansaksi-delete');
+        Route::delete("/transaksi/delete/{id}", "delete_transaksi")->name('tansaksi-delete');
 
         // Delete semua foto transaksi
-        Route::get("transaksi-hapus", "hapus_foto_transaksi")->name("transaksi_delete");
+        Route::delete("transaksi-hapus", "hapus_foto_transaksi")->name("transaksi_delete");
 
         //Invoice
         Route::get("/transaksi/invoice/{id}", "invoice")->name('tansaksi-invoice');
@@ -146,7 +146,7 @@ Route::middleware(["auth"])->group(function () {
         Route::get("/pengeluaran-tambah", "tambah_index")->name('pengeluaran.tambah');
         Route::post("/pengeluaran-tambah/tambah", "tambah_pengeluaran")->name('pengeluaran.tambah');
 
-        // Update 
+        // Update
         Route::get("/pengeluaran-update/{id}", "update_index")->name('pengeluaran.update');
         Route::post("/pengeluaran-update/update", "update_pengeluaran")->name('pengeluaran.update');
 

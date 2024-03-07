@@ -77,7 +77,7 @@
                                                         </a>
                                                         <a href="{{ asset('/pengeluaran-hapus/' . $row->id) }}"
                                                             class="btn btn-danger"
-                                                            onclick="return confirm('Apakah yakin mengahapus {{ $row->nama_pengeluaran }}')">
+                                                            data-confirm-delete="true">
                                                             <i class="bi bi-trash3"></i> Hapus
                                                         </a>
                                                     </td>

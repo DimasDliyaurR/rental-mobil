@@ -59,8 +59,7 @@
 
                                 @if (auth()->user()->level == 'owner')
                                     <div class="col-md-4 mt-2 mb-4">
-                                        <a href="{{ asset('transaksi-hapus') }}" class="btn btn-danger"
-                                            onclick="return confirm('apakah anda yakin ingin menghapus foto ?')">Hapus Foto
+                                        <a href="{{ asset('transaksi-hapus') }}" class="btn btn-danger" data-confirm-delete="true">Hapus Foto
                                             Transaksi</a>
                                     </div>
                                 @endif
@@ -169,7 +168,7 @@
                                                             </a>
 
                                                             <a href="{{ asset('transaksi/delete/' . $row->id) }}"
-                                                                class="btn btn-danger" onclick="return confirm('Apakah yakin mengahapus {{ $row->nama_penyewa }}')"
+                                                                class="btn btn-danger" data-confirm-delete="true"
                                                                 >
                                                                 <i class="bi bi-trash3"></i> Hapus
                                                             </a>

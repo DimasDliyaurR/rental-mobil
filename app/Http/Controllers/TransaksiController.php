@@ -40,6 +40,9 @@ class TransaksiController extends Controller
 
         // Paginasi
         $data = $query->paginate(10, ['*'], 'page')->appends(request()->query());
+        $title = 'Hapus Transaksi!';
+        $text = "Apakah anda yakin akan hapus transaksi?";
+        confirmDelete($title, $text);
 
         return view("admin.transaksi.lihat", [
             "title" => "Transaksi",

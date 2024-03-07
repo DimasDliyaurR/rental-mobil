@@ -11,6 +11,9 @@ class PengeluaranController extends Controller
     public function index()
     {
         $data = Pengeluaran::latest();
+        $title = 'Hapus Pengeluaran!';
+        $text = "Apakah anda yakin akan hapus pengeluaran?";
+        confirmDelete($title, $text);
 
         return view("admin.pengeluaran.lihat", [
             "title" => "Pengeluaran",
