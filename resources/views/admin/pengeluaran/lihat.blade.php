@@ -33,55 +33,81 @@
                             </div>
                             {{-- END FORM SEARCH --}}
                             @if (session()->has('success'))
-                                <div class="bg-green rounded p-2">
-                                    {{ session('success') }}
+                                <div class="alert alert-success alert-dismissible fade show " role="alert">
+                                    {{ session('success') }}!
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
                             @elseif(session()->has('error'))
-                                <div class="alert alert-danger">
-                                    {{ session('error') }}
+                                <div class="alert alert-danger alert-dismissible fade show " role="alert">
+                                    {{ session('error') }}!
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
                             @endif
                             <div class="table-responsive" style="width: 10wv">
-                                <table class="table table-bordered table-hover text-nowrap" style="width: 10w">
-                                    <tr>
-                                        <th class="text-center fs-6 text-uppercase" style="width: 1%">No.</th>
-                                        <th class="text-center fs-6 text-uppercase">Pengeluaran</th>
-                                        <th class="text-center fs-6 text-uppercase">Deskripsi</th>
-                                        <th class="text-center fs-6 text-uppercase">Harga</th>
-                                        <th class="text-center fs-6 text-uppercase">Tanggal</th>
-                                        <th class="text-center fs-6 text-uppercase">Action</th>
-                                    </tr>
-                                    @if ($data->count())
-                                        @foreach ($data as $row)
-                                            <tr>
-                                                <td class="text-capitalize text-center">{{ $loop->iteration }}</td>
-                                                <td class="text-capitalize text-center">{{ $row->nama_pengeluaran }}</td>
-                                                <td class="text-capitalize text-center">{{ $row->deskripsi_pengeluaran }}
-                                                </td>
-                                                <td class="text-center">Rp.
-                                                    {{ number_format($row->harga_pengeluaran, 0, ',', '.') }}</td>
-                                                <td class="text-center">{{ $row->tanggal_pengeluaran }}</td>
-                                                <td class="text-center">
-                                                    <a href="{{ asset('/pengeluaran-update/' . $row->id) }}"
-                                                        class="btn btn-info me-2">
-                                                        <i class="bi bi-pencil-square"></i> Update
-                                                    </a>
-                                                    <a href="{{ asset('/pengeluaran-hapus/' . $row->id) }}"
-                                                        class="btn btn-danger"
-                                                        onclick="return confirm('Apakah yakin mengahapus {{ $row->nama_pengeluaran }}')">
-                                                        <i class="bi bi-trash3"></i> Hapus
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    @else
+                                <table class="table table-striped table-bordered table-hover text-nowrap" style="width: 10w">
+                                    <thead>
                                         <tr>
-                                            <td colspan="6" class="text-center">Pengeluaran tidak ada.</td>
+                                            <th class="text-center fs-6 text-uppercase" style="width: 1%">No.</th>
+                                            <th class="text-center fs-6 text-uppercase">Pengeluaran</th>
+                                            <th class="text-center fs-6 text-uppercase">Deskripsi</th>
+                                            <th class="text-center fs-6 text-uppercase">Harga</th>
+                                            <th class="text-center fs-6 text-uppercase">Tanggal</th>
+                                            <th class="text-center fs-6 text-uppercase">Action</th>
                                         </tr>
-                                    @endif
+                                    </thead>
+                                    <tbody>
+                                        @if ($data->count())
+                                            @foreach ($data as $key => $row)
+                                                <tr>
+                                                    <td class="text-capitalize text-center"> {{ $data->firstItem() + $key }} </td>
+                                                    <td class="text-capitalize text-center">{{ $row->nama_pengeluaran }}</td>
+                                                    <td class="text-capitalize text-center">{{ $row->deskripsi_pengeluaran }}
+                                                    </td>
+                                                    <td class="text-center">Rp.
+                                                        {{ number_format($row->harga_pengeluaran, 0, ',', '.') }}</td>
+                                                    <td class="text-center">{{ $row->tanggal_pengeluaran }}</td>
+                                                    <td class="text-center">
+                                                        <a href="{{ asset('/pengeluaran-update/' . $row->id) }}"
+                                                            class="btn btn-info me-2">
+                                                            <i class="bi bi-pencil-square"></i> Update
+                                                        </a>
+                                                        <a href="{{ asset('/pengeluaran-hapus/' . $row->id) }}"
+                                                            class="btn btn-danger"
+                                                            onclick="return confirm('Apakah yakin mengahapus {{ $row->nama_pengeluaran }}')">
+                                                            <i class="bi bi-trash3"></i> Hapus
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td colspan="6" class="text-center">Pengeluaran tidak ada.</td>
+                                            </tr>
+                                        @endif
+                                    </tbody>
                                 </table>
                             </div>
-                            <div class="d-flex justify-content-center">
+                            <div>
+                                Showing
+                                @if ($data->count())
+                                {{ $data->firstItem() }}
+                                @else
+                                0
+                                @endif
+                                to
+                                @if ($data->count())
+                                {{ $data->lastItem() }}
+                                @else
+                                0
+                                @endif
+                                of
+                                {{ $data->total() }} datas
+                            </div>
+                            <div class="d-flex justify-content-end">
                                 {{ $data->links() }}
                             </div>
 
@@ -92,6 +118,6 @@
 
             </div>
         </div>
-
+        @include('sweetalert::alert')
     </div>
 @endsection

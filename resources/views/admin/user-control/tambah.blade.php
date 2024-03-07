@@ -10,37 +10,41 @@
                             <h1>{{ $title }}</h1>
                             <div class="overflow-visible" style="width: 10wv">
                                 @if (session()->has('success'))
-                                    <div class="form-text bg-green rounded p-2">
-                                        {{ session('success') }}
+                                    <div class="alert alert-success alert-dismissible fade show col-md-6" role="alert">
+                                        {{ session('success') }}!
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
                                 @elseif(session()->has('error'))
-                                    <div class="alert-error">
-                                        <div class="form-text bg-danger rounded p-2">
-                                            {{ session('error') }}
-                                        </div>
+                                    <div class="alert alert-danger alert-dismissible fade show col-md-6" role="alert">
+                                        {{ session('error') }}!
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
                                 @endif
                                 <form action="{{ asset('/user-control/tambah') }}" method="post">
                                     @csrf
                                     <div class="mb-3 col-md-6 form-floating">
                                         <input oninput="this.value = this.value.toLowerCase()" type="text"
-                                            class="form-control" placeholder="..." name="username" id="username">
+                                            class="form-control @error('username') is-invalid @enderror" placeholder="..." name="username" id="username">
                                         <label for="username" class="ms-2">Username</label>
                                         <small>Gunakan huruf kecil</small>
 
                                         @error('username')
-                                            <div class="form-text text-danger">{{ $message }}</div>
+                                            <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
 
                                     <div class="mb-3 col-md-6 form-floating">
                                         <input oninput="this.value = this.value.toLowerCase()" type="text"
-                                            class="form-control" placeholder="..." name="password" id="password">
+                                            class="form-control @error('password') is-invalid @enderror" placeholder="..." name="password" id="password">
                                         <label for="password" class="ms-2">Password</label>
                                         <small>Gunakan huruf kecil</small>
 
                                         @error('password')
-                                            <div class="form-text text-danger">{{ $message }}</div>
+                                            <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <button class="btn btn-primary">Submit</button>
@@ -98,6 +102,6 @@
 
                         </div>
                     </div>
-
+                    @include('sweetalert::alert')
                 </div>
             @endsection

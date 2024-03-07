@@ -387,6 +387,7 @@ class TransaksiController extends Controller
                 ->with("error", "Gagal menghapus data");
         }
 
+
         return redirect("/transaksi")->with("success", "Delete Berhasil dilakukan");
     }
 

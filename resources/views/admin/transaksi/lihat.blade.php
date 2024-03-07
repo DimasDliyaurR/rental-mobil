@@ -42,17 +42,23 @@
                             {{-- END FORM SEARCH --}}
                             <div class="overflow-visible">
                                 @if (session()->has('success'))
-                                    <div class="bg-green rounded p-2">
-                                        {{ session('success') }}
+                                    <div class="alert alert-success alert-dismissible fade show " role="alert">
+                                        {{ session('success') }}!
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
                                 @elseif(session()->has('error'))
-                                    <div class="alert alert-danger">
-                                        {{ session('error') }}
+                                    <div class="alert alert-danger alert-dismissible fade show " role="alert">
+                                        {{ session('error') }}!
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
                                 @endif
 
                                 @if (auth()->user()->level == 'owner')
-                                    <div class="col-md-4 mt-2 mb-2">
+                                    <div class="col-md-4 mt-2 mb-4">
                                         <a href="{{ asset('transaksi-hapus') }}" class="btn btn-danger"
                                             onclick="return confirm('apakah anda yakin ingin menghapus foto ?')">Hapus Foto
                                             Transaksi</a>
@@ -117,7 +123,7 @@
                                         @endif
                                     </table> --}}
 
-                                    <table id="example2" class="table table-bordered table-hover text-nowrap">
+                                    <table id="example2" class="table table-striped table-bordered table-hover text-nowrap">
                                         <thead>
                                             <tr>
                                                 <th class="text-center fs-6 text-uppercase">No.</th>
@@ -161,15 +167,18 @@
                                                                 class="btn btn-info me-2">
                                                                 <i class="bi bi-pencil-square"></i> Update
                                                             </a>
+
                                                             <a href="{{ asset('transaksi/delete/' . $row->id) }}"
-                                                                class="btn btn-danger"
-                                                                onclick="return confirm('Apakah yakin mengahapus {{ $row->nama_penyewa }}')">
+                                                                class="btn btn-danger" onclick="return confirm('Apakah yakin mengahapus {{ $row->nama_penyewa }}')"
+                                                                >
                                                                 <i class="bi bi-trash3"></i> Hapus
                                                             </a>
                                                         </td>
 
                                                     </tr>
                                                 @endforeach
+                                            @else
+                                            <td colspan="8" class="text-center">Data Tidak Ada</td>
                                             @endif
                                         </tbody>
                                     </table>
@@ -178,15 +187,22 @@
                             </div>
                             <div>
                                 Showing
+                                @if ($data->count())
                                 {{ $data->firstItem() }}
+                                @else
+                                0
+                                @endif
                                 to
+                                @if ($data->count())
                                 {{ $data->lastItem() }}
+                                @else
+                                0
+                                @endif
                                 of
                                 {{ $data->total() }} datas
                             </div>
                             <div class="d-flex justify-content-end">
                                 {{ $data->links() }}
-
                             </div>
 
                         </div>
@@ -196,6 +212,6 @@
 
             </div>
         </div>
-
+        @include('sweetalert::alert')
     </div>
 @endsection

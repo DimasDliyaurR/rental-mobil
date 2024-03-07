@@ -31,19 +31,15 @@ class KreditDebitController extends Controller
         // Mengubah angka bulan menjadi nama bulan
         $nama_bulan = Carbon::createFromDate($tahun, $bulan, 1)->format('F');
 
-        if ($bulan_tahun) {
-            $transaksi = DB::table("transaksi")
-                ->select(DB::raw("SUM(COALESCE((brand_kendaraan.harga_sewa,0) * transaksi.durasi, 0)) - COALESCE(transaksi.promo , 0) + COALESCE(transaksi.biaya_supir, 0)) as jumlah_transaksi, transaksi.nama_penyewa"))
-                ->join("kendaraan", "transaksi.kendaraan_id", "=", "kendaraan.id")
-                ->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id")
-                ->whereMonth('transaksi.created_at', '=', $bulan)
-                ->whereYear('transaksi.created_at', '=', $tahun)
-                ->groupBy("transaksi.nama_penyewa")
-                ->orderBy('transaksi.created_at')
-                ->get();
-
-
-
+        $transaksi = DB::table("transaksi")
+            ->select(DB::raw("SUM(COALESCE((brand_kendaraan.harga_sewa - transaksi.promo) * transaksi.durasi, 0) + COALESCE(transaksi.biaya_supir, 0)) as jumlah_transaksi, transaksi.nama_penyewa"))
+            ->join("kendaraan", "transaksi.kendaraan_id", "=", "kendaraan.id")
+            ->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id")
+            ->whereMonth('transaksi.created_at', '=', $bulan)
+            ->whereYear('transaksi.created_at', '=', $tahun)
+            ->groupBy("transaksi.nama_penyewa")
+            ->orderBy('transaksi.created_at')
+            ->get();
 
             $pengeluaran = DB::table("pengeluaran")
                 ->select(DB::raw("SUM(pengeluaran.harga_pengeluaran) total_pengeluaran"), "pengeluaran.*")
@@ -72,39 +68,7 @@ class KreditDebitController extends Controller
 
             // Menghitung total dari hasil subquery
             $total_transaksi = $total_transaksi->sum('jumlah_transaksi');
-        } else {
 
-            $transaksi = DB::table("transaksi")
-                ->select(DB::raw("SUM(COALESCE((brand_kendaraan.harga_sewa - transaksi.promo) * transaksi.durasi, 0) + COALESCE(transaksi.biaya_supir, 0)) as jumlah_transaksi, transaksi.nama_penyewa"))
-                ->join("kendaraan", "transaksi.kendaraan_id", "=", "kendaraan.id")
-                ->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id")
-                ->groupBy("transaksi.nama_penyewa")
-                ->orderBy('transaksi.created_at')
-                ->get();
-
-
-            $pengeluaran = DB::table("pengeluaran")
-                ->select(DB::raw("SUM(pengeluaran.harga_pengeluaran) total_pengeluaran"), "pengeluaran.*")
-                ->groupBy("pengeluaran.harga_pengeluaran", "pengeluaran.id", "pengeluaran.nama_pengeluaran", "pengeluaran.deskripsi_pengeluaran", "pengeluaran.tanggal_pengeluaran", "pengeluaran.created_at", "pengeluaran.updated_at")
-                ->orderBy('pengeluaran.created_at')
-                ->get();
-
-            $total_pengeluaran = DB::table("pengeluaran")
-                ->select(DB::raw("SUM(pengeluaran.harga_pengeluaran) total_pengeluaran"))
-                ->get()
-                ->first();
-
-            $total_transaksi = DB::table("transaksi")
-                ->select(DB::raw("SUM(COALESCE((brand_kendaraan.harga_sewa - transaksi.promo) * transaksi.durasi, 0) + COALESCE(transaksi.biaya_supir, 0)) as jumlah_transaksi"))
-                ->join("kendaraan", "transaksi.kendaraan_id", "=", "kendaraan.id")
-                ->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id")
-                ->groupBy("transaksi.nama_penyewa")
-                ->orderBy('transaksi.created_at')
-                ->get();
-
-            // Menghitung total dari hasil subquery
-            $total_transaksi = $total_transaksi->sum('jumlah_transaksi');
-        }
 
         return view("admin.kredit_debit.lihat", [
             "title" => "Laporan",

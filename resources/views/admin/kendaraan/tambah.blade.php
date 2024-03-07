@@ -10,9 +10,19 @@
                             <h1>{{ $title }}</h1>
                             <div class="overflow-visible" style="width: 10wv">
                                 @if (session()->has('success'))
-                                    <div class="text-lg text-white bg-green p-3 rounded mb-3 col-md-6">{{ session('success') }}</div>
+                                    <div class="alert alert-success alert-dismissible fade show col-md-6" role="alert">
+                                        {{ session('success') }}!
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
                                 @elseif(session()->has('error'))
-                                    <div class="text-lg text-white bg-danger p-3 rounded mb-3 col-md-6">{{ session('error') }}</div>
+                                    <div class="alert alert-danger alert-dismissible fade show col-md-6" role="alert">
+                                        {{ session('error') }}!
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
                                 @endif
                                 <form method="post" action="{{ asset('/kendaraan-tambah/tambah') }}">
                                     @csrf
@@ -20,32 +30,32 @@
                                     {{-- Nama Kendaraan --}}
                                     <div class="mb-3 mt-4 col-md-6">
                                         <label for="nama_kendaraan" class="form-label">Nama Brand</label>
-                                        <select class="form-control form-control-lg" id="nama_brand" name="nama_brand"
+                                        <select class="form-control form-control-lg text-capitalize @error('nama_brand') is-invalid @enderror" id="nama_brand" name="nama_brand"
                                             value="{{ old('nama_brand') }}">
                                             <option selected disabled hidden>
                                                 {{ count($brand) == 0 ? 'Kendaraan Tidak ada yang Tersedia' : '--Pilih--' }}
                                             </option>
                                             @foreach ($brand as $row)
-                                                <option value="{{ $row->id }}">
-                                                    {{ $row->nama_brand }} || {{ $row->nama_merek }}
+                                                <option value="{{ $row->id }}" class="text-capitalize">
+                                                    {{ $row->nama_brand }} {{ $row->nama_merek }}
                                                 </option>
                                             @endforeach
                                         </select>
                                         <span class="form-text">Klik untuk memilih Nama Kendaraan</span>
                                         @error('nama_brand')
-                                            <div class="form-text text-danger">{{ $message }}</div>
+                                            <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
 
                                     {{-- Plat --}}
                                     <div class="mb-3 col-md-6 form-floating">
-                                        <input type="text" class="form-control" placeholder="..." id="plat" name="plat"
+                                        <input type="text" class="form-control @error('plat') is-invalid @enderror" placeholder="..." id="plat" name="plat"
                                         value="{{ old('plat') }}">
                                         <label for="plat" class="ms-2">Plat</label>
 
                                         <span class="form-text">Contoh : W 8989 DR</span>
                                         @error('plat')
-                                            <div class="form-text text-danger">{{ $message }}</div>
+                                            <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
 
@@ -60,6 +70,6 @@
 
             </div>
         </div>
-
+        @include('sweetalert::alert')
     </div>
 @endsection

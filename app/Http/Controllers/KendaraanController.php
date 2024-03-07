@@ -100,7 +100,7 @@ class KendaraanController extends Controller
 
     public function brand_index()
     {
-        $data = Brand_Kendaraan::all();
+        $data = Brand_Kendaraan::latest()->paginate(5);
         return view("admin.kendaraan.brand.tambah", [
             "title" => "Kendaraan",
             "action" => "brand_kendaraan",
@@ -386,7 +386,7 @@ class KendaraanController extends Controller
         return back()->with("success", "Berhasil restore data " . $kendaraan->plat);
     }
 
-    // Service 
+    // Service
     public function update_status($id, $status)
     {
         $kendaraan = Kendaraan::findOrFail($id)->first();

@@ -10,21 +10,20 @@
                             <h1>{{ $title }}</h1>
                             <div class="overflow-visible" style="width: 10wv">
                                 @if (session()->has('success'))
-                                    <div class="form-text bg-green rounded p-2 col-md-6">
-                                        {{ session('success') }}
+                                    <div class="alert alert-success alert-dismissible fade show col-md-6" role="alert">
+                                        {{ session('success') }}! <a href="/transaksi" class="alert-link text-white">Lihat daftar transaksi</a>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
                                 @elseif(session()->has('error'))
-                                    <div class="alert-error">
-                                        <div class="form-text bg-danger rounded p-2 col-md-6">
-                                            {{ session('error') }}
-                                        </div>
+                                    <div class="alert alert-danger alert-dismissible fade show col-md-6" role="alert">
+                                        {{ session('error') }}!
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
-                                @elseif($errors->any())
-                                    @foreach ($errors->all() as $error)
-                                        <div class="form-text bg-warning rounded p-2 col-md-6">
-                                            <b class="ms-2">{{ $error }}</b>
-                                        </div>
-                                    @endforeach
+
                                 @endif
                                 <form action="{{ asset('/transaksi/update') }}" method="post"
                                     enctype="multipart/form-data">
@@ -42,12 +41,12 @@
                                             <div class="col-md-6">
                                                 <label for="foto_penyewa" class="form-label">Foto Klien</label>
                                                 <input type="file" id="formFileLg" name="foto_penyewa"
-                                                    class="form-control form-control-lg" multiple>
+                                                    class="form-control form-control-lg @error('foto_penyewa') is-invalid @enderror" multiple>
                                                 <img src="{{ asset($data->foto_penyewa) }}"
                                                     class="img-fluid img-thumbnail mt-2" alt="Foto Penyewa"
                                                     style="object-fit: cover; width: 200px;height: 300px;">
                                                 @error('foto_penyewa')
-                                                    <span class="form-text text-danger">
+                                                    <span class="invalid-feedback">
                                                         {{ $message }}
                                                     </span>
                                                 @enderror
@@ -57,13 +56,11 @@
                                         <div class="mb-3">
                                             <div class="form-floating col-md-6">
                                                 <input oninput="this.value = this.value.toLowerCase()" type="text"
-                                                    name="nama_penyewa" class="form-control text-capitalize"
+                                                    name="nama_penyewa" class="form-control text-capitalize @error('nama_penyewa') is-invalid @enderror"
                                                     value="{{ $data->nama_penyewa }}" placeholder="...">
                                                 <label for="nama_penyewa" class="ms-2">Nama Penyewa</label>
-
-
                                                 @error('nama_penyewa')
-                                                    <span class="form-text text-danger">
+                                                    <span class="invalid-feedback">
                                                         {{ $message }}
                                                     </span>
                                                 @enderror
@@ -74,12 +71,12 @@
                                         <div class="mb-3">
                                             <div class="form-floating col-md-6">
                                                 <input type="text" id="no_telp" name="no_telp"
-                                                    class="form-control text-capitalize" value="{{ $data->no_telp }}"
+                                                    class="form-control text-capitalize @error('no_telp') is-invalid @enderror" value="{{ $data->no_telp }}"
                                                     placeholder="...">
                                                 <label for="no_telp" class="ms-2">Nomor Telepon</label>
 
                                                 @error('no_telp')
-                                                    <span class="form-text text-danger">
+                                                    <span class="invalid-feedback">
                                                         {{ $message }}
                                                     </span>
                                                 @enderror
@@ -90,11 +87,11 @@
                                         <div class="mb-3">
                                             <div class="form-floating col-md-6">
                                                 <input oninput="this.value = this.value.toLowerCase()" type="text"
-                                                    id="alamat" name="alamat" class="form-control text-capitalize"
+                                                    id="alamat" name="alamat" class="form-control text-capitalize @error('alamat') is-invalid @enderror"
                                                     value="{{ $data->alamat }}" placeholder="...">
                                                 <label for="alamat" class="ms-2">Alamat Klien</label>
                                                 @error('alamat')
-                                                    <span class="form-text text-danger">
+                                                    <span class="invalid-feedback">
                                                         {{ $message }}
                                                     </span>
                                                 @enderror
@@ -105,11 +102,11 @@
                                         <div class="mb-3">
                                             <div class="form-floating col-md-6">
                                                 <input type="text" id="no_ktp" name="no_ktp"
-                                                    class="form-control text-capitalize" value="{{ $data->no_ktp }}"
+                                                    class="form-control text-capitalize @error('no_ktp') is-invalid @enderror" value="{{ $data->no_ktp }}"
                                                     placeholder="...">
                                                 <label for="no_ktp" class="ms-2">Nomor KTP</label>
                                                 @error('no_ktp')
-                                                    <span class="form-text text-danger">
+                                                    <span class="invalid-feedback">
                                                         {{ $message }}
                                                     </span>
                                                 @enderror
@@ -120,11 +117,11 @@
                                         <div class="mb-3">
                                             <div class="form-floating col-md-6">
                                                 <input type="text" id="no_sim" name="no_sim"
-                                                    class="form-control text-capitalize" value="{{ $data->no_sim }}"
+                                                    class="form-control text-capitalize @error('no_sim') is-invalid @enderror" value="{{ $data->no_sim }}"
                                                     placeholder="...">
                                                 <label for="no_sim" class="ms-2">Nomor SIM</label>
                                                 @error('no_sim')
-                                                    <span class="form-text text-danger">
+                                                    <span class="invalid-feedback">
                                                         {{ $message }}
                                                     </span>
                                                 @enderror
@@ -136,12 +133,12 @@
                                             <div class="mb-3 col-lg-3">
                                                 <label for="foto_ktp" class="form-label">Foto KTP</label>
                                                 <input type="file" id="foto_ktp" name="foto_ktp"
-                                                    value="{{ $data->foto_ktp }}" class="form-control" multiple>
+                                                    value="{{ $data->foto_ktp }}" class="form-control @error('foto_ktp') is-invalid @enderror" multiple>
                                                 <img src="{{ asset($data->foto_ktp) }}"
                                                     class="img-fluid img-thumbnail mt-3" alt="Foto KTP"
                                                     style="object-fit: contain; width: 250px;height: 175px;">
                                                 @error('foto_ktp')
-                                                    <span class="form-text text-danger">
+                                                    <span class="invalid-feedback">
                                                         {{ $message }}
                                                     </span>
                                                 @enderror
@@ -150,13 +147,13 @@
                                             <div class="mb-3 col-lg-3">
                                                 <label for="foto_sim" class="form-label">Foto SIM</label>
                                                 <input type="file" id="foto_sim" name="foto_sim"
-                                                    value="{{ $data->foto_sim }}" class="form-control" multiple>
+                                                    value="{{ $data->foto_sim }}" class="form-control @error('foto_sim') is-invalid @enderror" multiple>
                                                 <img src="{{ asset($data->foto_sim) }}"
                                                     class="img-fluid img-thumbnail mt-3" alt="Foto SIM" width="540"
                                                     height="540"
                                                     style="object-fit: contain; width: 250px;height: 175px;">
                                                 @error('foto_sim')
-                                                    <span class="form-text text-danger">
+                                                    <span class="invalid-feedback">
                                                         {{ $message }}
                                                     </span>
                                                 @enderror
@@ -177,7 +174,7 @@
                                         <div class="mb-3">
                                             <div class="col-md-6">
                                                 <label for="kendaraan" class="form-label">Daftar Kendaraan</label>
-                                                <select class="form-select form-select-lg"
+                                                <select class="form-select form-select-lg @error('kendaraan') is-invalid @enderror"
                                                     aria-label="Default select example" id="kendaraan" name="kendaraan">
                                                     <option value='{{ $data->kendaraan_id }}' selected hidden>
                                                         {{ $kendaraan->brand_kendaraan->nama_brand }}
@@ -194,7 +191,7 @@
                                                 </select>
 
                                                 @error('kendaraan')
-                                                    <span class="form-text text-danger">
+                                                    <span class="invalid-feedback">
                                                         {{ $message }}
                                                     </span>
                                                 @enderror
@@ -207,7 +204,7 @@
                                                 <label class="form-label" for="foto_bbm">
                                                     Foto BBM
                                                 </label>
-                                                <input class="form-control form-control-lg mb-3" name="foto_kondisi_bbm"
+                                                <input class="form-control form-control-lg mb-3 @error('foto_bbm') is-invalid @enderror" name="foto_kondisi_bbm"
                                                     type="file" value="{{ $data->foto_bbm }}" id="formFileLg"
                                                     multiple>
                                                 <img src="{{ asset($data->foto_kondisi_bbm) }}"
@@ -215,7 +212,7 @@
                                                     height="540"
                                                     style="object-fit: contain; width: 250px;height: 175px;">
                                                 @error('foto_bbm')
-                                                    <span class="form-text text-danger">
+                                                    <span class="invalid-feedback">
                                                         {{ $message }}
                                                     </span>
                                                 @enderror
@@ -226,11 +223,11 @@
                                         <div class="mb-3">
                                             <div class="form-floating col-md-6">
                                                 <input type="text" id="jumlah_bbm" name="jumlah_bbm"
-                                                    class="form-control  text-capitalize" value="{{ $data->jumlah_bbm }}"
+                                                    class="form-control  text-capitalize @error('jumlah_bbm') is-invalid @enderror" value="{{ $data->jumlah_bbm }}"
                                                     placeholder="...">
                                                 <label for="jumlah_bbm" class="ms-2">Jumlah BBM</label>
                                                 @error('jumlah_bbm')
-                                                    <span class="form-text text-danger">
+                                                    <span class="invalid-feedback">
                                                         {{ $message }}
                                                     </span>
                                                 @enderror
@@ -281,7 +278,7 @@
                                                                                 name="kondisi_mobil_old_id[]"
                                                                                 value="{{ $row->id }}" hidden>
                                                                             @error('kondisi_mobil_old')
-                                                                                <span class="form-text text-danger">
+                                                                                <span class="invalid-feedback">
                                                                                     {{ $message }}
                                                                                 </span>
                                                                             @enderror
@@ -303,7 +300,7 @@
                                                                             <label for="keterangan_old[]"
                                                                                 class="">Keterangan</label>
                                                                             @error('keterangan_old')
-                                                                                <span class="form-text text-danger">
+                                                                                <span class="invalid-feedback">
                                                                                     {{ $message }}
                                                                                 </span>
                                                                             @enderror
@@ -345,7 +342,7 @@
                                                     Pakai Driver?
                                                 </label>
                                                 <div class="form-check mx-3 mb-2">
-                                                    <input class="form-check-input" type="radio" name="driver"
+                                                    <input class="form-check-input @error('driver') is-invalid @enderror" type="radio" name="driver"
                                                         value="1" id="driver-iya"
                                                         {{ $data->driver !== null && $data->driver == 1 ? 'checked' : '' }}
                                                         style="font-size: 24px">
@@ -354,7 +351,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="form-check mx-3 mb-2">
-                                                    <input class="form-check-input" type="radio" name="driver"
+                                                    <input class="form-check-input @error('driver') is-invalid @enderror" type="radio" name="driver"
                                                         value="0" id="driver-tidak"
                                                         {{ $data->driver !== null && $data->driver == 0 ? 'checked' : '' }}
                                                         style="font-size: 24px">
@@ -363,7 +360,7 @@
                                                     </label>
                                                 </div>
                                                 @error('driver')
-                                                    <span class="form-text text-danger">
+                                                    <span class="invalid-feedback">
                                                         {{ $message }}
                                                     </span>
                                                 @enderror
@@ -386,12 +383,12 @@
                                             <div class="form-floating col-md-6">
                                                 <input oninput="this.value = this.value.toLowerCase()" type="text"
                                                     id="lokas_pengambilan" name="lokasi_pengambilan"
-                                                    class="form-control text-capitalize"
+                                                    class="form-control text-capitalize @error('lokasi_pengambilan') is-invalid @enderror"
                                                     value="{{ $data->lokasi_pengambilan }}" placeholder="...">
                                                 <label for="lokasi_pengambilan" class="ms-2">Lokasi Pengambilan</label>
 
                                                 @error('lokasi_pengembalian')
-                                                    <span class="form-text text-danger">
+                                                    <span class="invalid-feedback">
                                                         {{ $message }}
                                                     </span>
                                                 @enderror
@@ -404,11 +401,11 @@
                                             <div class="col-md-6">
                                                 <label for="waktu_pengambilan" class="form-label">Waktu
                                                     Pengambilan</label>
-                                                <input class="form-control form-control-lg" id="waktu_pengambilan"
+                                                <input class="form-control form-control-lg @error('waktu_pengambilan') is-invalid @enderror" id="waktu_pengambilan"
                                                     type="date" name="waktu_pengambilan"
                                                     value="{{ $data->waktu_pengambilan }}">
                                                 @error('waktu_pengambilan')
-                                                    <span class="form-text text-danger">
+                                                    <span class="invalid-feedback">
                                                         {{ $message }}
                                                     </span>
                                                 @enderror
@@ -419,12 +416,12 @@
                                         <div class="mb-3">
                                             <div class="form-floating col-md-6">
                                                 <input type="text" name="durasi" id="durasi"
-                                                    class="form-control text-capitalize" value="{{ $data->durasi }}"
+                                                    class="form-control text-capitalize @error('durasi') is-invalid @enderror" value="{{ $data->durasi }}"
                                                     placeholder="...">
                                                 <label for="durasi" class="ms-2">Durasi sewa dalam hari</label>
 
                                                 @error('durasi')
-                                                    <span class="form-text text-danger">
+                                                    <span class="invalid-feedback">
                                                         {{ $message }}
                                                     </span>
                                                 @enderror
@@ -442,12 +439,13 @@
                                     <div class="mb-3">
                                         <div class="form-floating col-md-6">
                                             <input type="text" name="promo" id="promo"
-                                                class="form-control text-capitalize" value="{{ $data->promo }}"
+                                                class="form-control text-capitalize @error('promo') is-invalid @enderror" value="{{ $data->promo }}"
                                                 placeholder="...">
+                                                <div class="form-text">Isi 0 jika tidak ada potongan</div>
                                             <label for="promo" class="ms-2">Promo sewa dalam hari</label>
 
                                             @error('promo')
-                                                <span class="form-text text-danger">
+                                                <span class="invalid-feedback">
                                                     {{ $message }}
                                                 </span>
                                             @enderror
@@ -468,7 +466,7 @@
                                             </div>
                                             <button id="clear" class="btn btn-danger btn-sm mt-3">Reset</button>
                                             @error('tanda_tangan')
-                                                <span class="form-text text-danger">
+                                                <span class="invalid-feedback">
                                                     {{ $message }}
                                                 </span>
                                             @enderror
@@ -509,6 +507,7 @@
 
             </div>
         </div>
+        @include('sweetalert::alert')
 
     </div>
 @endsection
