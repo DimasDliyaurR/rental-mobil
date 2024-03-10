@@ -83,38 +83,33 @@
                                                             {{ $row->status === 'booking' ? 'Telah Disewa' : '' }}
                                                         </td>
                                                         <td class="text-center">
-                                                            <div class="row">
-                                                                <div class="col">
-                                                                    @if ($row->status === 'Sudah Terpakai')
-                                                                        <a href="{{ asset('kendaraan-kembali/' . $row->id) }}"
-                                                                            onclick="return confirm('Apakah Anda yakin ?')"
-                                                                            class="btn {{ $row->status === 'Sudah Terpakai' ? 'btn-success' : '' }}">{!! $row->status === 'Sudah Terpakai' ? '<i class="bi bi-p-circle"></i> Update Status' : '' !!}
-                                                                        </a>
-                                                                    @endif
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="{{ asset('kendaraan-update/' . $row->id) }}"
-                                                                        class="btn btn-info"><i
-                                                                            class="bi bi-pencil-square"></i>
-                                                                        Update
+                                                            <div class="d-flex flex-column flex-md-row gap-2">
+                                                                @if ($row->status === 'Sudah Terpakai')
+                                                                    <a href="{{ asset('kendaraan-kembali/' . $row->id) }}"
+                                                                        onclick="return confirm('Apakah Anda yakin ?')"
+                                                                        class="btn {{ $row->status === 'Sudah Terpakai' ? 'btn-success' : '' }}">{!! $row->status === 'Sudah Terpakai' ? '<i class="bi bi-p-circle"></i> Update Status' : '' !!}
                                                                     </a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="{{ asset('kendaraan/' . $row->id . '/hapus') }}"
-                                                                        class="btn btn-danger"
-                                                                        onclick="return confirm('Apakah yakin mengahapus {{ $row->plat }}')">
-                                                                        <i class="bi bi-trash3"></i> Hapus
-                                                                    </a>
-                                                                </div>
+                                                                @endif
+
+                                                                <a href="{{ asset('kendaraan-update/' . $row->id) }}"
+                                                                    class="btn btn-info"><i
+                                                                        class="bi bi-pencil-square"></i>
+                                                                    Update
+                                                                </a>
+
+                                                                <a href="{{ asset('kendaraan/' . $row->id . '/hapus') }}"
+                                                                    class="btn btn-danger"
+                                                                    onclick="return confirm('Apakah yakin mengahapus {{ $row->plat }}')">
+                                                                    <i class="bi bi-trash3"></i> Hapus
+                                                                </a>
+
                                                             </div>
-
-
                                                         </td>
                                                     </tr>
                                                 @endforeach
                                             @else
                                                 <tr>
-                                                    <td colspan="8" class="text-center">Kendaraan tidak ada.</td>
+                                                    <td colspan="9" class="text-center">Kendaraan tidak ada.</td>
                                                 </tr>
                                             @endif
                                         </tbody>

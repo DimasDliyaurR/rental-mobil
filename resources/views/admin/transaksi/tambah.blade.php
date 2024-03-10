@@ -269,7 +269,6 @@
                                                                         <input
                                                                             class="form-control form-control @error('kondisi_mobil') is-invalid @enderror"
                                                                             name="kondisi_mobil[]" type="file"
-                                                                            accept="image/*" capture="camera"
                                                                             id="formFile" multiple>
                                                                         @error('kondisi_mobil')
                                                                             <span class="invalid-feedback">

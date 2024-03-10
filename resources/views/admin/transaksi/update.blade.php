@@ -278,7 +278,6 @@
                                                                                 Mobil</label>
                                                                             <input class="form-control form-control"
                                                                                 name="kondisi_mobil_old[]" type="file"
-                                                                                accept="image/*" capture="camera"
                                                                                 id="formFile"
                                                                                 value="{{ $row->foto_mobil }}" multiple>
                                                                             <input type="text"
@@ -501,10 +500,11 @@
                                             <a href="{{ asset('kendaraan-bayar/' . $data->kendaraan_id) }}"
                                                 class="btn btn-info ml-1">Update Status
                                                 sudah membayar</a>
+                                        {{-- @elseif ($kendaraan->status == 'booking') --}}
                                         @else
-                                            <a href="{{ asset('kendaraan-tidak-bayar/' . $data->kendaraan_id) }}"
+                                            {{-- <a href="{{ asset('kendaraan-tidak-bayar/' . $data->kendaraan_id) }}"
                                                 class="btn btn-info ml-1">Update Status
-                                                belum membayar</a>
+                                                belum membayar</a> --}}
                                         @endif
                                     </div>
                                     {{-- Kendaraan Form End --}}
@@ -518,7 +518,7 @@
 
             </div>
         </div>
-        @include('sweetalert::alert')
+        {{-- @include('sweetalert::alert') --}}
 
     </div>
 

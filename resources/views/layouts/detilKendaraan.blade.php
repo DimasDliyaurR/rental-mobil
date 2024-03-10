@@ -48,24 +48,19 @@
         </div>
         <div class="bungkus-deskripsi-mobil mt-5">
             <div class="tulisan-deskripsi-mobil">
-                <p class="p-3">Deskripsi Kendaraan</p>
+                <p class="p-3">Gambar</p>
             </div>
-            <p class="px-5 py-3">Honda Freed 1500 cc transmision automatic seating capacity 6</p>
+            <div class="gambar-mobil text-center mt-3">
+                <div class="row mt-3">
+                    <div class="col">
+                        <img src="{{ asset($data->foto_kendaraan) }}" alt="Foto Mobil" />
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="line mt-3"></div>
         <!-- GAMBAR MOBIL -->
-        <div class="gambar-mobil text-center mt-3">
-            <div class="row mt-3">
-                <div class="col">
-                    <img src="{{ asset($data->foto_kendaraan) }}" alt="Foto Mobil" />
-                </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col">
-                    <img src="img/kendaraan.jpg" alt="" />
-                </div>
-            </div>
-        </div>
+
     </div>
     <!-- END KONTEN -->
 @endsection
