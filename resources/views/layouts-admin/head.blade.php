@@ -137,10 +137,10 @@
                 eventColor: "#0f7a07",
                 eventContent: (arg, createElement) => {
                     var innerTextlia
-                    if (arg.event.extendedProps.description == "Sudah Terpakai") {
-                        innerText = arg.event.title + " | " + "lunas"
+                    if (arg.event.extendedProps.description == "") {
+                        innerText = arg.event.title + " | " + arg.event.extendedProps.description
                     } else {
-                        innerText = arg.event.title + " | " + "belum lunas"
+                        innerText = arg.event.title + " | " + arg.event.extendedProps.description
                     }
 
                     return createElement('i', {}, innerText);
@@ -192,7 +192,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     {{-- BS5
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> --}}
-  </body>
+</body>
 </body>
 
 </html>

@@ -458,7 +458,9 @@
 
                                                 </div>
                                                 <button id="clear" onclick="deletePad()"
-                                                    class="btn btn-danger btn-sm mt-3">Reset</button>
+                                                    class="btn btn-danger btn-sm mt-3 px-3">
+                                                    <i class="bi bi-arrow-counterclockwise"></i> Reset TTD</button>
+
                                                 @error('tanda_tangan')
                                                     <span class="invalid-feedback">
                                                         {{ $message }}
@@ -466,7 +468,10 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <span class="btn btn-primary" onclick="unmask_transaksi()">submit</span>
+
+                                        <div class="d-flex flex-column flex-md-row gap-2">
+                                            <span class="btn btn-primary" onclick="unmask_transaksi()">submit</span>
+                                        </div>
 
                                         {{-- <button id="submit-transaksi">Submit</button> --}}
 

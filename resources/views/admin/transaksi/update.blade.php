@@ -486,25 +486,27 @@
                                         </div>
 
                                     </div>
+                                    <div class="d-flex flex-column flex-md-row gap-2">
 
-                                    <button class="btn btn-primary" onclick="unmask_transaksi()">Submit</button>
-                                    @if ($kendaraan->status == 'Sudah Terpakai')
-                                        <a href="{{ asset('kendaraan-kembali/' . $data->kendaraan_id) }}"
-                                            class="btn btn-success ml-1"
-                                            onclick="return confirm('Apakah anda yakin kendaraan sudah kembali ?')">Update
-                                            Status
-                                            Kendaraan Sudah kembali</a>
-                                    @endif
+                                        <button class="btn btn-primary ml-1" onclick="unmask_transaksi()">Submit</button>
+                                        @if ($kendaraan->status == 'Sudah Terpakai')
+                                            <a href="{{ asset('kendaraan-kembali/' . $data->kendaraan_id) }}"
+                                                class="btn btn-success ml-1"
+                                                onclick="return confirm('Apakah anda yakin kendaraan sudah kembali ?')">Update
+                                                Status
+                                                Kendaraan Sudah kembali</a>
+                                        @endif
 
-                                    @if ($kendaraan->status == 'booking')
-                                        <a href="{{ asset('kendaraan-bayar/' . $data->kendaraan_id) }}"
-                                            class="btn btn-info ml-1">Update Status
-                                            sudah membayar</a>
-                                    @else
-                                        <a href="{{ asset('kendaraan-tidak-bayar/' . $data->kendaraan_id) }}"
-                                            class="btn btn-info ml-1">Update Status
-                                            belum membayar</a>
-                                    @endif
+                                        @if ($kendaraan->status == 'booking')
+                                            <a href="{{ asset('kendaraan-bayar/' . $data->kendaraan_id) }}"
+                                                class="btn btn-info ml-1">Update Status
+                                                sudah membayar</a>
+                                        @else
+                                            <a href="{{ asset('kendaraan-tidak-bayar/' . $data->kendaraan_id) }}"
+                                                class="btn btn-info ml-1">Update Status
+                                                belum membayar</a>
+                                        @endif
+                                    </div>
                                     {{-- Kendaraan Form End --}}
                                 </form>
                             </div>

@@ -18,6 +18,11 @@ class Transaksi extends Model
     protected $table = "transaksi";
     protected $dates = ["waktu_kembali", "tanggal_kembali", "waktu_pengambilan"];
 
+    /**
+     * Menambahkan fillable pada model transaksi
+     * 
+     * @var Array
+     */
     protected $fillable = [
         "kendaraan_id",
         "foto_penyewa",
@@ -40,6 +45,7 @@ class Transaksi extends Model
         "foto_kondisi_bbm",
         "jumlah_bbm",
         "promo",
+        "status",
     ];
 
     public function kendaraan(): BelongsTo

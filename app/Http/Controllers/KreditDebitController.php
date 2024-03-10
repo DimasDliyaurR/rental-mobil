@@ -41,33 +41,33 @@ class KreditDebitController extends Controller
             ->orderBy('transaksi.created_at')
             ->get();
 
-            $pengeluaran = DB::table("pengeluaran")
-                ->select(DB::raw("SUM(pengeluaran.harga_pengeluaran) total_pengeluaran"), "pengeluaran.*")
-                ->groupBy("pengeluaran.harga_pengeluaran", "pengeluaran.id", "pengeluaran.nama_pengeluaran", "pengeluaran.deskripsi_pengeluaran", "pengeluaran.tanggal_pengeluaran", "pengeluaran.created_at", "pengeluaran.updated_at")
-                ->whereMonth('pengeluaran.created_at', '=', $bulan)
-                ->whereYear('pengeluaran.created_at', '=', $tahun)
-                ->orderBy('pengeluaran.created_at')
-                ->get();
+        $pengeluaran = DB::table("pengeluaran")
+            ->select(DB::raw("SUM(pengeluaran.harga_pengeluaran) total_pengeluaran"), "pengeluaran.*")
+            ->groupBy("pengeluaran.harga_pengeluaran", "pengeluaran.id", "pengeluaran.nama_pengeluaran", "pengeluaran.deskripsi_pengeluaran", "pengeluaran.tanggal_pengeluaran", "pengeluaran.created_at", "pengeluaran.updated_at")
+            ->whereMonth('pengeluaran.created_at', '=', $bulan)
+            ->whereYear('pengeluaran.created_at', '=', $tahun)
+            ->orderBy('pengeluaran.created_at')
+            ->get();
 
-            $total_pengeluaran = DB::table("pengeluaran")
-                ->select(DB::raw("SUM(pengeluaran.harga_pengeluaran) total_pengeluaran"))
-                ->whereMonth('pengeluaran.created_at', '=', $bulan)
-                ->whereYear('pengeluaran.created_at', '=', $tahun)
-                ->get()
-                ->first();
+        $total_pengeluaran = DB::table("pengeluaran")
+            ->select(DB::raw("SUM(pengeluaran.harga_pengeluaran) total_pengeluaran"))
+            ->whereMonth('pengeluaran.created_at', '=', $bulan)
+            ->whereYear('pengeluaran.created_at', '=', $tahun)
+            ->get()
+            ->first();
 
-            $total_transaksi = DB::table("transaksi")
-                ->select(DB::raw("SUM(COALESCE((brand_kendaraan.harga_sewa - transaksi.promo) * transaksi.durasi, 0) + COALESCE(transaksi.biaya_supir, 0)) as jumlah_transaksi"))
-                ->join("kendaraan", "transaksi.kendaraan_id", "=", "kendaraan.id")
-                ->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id")
-                ->whereMonth('transaksi.created_at', '=', $bulan)
-                ->whereYear('transaksi.created_at', '=', $tahun)
-                ->groupBy("transaksi.nama_penyewa")
-                ->orderBy('transaksi.created_at')
-                ->get();
+        $total_transaksi = DB::table("transaksi")
+            ->select(DB::raw("SUM(COALESCE((brand_kendaraan.harga_sewa - transaksi.promo) * transaksi.durasi, 0) + COALESCE(transaksi.biaya_supir, 0)) as jumlah_transaksi"))
+            ->join("kendaraan", "transaksi.kendaraan_id", "=", "kendaraan.id")
+            ->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id")
+            ->whereMonth('transaksi.created_at', '=', $bulan)
+            ->whereYear('transaksi.created_at', '=', $tahun)
+            ->groupBy("transaksi.nama_penyewa")
+            ->orderBy('transaksi.created_at')
+            ->get();
 
-            // Menghitung total dari hasil subquery
-            $total_transaksi = $total_transaksi->sum('jumlah_transaksi');
+        // Menghitung total dari hasil subquery
+        $total_transaksi = $total_transaksi->sum('jumlah_transaksi');
 
 
         return view("admin.kredit_debit.lihat", [
@@ -93,7 +93,7 @@ class KreditDebitController extends Controller
 
     public function get_event()
     {
-        $data = Transaksi::select("kendaraan.status", "brand_kendaraan.nama_merek", "brand_kendaraan.nama_brand", "transaksi.id", "transaksi.waktu_pengambilan", "transaksi.tanggal_kembali", "kendaraan.plat", "transaksi.waktu_kembali")
+        $data = Transaksi::select("transaksi.status", "brand_kendaraan.nama_merek", "brand_kendaraan.nama_brand", "transaksi.id", "transaksi.waktu_pengambilan", "transaksi.tanggal_kembali", "kendaraan.plat", "transaksi.waktu_kembali")
             ->join("kendaraan", "transaksi.kendaraan_id", "=", "kendaraan.id")->join("brand_kendaraan", "kendaraan.brand_kendaraan_id", "=", "brand_kendaraan.id")
             ->where("transaksi.waktu_kembali", "!=", now())
             ->get()

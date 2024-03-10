@@ -234,17 +234,25 @@ class KendaraanController extends Controller
 
     public function update_status_kembali($id)
     {
-        return $this->update_status($id, "Tidak Terpakai");
+        $kendaraan = $this->update_status($id, "Tidak Terpakai", "kendaraan");
+
+        return back()->with("success", "Status Kendaraan dengan plat " . $kendaraan->plat . " berhasil diubah");
     }
 
     public function update_status_terbayar($id)
     {
-        return $this->update_status($id, "Sudah Terpakai");
+        $kendaraan = $this->update_status($id, "Sudah Terpakai", "kendaraan");
+        $transaksi = $this->update_status($id, "lunas", "transaksi");
+
+        return back()->with("success", "Status Kendaraan dengan plat " . $kendaraan->plat . " berhasil diubah");
     }
 
     public function update_status_tidak_terbayar($id)
     {
-        return $this->update_status($id, "Booking");
+        $kendaraan = $this->update_status($id, "Booking", "kendaraan");
+        $transaksi = $this->update_status($id, "belum lunas", "transaksi");
+
+        return back()->with("success", "Status Kendaraan dengan plat " . $kendaraan->plat . " berhasil diubah");
     }
 
     // Action update status kendaraan Terbayar
@@ -387,13 +395,13 @@ class KendaraanController extends Controller
     }
 
     // Service
-    public function update_status($id, $status)
+    public function update_status($id, $status, $db)
     {
-        $kendaraan = Kendaraan::findOrFail($id)->first();
+        $data = DB::table($db)->whereId($id)->first();
 
         try {
-            if ($kendaraan->status != null) {
-                DB::table("kendaraan")->whereId($id)->update([
+            if ($data->status != null) {
+                DB::table($db)->whereId($id)->update([
                     "status" => "$status",
                 ]);
             }
@@ -401,7 +409,7 @@ class KendaraanController extends Controller
             return back()->with("error", "Ups Ada sesuatu yang salah");
         }
 
-        return back()->with("success", "Status Kendaraan dengan plat " . $kendaraan->plat . " berhasil diubah");
+        return $data;
     }
 
     // JSON KENDARAAN

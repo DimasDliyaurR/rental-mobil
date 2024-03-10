@@ -34,6 +34,7 @@ return new class extends Migration
             $table->string("foto_kondisi_bbm");
             $table->integer("promo")->nullable();
             $table->string("jumlah_bbm");
+            $table->enum("status", ["belum lunas", "lunas"])->default("belum lunas");
             $table->timestamps();
         });
     }
