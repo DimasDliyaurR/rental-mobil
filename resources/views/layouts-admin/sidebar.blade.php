@@ -143,7 +143,7 @@
                         <a href="#" class="nav-link {{ $title == 'User' ? 'active' : '' }}">
                             <i class="nav-icon fa-solid fa-user"></i>
                             <p>
-                                User Admin
+                                User Control
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
@@ -153,6 +153,16 @@
                                     class="nav-link {{ $action == 'user_tambah' ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tambah Admin</p>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ asset('/user/ubah-sandi') }}"
+                                    class="nav-link {{ $action == 'user_ubah' ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Ubah Sandi</p>
                                 </a>
                             </li>
                         </ul>

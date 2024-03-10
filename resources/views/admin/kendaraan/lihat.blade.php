@@ -11,7 +11,6 @@
                             {{-- FORM SEARCH --}}
                             <div class="row justify-content-end">
 
-
                                 <div class="col">
                                     <a href="{{ asset('history-kendaraan') }}" class="btn btn-info mt-2"><i
                                             class="fa-solid fa-clock-rotate-left"></i> History hapus </a>
@@ -20,7 +19,8 @@
                                     <form action="/kendaraan">
                                         @csrf
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control" placeholder="Cari nama kendaraan, plat nomor, tahun kendaraan..."
+                                            <input type="text" class="form-control"
+                                                placeholder="Cari nama kendaraan, plat nomor, tahun kendaraan..."
                                                 value="{{ request('search') }}" name="search">
                                             <button class="btn btn-primary" type="submit"">Search</button>
                                         </div>
@@ -34,19 +34,20 @@
                                     <div class="alert alert-success alert-dismissible fade show " role="alert">
                                         {{ session('success') }}!
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
+                                            <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                 @elseif(session()->has('error'))
                                     <div class="alert alert-danger alert-dismissible fade show " role="alert">
                                         {{ session('error') }}!
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
+                                            <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                 @endif
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-bordered table-hover text-nowrap" style="width: 10w">
+                                    <table class="table table-striped table-bordered table-hover text-nowrap"
+                                        style="width: 10w">
                                         <thead>
                                             <tr>
                                                 <th class="text-center fs-6 text-uppercase" style="width: 1%">No.</th>
@@ -64,13 +65,15 @@
                                             @if ($data->count())
                                                 @foreach ($data as $key => $row)
                                                     <tr>
-                                                        <td class="text-capitalize text-center">{{ $data->firstItem() + $key }}</td>
+                                                        <td class="text-capitalize text-center">
+                                                            {{ $data->firstItem() + $key }}</td>
                                                         <td class="text-capitalize text-center">{{ $row->nama_brand }}</td>
                                                         <td class="text-capitalize text-center">{{ $row->nama_merek }}</td>
                                                         <td class="text-uppercase text-center"><span
                                                                 id="plat">{{ $row->plat }}</span></td>
                                                         <td class="text-center">{{ $row->tahun_mobil }}</td>
-                                                        <td class="text-capitalize text-center">{{ $row->bahan_bakar }}</td>
+                                                        <td class="text-capitalize text-center">{{ $row->bahan_bakar }}
+                                                        </td>
                                                         <td class="text-center">
                                                             {{ number_format($row->harga_sewa, 0, ',', '.') }}
                                                         </td>
@@ -91,7 +94,8 @@
                                                                 </div>
                                                                 <div class="col">
                                                                     <a href="{{ asset('kendaraan-update/' . $row->id) }}"
-                                                                        class="btn btn-info"><i class="bi bi-pencil-square"></i>
+                                                                        class="btn btn-info"><i
+                                                                            class="bi bi-pencil-square"></i>
                                                                         Update
                                                                     </a>
                                                                 </div>
@@ -121,15 +125,15 @@
                             <div>
                                 Showing
                                 @if ($data->count())
-                                {{ $data->firstItem() }}
+                                    {{ $data->firstItem() }}
                                 @else
-                                0
+                                    0
                                 @endif
                                 to
                                 @if ($data->count())
-                                {{ $data->lastItem() }}
+                                    {{ $data->lastItem() }}
                                 @else
-                                0
+                                    0
                                 @endif
                                 of
                                 {{ $data->total() }} datas

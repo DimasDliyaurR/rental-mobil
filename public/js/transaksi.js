@@ -63,7 +63,6 @@ function unmask_transaksi() {
     $("#no_telp").unmask();
 
     var tandaVal = document.querySelector("#tanda_tangan_pad").toDataURL('image/png');
-    console.log(tandaVal);
     $("#tanda_tangan").val(tandaVal)
 
     return $("#form-transaksi").submit();

@@ -11,20 +11,20 @@
                             <div class="overflow-visible" style="width: 10wv">
                                 @if (session()->has('success'))
                                     <div class="alert alert-success alert-dismissible fade show col-md-6" role="alert">
-                                        {{ session('success') }}! <a href="/transaksi" class="alert-link text-white">Lihat daftar transaksi</a>
+                                        {{ session('success') }}! <a href="/transaksi" class="alert-link text-white">Lihat
+                                            daftar transaksi</a>
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
+                                            <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-
                                 @elseif(session()->has('error'))
                                     <div class="alert alert-danger alert-dismissible fade show col-md-6" role="alert">
                                         {{ session('error') }}!
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
+                                            <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                {{-- @elseif($errors->any())
+                                    {{-- @elseif($errors->any())
                                     <ul>
                                         @foreach ($errors->all() as $error)
                                             <li>{{ $error }}</li>
@@ -43,7 +43,9 @@
                                         <div class="mb-3 row">
                                             <div class="col-md-6">
                                                 <label for="foto_penyewa" class="form-label">Foto Klien</label>
-                                                <input type="file" id="formFileLg" name="foto_penyewa" class="form-control form-control-lg @error('foto_penyewa') is-invalid @enderror" multiple>
+                                                <input type="file" id="formFileLg" name="foto_penyewa"
+                                                    class="form-control form-control-lg @error('foto_penyewa') is-invalid @enderror"
+                                                    multiple>
                                                 @error('foto_penyewa')
                                                     <span class="invalid-feedback">
                                                         {{ $message }}
@@ -56,9 +58,9 @@
                                         <div class="mb-3 row">
                                             <div class="col-md-6 form-floating">
                                                 <input oninput="this.value = this.value.toLowerCase()" type="text"
-                                                    class="form-control @error('nama_penyewa') is-invalid @enderror" id="nama_penyewa"
-                                                    placeholder="Masukkan nama penyewa" name="nama_penyewa"
-                                                    value="{{ old('nama_penyewa') }}">
+                                                    class="form-control @error('nama_penyewa') is-invalid @enderror"
+                                                    id="nama_penyewa" placeholder="Masukkan nama penyewa"
+                                                    name="nama_penyewa" value="{{ old('nama_penyewa') }}">
                                                 <label for="nama_penyewa" class="ms-2">Nama Klien</label>
                                                 @error('nama_penyewa')
                                                     <span class="invalid-feedback">
@@ -71,7 +73,8 @@
                                         {{-- No Telp --}}
                                         <div class="mb-3 row">
                                             <div class="col-md-6 form-floating">
-                                                <input type="text" id="no_telp" name="no_telp" class="form-control @error('no_telp') is-invalid @enderror"
+                                                <input type="text" id="no_telp" name="no_telp"
+                                                    class="form-control @error('no_telp') is-invalid @enderror"
                                                     value="{{ old('no_telp') }}" placeholder="Masukkan nomor telepon">
                                                 <label for="no_telp" class="ms-2">Nomor Telepon</label>
                                                 @error('no_telp')
@@ -86,7 +89,8 @@
                                         <div class="mb-3 row">
                                             <div class="col-md-6 form-floating">
                                                 <input oninput="this.value = this.value.toLowerCase()" type="text"
-                                                    id="alamat" name="alamat" class="form-control @error('alamat') is-invalid @enderror"
+                                                    id="alamat" name="alamat"
+                                                    class="form-control @error('alamat') is-invalid @enderror"
                                                     value="{{ old('alamat') }}" placeholder="Masukkan alamat">
                                                 <label for="alamat" class="ms-2">Alamat Klien</label>
                                                 @error('alamat')
@@ -100,7 +104,8 @@
                                         {{-- No KTP --}}
                                         <div class="mb-3 row">
                                             <div class="col-md-6 form-floating">
-                                                <input type="text" id="no_ktp" name="no_ktp" class="form-control @error('no_ktp') is-invalid @enderror"
+                                                <input type="text" id="no_ktp" name="no_ktp"
+                                                    class="form-control @error('no_ktp') is-invalid @enderror"
                                                     value="{{ old('no_ktp') }}" placeholder="Masukkan nomor KTP">
                                                 <label for="no_ktp" class="ms-2">Nomor KTP Klien</label>
                                                 @error('no_ktp')
@@ -114,7 +119,8 @@
                                         {{-- No SIM --}}
                                         <div class="mb-4 row">
                                             <div class="col-md-6 form-floating">
-                                                <input type="text" id="no_sim" name="no_sim" class="form-control @error('no_sim') is-invalid @enderror"
+                                                <input type="text" id="no_sim" name="no_sim"
+                                                    class="form-control @error('no_sim') is-invalid @enderror"
                                                     value="{{ old('no_sim') }}" placeholder="Masukkan nomor SIM">
                                                 <label for="no_sim" class="ms-2">Nomor SIM Klien</label>
                                                 @error('no_sim')
@@ -129,8 +135,9 @@
                                         <div class="my-3 row">
                                             <div class="col-lg-3">
                                                 <label for="foto_ktp" class="form-label">Foto KTP</label>
-                                                <input type="file" id="foto_ktp"
-                                                    name="foto_ktp" class="form-control form-control-lg @error('foto_ktp') is-invalid @enderror" multiple>
+                                                <input type="file" id="foto_ktp" name="foto_ktp"
+                                                    class="form-control form-control-lg @error('foto_ktp') is-invalid @enderror"
+                                                    multiple>
                                                 @error('foto_ktp')
                                                     <span class="invalid-feedback">
                                                         {{ $message }}
@@ -141,8 +148,9 @@
                                             {{-- FOTO SIM --}}
                                             <div class="col-lg-3">
                                                 <label for="foto_sim" class="form-label">Foto SIM</label>
-                                                <input type="file" id="foto_sim"
-                                                    name="foto_sim" class="form-control form-control-lg @error('foto_sim') is-invalid @enderror" multiple>
+                                                <input type="file" id="foto_sim" name="foto_sim"
+                                                    class="form-control form-control-lg @error('foto_sim') is-invalid @enderror"
+                                                    multiple>
                                                 @error('foto_sim')
                                                     <span class="invalid-feedback">
                                                         {{ $message }}
@@ -164,7 +172,8 @@
                                         <div class="mb-3">
                                             <div class="col-md-6">
                                                 <label for="kendaraan" class="form-label">Daftar Kendaraan</label>
-                                                <select class="form-select form-select-lg @error('kendaraan') is-invalid @enderror"
+                                                <select
+                                                    class="form-select form-select-lg @error('kendaraan') is-invalid @enderror"
                                                     aria-label="Default select example" id="kendaraan" name="kendaraan"
                                                     oninput="showPrice()">
                                                     <option selected disabled hidden>
@@ -197,9 +206,9 @@
                                                 <label class="form-label" for="foto_kondisi_bbm">
                                                     Foto BBM
                                                 </label>
-                                                <input class="form-control form-control-lg @error('foto_kondisi_bbm') is-invalid @enderror" name="foto_kondisi_bbm"
-                                                    type="file" id="formFileLg"
-                                                    multiple>
+                                                <input
+                                                    class="form-control form-control-lg @error('foto_kondisi_bbm') is-invalid @enderror"
+                                                    name="foto_kondisi_bbm" type="file" id="formFileLg" multiple>
                                                 @error('foto_kondisi_bbm')
                                                     <span class="invalid-feedback">
                                                         {{ $message }}
@@ -212,8 +221,8 @@
                                         <div class="mb-3">
                                             <div class="col-md-6 form-floating">
                                                 <input type="text" id="jumlah_bbm" name="jumlah_bbm"
-                                                    class="form-control @error('jumlah_bbm') is-invalid @enderror" value="{{ old('jumlah_bbm') }}"
-                                                    placeholder="Masukkan jumlah bbm">
+                                                    class="form-control @error('jumlah_bbm') is-invalid @enderror"
+                                                    value="{{ old('jumlah_bbm') }}" placeholder="Masukkan jumlah bbm">
                                                 <label for="jumlah_bbm" class="ms-2">Jumlah BBM</label>
 
                                                 @error('jumlah_bbm')
@@ -257,7 +266,8 @@
                                                                         <label class="form-label"
                                                                             for="kondisi_mobil">Kondisi
                                                                             Mobil</label>
-                                                                        <input class="form-control form-control @error('kondisi_mobil') is-invalid @enderror"
+                                                                        <input
+                                                                            class="form-control form-control @error('kondisi_mobil') is-invalid @enderror"
                                                                             name="kondisi_mobil[]" type="file"
                                                                             accept="image/*" capture="camera"
                                                                             id="formFile" multiple>
@@ -272,7 +282,8 @@
                                                                             for="keterangan[]"class="form-label">Keterangan</label>
                                                                         <input
                                                                             oninput="this.value = this.value.toLowerCase()"
-                                                                            type="text" class="form-control @error('keterangan') is-invalid @enderror"
+                                                                            type="text"
+                                                                            class="form-control @error('keterangan') is-invalid @enderror"
                                                                             id="keterangan" name="keterangan[]"
                                                                             value="{{ old('keterangan[]') }}">
                                                                         @error('keterangan')
@@ -304,8 +315,8 @@
                                                 </label>
 
                                                 <div class="form-check mx-3 mb-2">
-                                                    <input class="form-check-input @error('driver') is-invalid @enderror" type="radio" name="driver"
-                                                        value="1" id="driver-iya"
+                                                    <input class="form-check-input @error('driver') is-invalid @enderror"
+                                                        type="radio" name="driver" value="1" id="driver-iya"
                                                         {{ old('driver') !== null && old('driver') == 1 ? 'checked' : '' }}
                                                         style="font-size: 24px">
                                                     <label class="form-check-label" for="driver-iya">
@@ -313,8 +324,8 @@
                                                     </label>
                                                 </div>
                                                 <div class="form-check mx-3">
-                                                    <input class="form-check-input @error('driver') is-invalid @enderror" type="radio" name="driver"
-                                                        value="0" id="driver-tidak"
+                                                    <input class="form-check-input @error('driver') is-invalid @enderror"
+                                                        type="radio" name="driver" value="0" id="driver-tidak"
                                                         {{ old('driver') !== null && old('driver') == 0 ? 'checked' : '' }}
                                                         style="font-size: 24px">
                                                     <label class="form-check-label" for="driver-tidak">
@@ -334,7 +345,8 @@
                                         <div class="mb-3 mt-5">
                                             <div class="col-md-6 form-floating">
                                                 <input oninput="this.value = this.value.toLowerCase()" type="text"
-                                                    id="lokas_pengambilan" name="lokasi_pengambilan" class="form-control @error('lokasi_pengambilan') is-invalid @enderror"
+                                                    id="lokas_pengambilan" name="lokasi_pengambilan"
+                                                    class="form-control @error('lokasi_pengambilan') is-invalid @enderror"
                                                     value="{{ old('lokasi_pengambilan') }}"
                                                     placeholder="Lokasi pengambilan">
                                                 <label for="lokasi_pengambilan" class="ms-2">Lokasi Pengambilan</label>
@@ -352,8 +364,9 @@
                                             <div class="col-md-6">
                                                 <label for="waktu_pengambilan" class="form-label">Tanggal
                                                     Pengambilan</label>
-                                                <input class="form-control form-control-lg @error('waktu_pengambilan') is-invalid @enderror" id="waktu_pengambilan"
-                                                    type="date" name="waktu_pengambilan"
+                                                <input
+                                                    class="form-control form-control-lg @error('waktu_pengambilan') is-invalid @enderror"
+                                                    id="waktu_pengambilan" type="date" name="waktu_pengambilan"
                                                     value="{{ old('waktu_pengambilan') }}">
                                                 @error('waktu_pengambilan')
                                                     <span class="invalid-feedback">
@@ -366,7 +379,8 @@
                                         {{-- Durasi --}}
                                         <div class="mb-3">
                                             <div class="col-md-6 form-floating">
-                                                <input type="text" id="durasi" name="durasi" class="form-control @error('durasi') is-invalid @enderror"
+                                                <input type="text" id="durasi" name="durasi"
+                                                    class="form-control @error('durasi') is-invalid @enderror"
                                                     value="{{ old('durasi') }}" placeholder="Durasi sewa">
                                                 <label for="durasi" class="ms-2">Durasi sewa dalam hari</label>
                                                 @error('durasi')
@@ -380,9 +394,10 @@
                                         {{-- Promo field --}}
                                         <div class="mb-3">
                                             <div class="col-md-6 form-floating">
-                                                <input type="text" id="promo" name="promo" class="form-control @error('promo') is-invalid @enderror"
+                                                <input type="text" id="promo" name="promo"
+                                                    class="form-control @error('promo') is-invalid @enderror"
                                                     value="{{ old('promo') }}" placeholder="promo sewa">
-                                                    <div class="form-text">Isi 0 jika tidak ada potongan</div>
+                                                <div class="form-text">Isi 0 jika tidak ada potongan</div>
                                                 <label for="promo" class="ms-2">Potongan Harga</label>
                                                 @error('promo')
                                                     <span class="invalid-feedback">

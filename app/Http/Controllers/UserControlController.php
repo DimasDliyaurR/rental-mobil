@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Note_user;
+use Exception;
 use Laravel\Prompts\Note;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserControlController extends Controller
 {
@@ -119,5 +122,48 @@ class UserControlController extends Controller
     {
         Artisan::call("db:seed --class=UserSeeder");
         return redirect("login");
+    }
+
+    public function ubah_password_index()
+    {
+        return view("admin.user-control.ubah-sandi", [
+            "title" => "User",
+            "action" => "user_ubah",
+        ]);
+    }
+
+    public function ubah_password(Request $request, User $user)
+    {
+        $validation = $request->validate([
+            "username" => "required",
+            "password_lama" => "required",
+            "password_baru" => "required",
+        ], [
+            "*.required" => ":attribute belum diisi"
+        ]);
+        $data = $user::whereUsername($request->username);
+        if (count($data->get()) <= 0) {
+            return back()->withErrors([
+                "username" => "Username tidak cocok",
+            ]);
+        }
+
+        $PwData = $data->first();
+
+        try {
+            if (Hash::check($request->password_lama, $PwData->password)) {
+                $data->update([
+                    "password" => Hash::make($request->password_baru),
+                ]);
+            } else {
+                return back()->withErrors([
+                    "password_lama" => "Password lama tidak cocok",
+                ]);
+            }
+        } catch (\Exception $e) {
+            return back()->with("error", "Ups ada yang error");
+        }
+
+        return back()->with("success", "Berhasil mengubah sandi");
     }
 }

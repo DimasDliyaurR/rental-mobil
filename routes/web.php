@@ -118,6 +118,10 @@ Route::middleware(["auth", "owner"])->group(function () {
 
         // Delete
         Route::get("/user-control/hapus/{id}", "delete")->name("delete.user");
+
+        //Ubah Sandi
+        Route::get("user/ubah-sandi", "ubah_password_index")->name("ubah-sandi");
+        Route::post("user/ubah-sandi", "ubah_password")->name("ubah-sandi");
     });
 });
 
