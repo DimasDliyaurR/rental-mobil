@@ -64,7 +64,7 @@
     <div class="bg-image">
         <div class="login-container">
 
-            <h2 class="mb-4">Mari Rent Car Login</h2>
+            <h2 class="mb-4">MRC Login</h2>
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 {{-- <div class="form-group">
