@@ -89,6 +89,8 @@ Route::middleware(["auth", "owner"])->group(function () {
         // Delete Brand
         Route::get("brand/{id}/hapus", "delete_brand")->name("brand_delete");
 
+        // Delete Gambar Brand
+
         // History Brand
         Route::get("history-brand", "history_brand_index")->name("brand_history");
         Route::get("history-brand/restore/{id}", "restore_brand")->name("restore_history");

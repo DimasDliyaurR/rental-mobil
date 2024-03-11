@@ -87,13 +87,12 @@
                                                                 @if ($row->status === 'Sudah Terpakai')
                                                                     <a href="{{ asset('kendaraan-kembali/' . $row->id) }}"
                                                                         onclick="return confirm('Apakah Anda yakin ?')"
-                                                                        class="btn {{ $row->status === 'Sudah Terpakai' ? 'btn-success' : '' }}">{!! $row->status === 'Sudah Terpakai' ? '<i class="bi bi-p-circle"></i> Update Status' : '' !!}
+                                                                        class="btn {{ $row->status === 'Sudah Terpakai' ? 'btn-success' : '' }}">{!! $row->status === 'Sudah Terpakai' ? '<i class="bi bi-p-circle"></i> Kendaraan Kembali' : '' !!}
                                                                     </a>
                                                                 @endif
 
                                                                 <a href="{{ asset('kendaraan-update/' . $row->id) }}"
-                                                                    class="btn btn-info"><i
-                                                                        class="bi bi-pencil-square"></i>
+                                                                    class="btn btn-info"><i class="bi bi-pencil-square"></i>
                                                                     Update
                                                                 </a>
 

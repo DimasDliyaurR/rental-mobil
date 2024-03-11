@@ -239,17 +239,21 @@ class KendaraanController extends Controller
         return back()->with("success", "Status Kendaraan dengan plat " . $kendaraan->plat . " berhasil diubah");
     }
 
-    public function update_status_terbayar($id)
+    public function update_status_terbayar($id, Transaksi $transaksi)
     {
-        $kendaraan = $this->update_status($id, "Sudah Terpakai", "kendaraan");
+        $transaksi = $transaksi->findOrFail($id);
+
+        $kendaraan = $this->update_status($transaksi->kendaraan_id, "Sudah Terpakai", "kendaraan");
         $transaksi = $this->update_status($id, "lunas", "transaksi");
 
         return back()->with("success", "Status Kendaraan dengan plat " . $kendaraan->plat . " berhasil diubah");
     }
 
-    public function update_status_tidak_terbayar($id)
+    public function update_status_tidak_terbayar($id, Transaksi $transaksi)
     {
-        $kendaraan = $this->update_status($id, "Booking", "kendaraan");
+        $transaksi = $transaksi->findOrFail($id);
+
+        $kendaraan = $this->update_status($transaksi->kendaraan_id, "Booking", "kendaraan");
         $transaksi = $this->update_status($id, "belum lunas", "transaksi");
 
         return back()->with("success", "Status Kendaraan dengan plat " . $kendaraan->plat . " berhasil diubah");
@@ -354,6 +358,8 @@ class KendaraanController extends Controller
             $findBrandOnKendaraan = Kendaraan::whereBrandKendaraanId($id)->get();
             $findBrandOnTransaksi = Transaksi::whereBrandKendaraanId($id)->join("kendaraan", "transaksi.kendaraan_id", "=", "kendaraan.id")->get();
             if (count($findBrandOnKendaraan) != 0 or count($findBrandOnTransaksi) != 0) {
+
+                unlink($brand->foto_kendaraan);
                 Brand_Kendaraan::whereId($brand->id)->delete();
             } else {
 

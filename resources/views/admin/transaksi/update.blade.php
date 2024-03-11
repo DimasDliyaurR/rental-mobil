@@ -472,7 +472,9 @@
                                                 <input name="tanda_tangan" id="tanda_tangan" style="display: none"
                                                     hidden>
                                             </div>
-                                            <button id="clear" class="btn btn-danger btn-sm mt-3">Reset</button>
+                                            <button id="clear" onclick="deletePad()"
+                                                class="btn btn-danger btn-sm mt-3 px-3">
+                                                <i class="bi bi-arrow-counterclockwise"></i> Reset TTD</button>
                                             @error('tanda_tangan')
                                                 <span class="invalid-feedback">
                                                     {{ $message }}
@@ -487,9 +489,9 @@
                                     </div>
                                     <div class="d-flex flex-column flex-md-row gap-2">
 
-                                        <button class="btn btn-primary ml-1" onclick="unmask_transaksi()">Submit</button>
+                                        <button class="btn btn-primary ml-1" onclick="unmask_transaksi()">Update</button>
                                         @if ($kendaraan->status == 'Sudah Terpakai')
-                                            <a href="{{ asset('kendaraan-kembali/' . $data->kendaraan_id) }}"
+                                            <a href="{{ asset('kendaraan-kembali/' . $data->id) }}"
                                                 class="btn btn-success ml-1"
                                                 onclick="return confirm('Apakah anda yakin kendaraan sudah kembali ?')">Update
                                                 Status
@@ -497,14 +499,14 @@
                                         @endif
 
                                         @if ($kendaraan->status == 'booking')
-                                            <a href="{{ asset('kendaraan-bayar/' . $data->kendaraan_id) }}"
+                                            <a href="{{ asset('kendaraan-bayar/' . $data->id) }}"
                                                 class="btn btn-info ml-1">Update Status
                                                 sudah membayar</a>
-                                        {{-- @elseif ($kendaraan->status == 'booking') --}}
+                                            {{-- @elseif ($kendaraan->status == 'booking') --}}
                                         @else
-                                            {{-- <a href="{{ asset('kendaraan-tidak-bayar/' . $data->kendaraan_id) }}"
+                                            <a href="{{ asset('kendaraan-tidak-bayar/' . $data->kendaraan_id) }}"
                                                 class="btn btn-info ml-1">Update Status
-                                                belum membayar</a> --}}
+                                                belum membayar</a>
                                         @endif
                                     </div>
                                     {{-- Kendaraan Form End --}}
@@ -518,7 +520,7 @@
 
             </div>
         </div>
-        {{-- @include('sweetalert::alert') --}}
+        @include('sweetalert::alert')
 
     </div>
 
